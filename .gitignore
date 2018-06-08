@@ -1,0 +1,17 @@
+**/**/*.swp
+**/**/*.o
+**/**/*.a
+*clion
+*.out
+*debug/
+**/**/*.xml
+**/**/*.txt
+**/**/*.md
+**/**/*.cpp
+**/**/*.cmake
+**/**/*.bin
+*cmake-build-debug/*
+*idea/*
+*.xml
+.idea/
+cmake-build-debug/
