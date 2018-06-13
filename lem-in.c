@@ -12,7 +12,15 @@
 
 #include "ft_lem.h"
 
-void set_data(t_con data)
+void set_data(t_room *ad_list)
+{
+    ad_list->c = -1;
+    ad_list->x = -1;
+    ad_list->y = -1;
+    ad_list->next = NULL;
+}
+
+void        pars_condition(t_room **ad_list, char *line)
 {
 
 }
@@ -21,11 +29,11 @@ int     main(int ac, char **av)
 {
 		int     fd;
 		char    *line;
-		t_con   data;
+		t_room   **ad_list;
 
 		fd = 0;
 		line = NULL;
-		set_data(data);
+		set_data(*ad_list);
 		if (ac > 1)
 		{
 			ft_printf("error");
@@ -33,7 +41,7 @@ int     main(int ac, char **av)
 		}
 		while (get_next_line(fd, &line) > 0)
 		{
-			pars_condition(data, line);
+			pars_condition(ad_list, line);
 			ft_printf("good bay");
 			ft_strdel(&line);
 		}
