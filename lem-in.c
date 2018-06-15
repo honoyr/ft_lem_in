@@ -12,25 +12,9 @@
 
 #include "ft_lem.h"
 
-void set_data(t_game *data)
-{
-    data->ant = 0;
-    data->type = ANT;
-    data->start = -1;
-    data->end = -1;
-    data->nroom = -1;
-    data->visited = NULL;
-    data->line = NULL;
-    data->list->name = -1;
-    data->list->x = -1;
-    data->list->y = -1;
-    data->list->type = -1;
-//    data->room->name = -1;
-}
 
 void        pars_condition(t_game *data, char *line)
 {
-    set_data(data);
     if (line)
     {
         data->line = line;
@@ -63,12 +47,15 @@ void        lem_in(char **line)
     int     i;
 
     i = -1;
+    set_data(&data);
 //    while (get_next_line(fd, &line) > 0)
     while(line[++i])
     {
         pars_condition(&data, line[i]);
 //        ft_printf("good bay");
 //        ft_strdel(&line[i]);
+        if (data.error)
+            break ;
     }
 }
 
@@ -85,7 +72,7 @@ int     main(int ac, char **av)
             return (0);
         line[0] = ft_strdup(" 3    ");
         line[1] = ft_strdup("##start");
-        line[2] = ft_strdup("0 1 0");
+        line[2] = ft_strdup("0 15 23");
         line[3] = ft_strdup("##end");
         line[4] = ft_strdup("1 5 0");
         line[5] = ft_strdup("2 9 0");

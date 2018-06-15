@@ -59,6 +59,7 @@ typedef struct      s_game
     t_room          *list;
     t_rarr          *room;
     t_info          *info;
+    int             error;
 
 }                  t_game;
 
@@ -66,5 +67,8 @@ void        valid_ant(t_game *data);
 void        valid_start(t_game *data);
 void        valid_end(t_game *data);
 void        valid_link(t_game *data);
+
+void        set_room(t_room *room);
+void        set_data(t_game *data);
 
 #endif

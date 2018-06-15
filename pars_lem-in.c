@@ -30,7 +30,10 @@ void        valid_ant(t_game *data)
     if (j == 0)
         data->ant = ft_atoi(ptr);
     else
-        ft_printf("error: not valid format numbers of ants\n");
+    {
+        ft_printf("error: invalid format numbers of ants\n");
+        data->error = 1;
+    }
     ft_strdel(&ptr);
 }
 
@@ -39,26 +42,27 @@ void        valid_start(t_game *data)
     t_room  room;
     char    *ptr;
     int     i;
-    static int  name;
 
     i = -1;
     ptr = ft_strtrim(data->line);
-    if (data->list->name == -1)
+    set_room(&room);
+    if (!room.name)
     {
         while (ptr[++i])
         {
-            if (ft_isdigit(ptr[i]))
-            {
-//          create_room
-                room.name = ;
-                data->list->type = START;
-                data->list->y = ptr[2];
-                data->list->x = ptr[4];
-            }
-
+            if (!room.name && ft_whitespaces(ptr[i]))
+                room.name = ft_strsub(ptr, 0, (i > 0 ? 1 :(i - 1)));
+            if (room.name && room.y != -1 && ft_isdigit(ptr[i]))
+                room.x = ft_atoi(ptr + i);
+            if (room.name && room.y == -1 && ft_isdigit(ptr[i]))
+                room.y = ft_atoi(ptr + i);
         }
+        room.type = START;
     }
     else
+    {
         ft_printf("error: too many starts\n");
+        data->error = 1;
+    }
     ft_strdel(&ptr);
 }
