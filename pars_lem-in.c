@@ -36,10 +36,29 @@ void        valid_ant(t_game *data)
 
 void        valid_start(t_game *data)
 {
+    t_room  room;
     char    *ptr;
     int     i;
-    
+    static int  name;
+
+    i = -1;
     ptr = ft_strtrim(data->line);
-    while (ptr[i])
+    if (data->list->name == -1)
+    {
+        while (ptr[++i])
+        {
+            if (ft_isdigit(ptr[i]))
+            {
+//          create_room
+                room.name = ;
+                data->list->type = START;
+                data->list->y = ptr[2];
+                data->list->x = ptr[4];
+            }
+
+        }
+    }
+    else
+        ft_printf("error: too many starts\n");
     ft_strdel(&ptr);
 }

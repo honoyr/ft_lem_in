@@ -34,7 +34,7 @@ typedef struct      s_link
 
 typedef struct      s_room
 {
-    char            name;
+    char            *name;
     int             x;
     int             y;
     int             type;
@@ -43,7 +43,7 @@ typedef struct      s_room
 
 typedef struct      s_rarr
 {
-    char    name;
+    char    *name;
     t_link  *link;
 }                   t_rarr;
 
