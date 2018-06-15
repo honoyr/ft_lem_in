@@ -14,9 +14,11 @@
 # define FT_LEM_H
 
 #include "./libft/libft.h"
+# define ANT 0
 # define START 1
 # define END 2
-# define ANT 0
+# define LINK 3
+# define COMM 4
 
 typedef struct      s_info
 {
@@ -52,10 +54,17 @@ typedef struct      s_game
     int             start;
     int             end;
     int             nroom;
-    t_room          *list_rooms;
+    char            *visited;
+    char            *line;
+    t_room          *list;
     t_rarr          *room;
     t_info          *info;
 
-};                  t_game;
+}                  t_game;
+
+void        valid_ant(t_game *data);
+void        valid_start(t_game *data);
+void        valid_end(t_game *data);
+void        valid_link(t_game *data);
 
 #endif
