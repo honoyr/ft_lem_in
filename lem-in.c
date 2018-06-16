@@ -22,10 +22,10 @@ void        pars_condition(t_game *data, char *line)
         {
             if (data->type == ANT)
                 valid_ant(data);
-            if (data->type == START)
-                valid_start(data);
-//        if (data->type == END)
-//            valid_end(data);
+            if (ft_strchr(line, ' ') && data->type != ANT)
+                valid_data(data);
+//            if (ft_strchr(line, '-'))
+
 //        if (data->type == LINK)
 //            valid_link(data);
         }
@@ -55,8 +55,12 @@ void        lem_in(char **line)
 //        ft_printf("good bay");
 //        ft_strdel(&line[i]);
         if (data.error)
+        {
+            ft_printf("error\n");
             break ;
+        }
     }
+    ft_lstprint(&data.list);
 }
 
 int     main(int ac, char **av)
@@ -72,10 +76,10 @@ int     main(int ac, char **av)
             return (0);
         line[0] = ft_strdup(" 3    ");
         line[1] = ft_strdup("##start");
-        line[2] = ft_strdup("0 15 23");
-        line[3] = ft_strdup("##end");
-        line[4] = ft_strdup("1 5 0");
-        line[5] = ft_strdup("2 9 0");
+        line[2] = ft_strdup("sta   15   23   ");
+        line[3] = ft_strdup("1 5 0");
+        line[4] = ft_strdup("2 9 0");
+        line[5] = ft_strdup("##end");
         line[6] = ft_strdup("3 13 0");
         line[7] = ft_strdup("0-2");
         line[8] = ft_strdup("2-3");

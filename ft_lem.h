@@ -19,6 +19,7 @@
 # define END 2
 # define LINK 3
 # define COMM 4
+# define ROOM 5
 
 typedef struct      s_info
 {
@@ -64,8 +65,7 @@ typedef struct      s_game
 }                  t_game;
 
 void        valid_ant(t_game *data);
-void        valid_start(t_game *data);
-void        valid_end(t_game *data);
+void        valid_data(t_game *data);
 void        valid_link(t_game *data);
 
 void        set_room(t_room *room);

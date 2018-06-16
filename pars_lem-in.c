@@ -12,6 +12,22 @@
 
 #include "ft_lem.h"
 
+void	lstback(t_room **lst, t_room *add)
+{
+    t_room *tmp;
+
+    tmp = NULL;
+    if (lst && add)
+    {
+        tmp = *lst;
+        while (tmp->next != NULL)
+        {
+            tmp = tmp->next;
+        }
+        tmp->next = add;
+    }
+}
+
 void        valid_ant(t_game *data)
 {
     char    *ptr;
@@ -37,32 +53,41 @@ void        valid_ant(t_game *data)
     ft_strdel(&ptr);
 }
 
-void        valid_start(t_game *data)
+void        valid_data(t_game *data)
 {
-    t_room  room;
+    t_room  *room;
     char    *ptr;
     int     i;
 
-    i = -1;
+    i = 0;
     ptr = ft_strtrim(data->line);
-    set_room(&room);
-    if (!room.name)
+    if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
+        data->error;
+    set_room(room);
+    if (!room->name)
     {
-        while (ptr[++i])
-        {
-            if (!room.name && ft_whitespaces(ptr[i]))
-                room.name = ft_strsub(ptr, 0, (i > 0 ? 1 :(i - 1)));
-            if (room.name && room.y != -1 && ft_isdigit(ptr[i]))
-                room.x = ft_atoi(ptr + i);
-            if (room.name && room.y == -1 && ft_isdigit(ptr[i]))
-                room.y = ft_atoi(ptr + i);
-        }
-        room.type = START;
+        while (ptr[i] && !ft_whitespaces(ptr[i]))
+            i++;
+        room->name = ft_strsub(ptr, 0, i);
+        room->y = ft_atoi(ft_strchr(ptr, ' '));
+        room->x = ft_atoi(ft_strrchr(ptr, ' '));
+        room->type = data->type;
+        data->type = ROOM;
     }
     else
     {
-        ft_printf("error: too many starts\n");
+        ft_printf("error: data is invalid\n");
         data->error = 1;
     }
     ft_strdel(&ptr);
+    lstback(&data->list, room);
+    data->list = data->list->next;
+}
+
+void        valid_link(t_game *data)
+{
+    char    *ptr;
+
+    ptr = ft_strtrim(data->line);
+
 }
