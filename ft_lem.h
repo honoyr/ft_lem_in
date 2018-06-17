@@ -65,8 +65,10 @@ typedef struct      s_game
 }                  t_game;
 
 void        valid_ant(t_game *data);
-void        valid_data(t_game *data);
+t_room        *valid_data(t_game *data);
 void        valid_link(t_game *data);
+
+void        create_list(t_game *data);
 
 void        set_room(t_room *room);
 void        set_data(t_game *data);

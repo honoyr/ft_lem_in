@@ -30,6 +30,7 @@ void set_data(t_game *data)
     data->nroom = -1;
     data->visited = NULL;
     data->line = NULL;
+    data->list = NULL;
 //    data->list->next = NULL;
 //    data->list->x = -1;
 //    data->list->y = -1;

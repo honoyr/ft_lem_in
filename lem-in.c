@@ -12,6 +12,15 @@
 
 #include "ft_lem.h"
 
+void        error_manage(int  error)
+{
+    if (error == 1)
+        ft_putstr("error: invalid format numbers of ants\n");
+    else if (error == 2)
+        ft_putstr("error: data is invalid\n");
+    else if (error == 3)
+        ft_putstr("error: memory didn't allocated\n");
+}
 
 void        pars_condition(t_game *data, char *line)
 {
@@ -23,7 +32,9 @@ void        pars_condition(t_game *data, char *line)
             if (data->type == ANT)
                 valid_ant(data);
             if (ft_strchr(line, ' ') && data->type != ANT)
-                valid_data(data);
+                create_list(data);
+//                valid_data(data);
+
 //            if (ft_strchr(line, '-'))
 
 //        if (data->type == LINK)

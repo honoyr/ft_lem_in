@@ -28,6 +28,19 @@ void	lstback(t_room **lst, t_room *add)
     }
 }
 
+int         check_ant(char *ptr)
+{
+    int     i;
+
+    i = 0;
+    while (ptr[i])
+    {
+        if (!(ft_isdigit(ptr[i]))
+            return (1);
+    }
+
+}
+
 void        valid_ant(t_game *data)
 {
     char    *ptr;
@@ -37,6 +50,12 @@ void        valid_ant(t_game *data)
     j = 0;
     i = -1;
     ptr = ft_strtrim(data->line);
+    j = check_ant(ptr);
+    if (j > 0)
+    {
+        data->error = 1;
+        return;
+    }
     while (ptr[++i])
     {
         if (ft_isdigit(ptr[i]))
@@ -46,23 +65,35 @@ void        valid_ant(t_game *data)
     if (j == 0)
         data->ant = ft_atoi(ptr);
     else
-    {
-        ft_printf("error: invalid format numbers of ants\n");
         data->error = 1;
-    }
     ft_strdel(&ptr);
 }
 
-void        valid_data(t_game *data)
+void        create_list(t_game *data)
+{
+//    t_room      *tmp;
+//
+//    tmp = NULL;
+//    tmp = data->list;
+//    data->list = (t_room*)malloc(sizeof(t_room) * 1);
+    if (!data->list)
+        data->list = valid_data(data);
+    else if (data->list)
+        lstback(&data->list, (valid_data(data)));
+}
+
+t_room        *valid_data(t_game *data)
 {
     t_room  *room;
+    t_room  *tmp;
     char    *ptr;
     int     i;
 
     i = 0;
+    tmp = NULL;
     ptr = ft_strtrim(data->line);
     if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
-        data->error;
+        data->error = 3;
     set_room(room);
     if (!room->name)
     {
@@ -75,13 +106,16 @@ void        valid_data(t_game *data)
         data->type = ROOM;
     }
     else
-    {
-        ft_printf("error: data is invalid\n");
-        data->error = 1;
-    }
+        data->error = 2;
     ft_strdel(&ptr);
-    lstback(&data->list, room);
-    data->list = data->list->next;
+    return (room);
+
+////    data->list = (t_room*)malloc(sizeof(t_room) * 1);
+//    if (!data->list)
+//        data->list = room;
+//    tmp = data->list;
+//    lstback(&tmp, room);
+//    tmp = tmp->next;
 }
 
 void        valid_link(t_game *data)
