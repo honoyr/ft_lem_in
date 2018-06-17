@@ -78,8 +78,27 @@ void        create_list(t_game *data)
 
 void          create_adj_list(t_game *data)
 {
-    if (valid_list(data))
-        data->error = 5;
+    t_rarr      *tmp;
+    t_room      *list;
+    int         i;
+
+    i = 0;
+
+//    if (valid_list(data))
+//        data->error = 5;
+    if (!(data->room = (t_rarr*)malloc(sizeof(t_rarr) * data->nroom)))
+        data->error = 3;
+    else if (data->room)
+    {
+        tmp = data->room;
+        list = data->list;
+        while (i < data->nroom)
+        {
+            tmp[i].name = list;
+            list = list->next;
+            i++;
+        }
+    }
 }
 
 t_room        *valid_data(t_game *data)
@@ -111,7 +130,14 @@ t_room        *valid_data(t_game *data)
     return (room);
 }
 
-void        valid_list(t_game *data)
+void        valid_links(t_game *data)
+{
+    if (!data->room)
+        create_adj_list(data);
+
+}
+
+int        valid_list(t_game *data)
 {
     char    *ptr;
 

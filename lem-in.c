@@ -54,9 +54,10 @@ void        pars_condition(t_game *data, char *line)
                 valid_ant(data);
             else if (ft_strchr(line, ' ') && data->type != ANT)
                 create_list(data);
-//                valid_data(data);
-
-//            if (ft_strchr(line, '-'))
+//            else if (ft_strchr(line, '-'))
+//            {
+//
+//            }
 
 //        if (data->type == LINK)
 //            valid_link(data);
