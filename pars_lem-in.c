@@ -28,41 +28,34 @@ void	lstback(t_room **lst, t_room *add)
     }
 }
 
-int         check_ant(char *ptr)
+int         check_int(char *ptr)
 {
-    int     i;
-
-    i = 0;
-    while (ptr[i])
-    {
-        if (!(ft_isdigit(ptr[i]))
-            return (1);
-    }
-
-}
-
-void        valid_ant(t_game *data)
-{
-    char    *ptr;
     int     j;
     int     i;
 
     j = 0;
     i = -1;
-    ptr = ft_strtrim(data->line);
-    j = check_ant(ptr);
-    if (j > 0)
-    {
-        data->error = 1;
-        return;
-    }
     while (ptr[++i])
     {
         if (ft_isdigit(ptr[i]))
             j++;
         j--;
     }
-    if (j == 0)
+    if (j != 0)
+        return (1);
+    if (ft_strlen(ptr) > 10)
+        return (1);
+    if (ft_atoi(ptr) > 2147483647)
+        return (1);
+    return(0);
+}
+
+void        valid_ant(t_game *data)
+{
+    char    *ptr;
+
+    ptr = ft_strtrim(data->line);
+    if (!check_int(ptr))
         data->ant = ft_atoi(ptr);
     else
         data->error = 1;
@@ -76,10 +69,17 @@ void        create_list(t_game *data)
 //    tmp = NULL;
 //    tmp = data->list;
 //    data->list = (t_room*)malloc(sizeof(t_room) * 1);
+    data->nroom++;
     if (!data->list)
         data->list = valid_data(data);
     else if (data->list)
         lstback(&data->list, (valid_data(data)));
+}
+
+void          create_adj_list(t_game *data)
+{
+    if (valid_list(data))
+        data->error = 5;
 }
 
 t_room        *valid_data(t_game *data)
@@ -109,16 +109,9 @@ t_room        *valid_data(t_game *data)
         data->error = 2;
     ft_strdel(&ptr);
     return (room);
-
-////    data->list = (t_room*)malloc(sizeof(t_room) * 1);
-//    if (!data->list)
-//        data->list = room;
-//    tmp = data->list;
-//    lstback(&tmp, room);
-//    tmp = tmp->next;
 }
 
-void        valid_link(t_game *data)
+void        valid_list(t_game *data)
 {
     char    *ptr;
 

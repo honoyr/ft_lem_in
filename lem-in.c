@@ -12,6 +12,23 @@
 
 #include "ft_lem.h"
 
+void	lstprint(t_room **lst) // DELETE
+{
+    t_room *tmp;
+
+    tmp = NULL;
+    if (lst)
+    {
+        tmp = *lst;
+        while (tmp != NULL)
+        {
+            ft_putstr(tmp->name);
+            ft_putchar('\n');
+            tmp = tmp->next;
+        }
+    }
+}
+
 void        error_manage(int  error)
 {
     if (error == 1)
@@ -20,6 +37,10 @@ void        error_manage(int  error)
         ft_putstr("error: data is invalid\n");
     else if (error == 3)
         ft_putstr("error: memory didn't allocated\n");
+    else if (error == 4)
+        ft_putstr("error: pars invalid\n");
+    else if (error == 5)
+        ft_putstr("error: list of rooms invalid\n");
 }
 
 void        pars_condition(t_game *data, char *line)
@@ -27,11 +48,11 @@ void        pars_condition(t_game *data, char *line)
     if (line)
     {
         data->line = line;
-        if (!(ft_strchr(line, '#')))
+        if (line[0] != '#' && line[0] != 'L')
         {
             if (data->type == ANT)
                 valid_ant(data);
-            if (ft_strchr(line, ' ') && data->type != ANT)
+            else if (ft_strchr(line, ' ') && data->type != ANT)
                 create_list(data);
 //                valid_data(data);
 
@@ -39,14 +60,16 @@ void        pars_condition(t_game *data, char *line)
 
 //        if (data->type == LINK)
 //            valid_link(data);
+            else
+                data->error = 4;  // ADD IT
         }
         else
         {
-            if (ft_strstr(data->line, "start"))
+            if (ft_strstr(data->line, "##start"))
                 data->type = START;
-            else if (ft_strstr(data->line, "end"))
+            else if (ft_strstr(data->line, "##end"))
                 data->type = END;
-            else if (ft_strstr(data->line, "#"))
+            else
                 data->type = COMM;
         }
     }
@@ -67,11 +90,11 @@ void        lem_in(char **line)
 //        ft_strdel(&line[i]);
         if (data.error)
         {
-            ft_printf("error\n");
+            error_manage(data.error);
             break ;
         }
     }
-    ft_lstprint(&data.list);
+//    lstprint(&data.list);
 }
 
 int     main(int ac, char **av)
@@ -85,9 +108,9 @@ int     main(int ac, char **av)
 		}
         if (!(line = (char**)malloc(sizeof(char*) * 11)))
             return (0);
-        line[0] = ft_strdup(" 3    ");
+        line[0] = ft_strdup("    7483648 ");
         line[1] = ft_strdup("##start");
-        line[2] = ft_strdup("sta   15   23   ");
+        line[2] = ft_strdup("при@#$ĵ   15   23   ");
         line[3] = ft_strdup("1 5 0");
         line[4] = ft_strdup("2 9 0");
         line[5] = ft_strdup("##end");
@@ -96,6 +119,30 @@ int     main(int ac, char **av)
         line[8] = ft_strdup("2-3");
         line[9] = ft_strdup("3-1");
         line[10] = NULL;
+// error L
+//    line[0] = ft_strdup("    7483648 ");
+//    line[1] = ft_strdup("##start");
+//    line[2] = ft_strdup("Lпри@$ĵ   15   23   ");
+//    line[3] = ft_strdup("1 5 0");
+//    line[4] = ft_strdup("2 9 0");
+//    line[5] = ft_strdup("##end");
+//    line[6] = ft_strdup("3 13 0");
+//    line[7] = ft_strdup("0-2");
+//    line[8] = ft_strdup("2-3");
+//    line[9] = ft_strdup("3-1");
+//    line[10] = NULL;
+    // error #
+//    line[0] = ft_strdup("    7483648 ");
+//    line[1] = ft_strdup("##start");
+//    line[2] = ft_strdup("#при@$ĵ   15   23   ");
+//    line[3] = ft_strdup("1 5 0");
+//    line[4] = ft_strdup("2 9 0");
+//    line[5] = ft_strdup("##end");
+//    line[6] = ft_strdup("3 13 0");
+//    line[7] = ft_strdup("0-2");
+//    line[8] = ft_strdup("2-3");
+//    line[9] = ft_strdup("3-1");
+//    line[10] = NULL;
     lem_in(line);
 	return (0);
 }
