@@ -39,14 +39,15 @@ typedef struct      s_room
     int             x;
     int             y;
     int             type;
+    t_link          *link;
     struct s_room  *next;
 }                   t_room;
 
-typedef struct      s_rarr
-{
-    char    *name;
-    t_link  *link;
-}                   t_rarr;
+//typedef struct      s_rarr
+//{
+//    char    *name;
+//    t_link  *link;
+//}                   t_rarr;
 
 typedef struct      s_game
 {
@@ -58,7 +59,7 @@ typedef struct      s_game
     char            *visited;
     char            *line;
     t_room          *list;
-    t_rarr          *room;
+    t_room          *room;
     t_info          *info;
     int             error;
 
@@ -67,8 +68,10 @@ typedef struct      s_game
 void        valid_ant(t_game *data);
 t_room        *valid_data(t_game *data);
 void        valid_link(t_game *data);
+void        valid_links(t_game *data);
 
 void        create_list(t_game *data);
+void          create_adj_list(t_game *data);
 
 void        set_room(t_room *room);
 void        set_data(t_game *data);

@@ -78,7 +78,7 @@ void        create_list(t_game *data)
 
 void          create_adj_list(t_game *data)
 {
-    t_rarr      *tmp;
+    t_room      *tmp;
     t_room      *list;
     int         i;
 
@@ -86,7 +86,7 @@ void          create_adj_list(t_game *data)
 
 //    if (valid_list(data))
 //        data->error = 5;
-    if (!(data->room = (t_rarr*)malloc(sizeof(t_rarr) * data->nroom)))
+    if (!(data->room = (t_room*)malloc(sizeof(t_room) * data->nroom)))
         data->error = 3;
     else if (data->room)
     {
@@ -94,11 +94,35 @@ void          create_adj_list(t_game *data)
         list = data->list;
         while (i < data->nroom)
         {
-            tmp[i].name = list;
+            tmp[i] = *list;
             list = list->next;
             i++;
         }
     }
+}
+
+int            ihate_you_eval(t_game *data, t_room *room)
+{
+    int     i;
+    int     space;
+
+    i = 0;
+    space = 0;
+    while (data->line[i])
+    {
+        if (ft_whitespaces(data->line[i]))
+            space++;
+        i++;
+    }
+    if (space > 2)
+    {
+        room->name = ft_strsub(data->line, 0, (space - 2));
+        room->y = ft_atoi(data->line);
+        room->x = ft_atoi(ft_strrchr(data->line, ' '));
+        return (1);
+    }
+    else
+        return (0);
 }
 
 t_room        *valid_data(t_game *data)
@@ -113,9 +137,9 @@ t_room        *valid_data(t_game *data)
     ptr = ft_strtrim(data->line);
     if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
         data->error = 3;
-    set_room(room);
-    if (!room->name)
+    if (!room->name && !data->error && !ihate_you_eval(data, room))
     {
+        set_room(room); // we can del because malloc set structure by 0;
         while (ptr[i] && !ft_whitespaces(ptr[i]))
             i++;
         room->name = ft_strsub(ptr, 0, i);
@@ -124,7 +148,7 @@ t_room        *valid_data(t_game *data)
         room->type = data->type;
         data->type = ROOM;
     }
-    else
+    else if (!room->name)
         data->error = 2;
     ft_strdel(&ptr);
     return (room);
@@ -132,8 +156,26 @@ t_room        *valid_data(t_game *data)
 
 void        valid_links(t_game *data)
 {
+    int     n;
+    char    *links_a;
+    char    *links_b;
+
+    n = data->nroom;
     if (!data->room)
         create_adj_list(data);
+    if (!data->error)
+    {
+        links_a = ft_strsub(data->line, 0, ((ft_strchr(data->line, '-') - data->line)));
+        links_b = ft_strdup(ft_strrchr(data->line, '-') + 1);
+        while (n > 0)
+        {
+            if(ft_strstr(data->line, data->room[n].name))
+            {
+
+            }
+            n--;
+        }
+    }
 
 }
 

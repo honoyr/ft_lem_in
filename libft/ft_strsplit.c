@@ -22,9 +22,7 @@ static int		ft_count_word(char const *s, char c)
 	while (s[i] != '\0')
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
-		{
 			count++;
-		}
 		i++;
 	}
 	return (count);
