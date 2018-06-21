@@ -43,13 +43,14 @@ void        error_manage(int  error)
         ft_putstr("error: list of rooms invalid\n");
     else if (error == 6)
         ft_putstr("error: invalid name of room \n");
+    else if (error == 7)
+        ft_putstr("error: invalid coordinates \n");
 }
 
 void        pars_condition(t_game *data, char *line)
 {
-    if (line)
+    if (line && (data->line = line))
     {
-        data->line = line;
         if (line[0] != '#' && line[0] != 'L')
         {
             if (data->type == ANT)
@@ -75,6 +76,8 @@ void        pars_condition(t_game *data, char *line)
                 data->type = COMM;
         }
     }
+    else
+        data->error = 2;
 }
 
 void        lem_in(char **line)
@@ -112,12 +115,12 @@ int     main(int ac, char **av)
             return (0);
         line[0] = ft_strdup("    7483648 ");
         line[1] = ft_strdup("##start");
-        line[2] = ft_strdup("     15 23");
+        line[2] = ft_strdup("3 7 8");
         line[3] = ft_strdup("1 5 0");
         line[4] = ft_strdup("2 9 0");
         line[5] = ft_strdup("##end");
         line[6] = ft_strdup("3 13 0");
-        line[7] = ft_strdup("    -2");
+        line[7] = ft_strdup("3-2");
         line[8] = ft_strdup("2-3");
         line[9] = ft_strdup("3-1");
         line[10] = NULL;

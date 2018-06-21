@@ -50,31 +50,60 @@ int         check_int(char *ptr)
     return(0);
 }
 
+int     check_name(char *name, t_game *data)
+{
+    int     i;
+
+    i = -1;
+    while (name[++i])
+    {
+        if (name[i] == ' ' || name[i] == '-' || name[i] == 'L')
+        {
+            data->error = 6;
+            return (0);
+        }
+    }
+    return (1);
+}
+
+int     check_coord(char *coord, t_game *data)
+{
+    int     i;
+
+    i = -1;
+    while (coord[++i])
+    {
+        if (!ft_isdigit(coord[i]))
+        {
+            data->error = 7;
+            return (0);
+        }
+    }
+    return (check_int(coord) ? 1 : 0);
+}
+
 char        **check_line(t_game *data)
 {
     int     i;
-    int     j;
     char    **arr;
 
     i = -1;
-    j = -1;
-    *arr = NULL;
-    if (arr = ft_strsplit(data->line, ' '))
+//    arr = ft_strsplit(data->line, ' ');
+    if ((arr = ft_strsplit(data->line, ' ')))
     {
         while (arr[++i])
         {
-            while (arr[i][++j])
-            {
-                if (arr[i][j] == ' ' || arr[i][j] == '-' || arr[i][j] == 'L')
-                    data->error = 6;
-                if (i > 0 && ft_isdigit(arr[i][j]))
-            }
-            j = -1;
+            if (check_name(arr[0], data))
+                break ;
+            if (i > 0 && check_coord(arr[i], data))
+                break ;
         }
-        if (i == 3 && !data->error)
+        if (!data->error && *arr)
             return (arr);
     }
-    return (NULL);
+    data->error = 2;
+    ft_memdel_arlen(arr);
+    return (arr);
 }
 
 void        valid_ant(t_game *data)
@@ -128,35 +157,35 @@ void          create_adj_list(t_game *data)
     }
 }
 
-int            ihate_you_eval(t_game *data, t_room *room)
-{
-    int     i;
-    int     space;
-    int     digit;
-
-    i = -1;
-    space = 0;
-    digit = 0;
-    while (data->line[++i])
-    {
-        if (ft_whitespaces(data->line[i]))
-            space++;
-        if (ft_isdigit(data->line[i]))
-            digit++;
-    }
-    data->digit = digit;
-    if (space > 2 && digit)
-    {
-        room->name = ft_strsub(data->line, 0, (space - 2));
-        room->y = ft_atoi(data->line);
-        room->x = ft_atoi(ft_strrchr(data->line, ' '));
-        room->type = data->type;
-        data->type = ROOM;
-        return (1);
-    }
-    else
-        return (0);
-}
+//int            ihate_you_eval(t_game *data, t_room *room)
+//{
+//    int     i;
+//    int     space;
+//    int     digit;
+//
+//    i = -1;
+//    space = 0;
+//    digit = 0;
+//    while (data->line[++i])
+//    {
+//        if (ft_whitespaces(data->line[i]))
+//            space++;
+//        if (ft_isdigit(data->line[i]))
+//            digit++;
+//    }
+//    data->digit = digit;
+//    if (space > 2 && digit)
+//    {
+//        room->name = ft_strsub(data->line, 0, (space - 2));
+//        room->y = ft_atoi(data->line);
+//        room->x = ft_atoi(ft_strrchr(data->line, ' '));
+//        room->type = data->type;
+//        data->type = ROOM;
+//        return (1);
+//    }
+//    else
+//        return (0);
+//}
 
 //t_room        *valid_data(t_game *data)
 //{
@@ -215,27 +244,27 @@ int            ihate_you_eval(t_game *data, t_room *room)
 t_room        *valid_data(t_game *data)
 {
     t_room  *room;
-    int     i;
+    char    **valid;
 
-    i = 0;
+    *valid = NULL;
     if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
-        data->error = 3;
-    set_room(room); // we can del because malloc set structure by 0;
-
-    if (!room->name && !ihate_you_eval(data, room) && data->digit)
+        return (NULL);
+//    set_room(room); // we can del because malloc set structure by 0;
+    valid = check_line(data);
+    if (*valid)
     {
-        while (data->line[i] && !ft_whitespaces(data->line[i]))
-            i++;
-        room->name = ft_strsub(data->line, 0, i);
-        room->y = ft_atoi(ft_strchr(data->line, ' '));
-        room->x = ft_atoi(ft_strrchr(data->line, ' '));
+        room->name = ft_strdup(valid[0]);
+        room->y = ft_atoi(valid[1]);
+        room->x = ft_atoi(valid[2]);
         room->type = data->type;
         data->type = ROOM;
+        ft_memdel_arlen(valid);
     }
-//    else if (!room->name || !room->x || !room->y)
-    if (!room->name || !data->digit)
-        data->error = 2;
-//    ft_strdel(&ptr);
+    if (data->error)
+    {
+        ft_strdel(&room);
+        return (NULL);
+    }
     return (room);
 }
 
@@ -254,7 +283,7 @@ void        valid_links(t_game *data)
         links_b = ft_strdup(ft_strrchr(data->line, '-') + 1);
         while (n > 0)
         {
-            if(ft_strstr(data->line, data->room[n].name))
+            if(ft_strequ(data->line, data->room[n].name))
             {
 
             }
