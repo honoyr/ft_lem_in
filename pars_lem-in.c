@@ -60,10 +60,10 @@ int     check_name(char *name, t_game *data)
         if (name[i] == ' ' || name[i] == '-' || name[i] == 'L')
         {
             data->error = 6;
-            return (0);
+            return (1);
         }
     }
-    return (1);
+    return (0);
 }
 
 int     check_coord(char *coord, t_game *data)
@@ -79,32 +79,56 @@ int     check_coord(char *coord, t_game *data)
             return (0);
         }
     }
-    return (check_int(coord) ? 1 : 0);
+    return ((check_int(coord) ? 1 : 0));
 }
 
-char        **check_line(t_game *data)
+char        **check_line(t_game *data, int flag, int c)
 {
     int     i;
     char    **arr;
 
     i = -1;
 //    arr = ft_strsplit(data->line, ' ');
-    if ((arr = ft_strsplit(data->line, ' ')))
+    if ((arr = ft_strsplit(data->line, c)))
     {
         while (arr[++i])
         {
-            if (check_name(arr[0], data))
+            if (i < 3 && check_name(arr[i], data))
                 break ;
-            if (i > 0 && check_coord(arr[i], data))
+            if (flag == 3 && i > 0 && check_coord(arr[i], data))
                 break ;
         }
-        if (!data->error && *arr)
+        if (i == flag && !data->error && *arr)
             return (arr);
     }
     data->error = 2;
-    ft_memdel_arlen(arr);
+    ft_memdel_arlen((char)arr);
     return (arr);
 }
+
+//char        **check_link(t_game *data)
+//{
+//    int     i;
+//    char    **arr;
+//
+//    i = -1;
+////    arr = ft_strsplit(data->line, ' ');
+//    if ((arr = ft_strsplit(data->line, ' ')))
+//    {
+//        while (arr[++i])
+//        {
+//            if (check_name(arr[0], data))
+//                break ;
+//            if (i > 0 && check_coord(arr[i], data))
+//                break ;
+//        }
+//        if (i == 3 && !data->error && *arr)
+//            return (arr);
+//    }
+//    data->error = 2;
+//    ft_memdel_arlen(arr);
+//    return (arr);
+//}
 
 void        valid_ant(t_game *data)
 {
@@ -249,8 +273,8 @@ t_room        *valid_data(t_game *data)
     *valid = NULL;
     if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
         return (NULL);
-//    set_room(room); // we can del because malloc set structure by 0;
-    valid = check_line(data);
+    set_room(room); // we can del because malloc set structure by 0;
+    valid = check_line(data, 3, ' ');
     if (*valid)
     {
         room->name = ft_strdup(valid[0]);
@@ -268,35 +292,57 @@ t_room        *valid_data(t_game *data)
     return (room);
 }
 
+void        room_relink(t_game *data, int n1, int n2)
+{
+
+    if (!(data->room[n1].link = (t_link*)malloc(sizeof(t_link) * 1)))
+        data->error = 3;
+    if (!(data->room[n2].link = (t_link*)malloc(sizeof(t_link) * 1)))
+        data->error = 3;
+    if (!data->error)
+    {
+        data->room[n1].link->num = n2;
+        data->room[n2].link->num = n1;
+        data->room[n1].link->next = data->room[n2].link;
+        data->room[n2].link->next = data->room[n1].link;
+    }
+}
+
 void        valid_links(t_game *data)
 {
     int     n;
-    char    *links_a;
-    char    *links_b;
+    int     link_n1;
+    int     link_n2;
+    char    **links;
 
-    n = data->nroom;
+//    *links = NULL;
+    n = data->nroom - 1;
     if (!data->room)
         create_adj_list(data);
     if (!data->error)
     {
-        links_a = ft_strsub(data->line, 0, ((ft_strchr(data->line, '-') - data->line)));
-        links_b = ft_strdup(ft_strrchr(data->line, '-') + 1);
-        while (n > 0)
+        if ((links = check_line(data, 2, '-')))
+//        links_a = (ft_strsub(data->line, 0, ((ft_strchr(data->line, '-') - data->line))));
+//        links_b = (ft_strdup(ft_strrchr(data->line, '-') + 1));
+        while (n >= 0)
         {
-            if(ft_strequ(data->line, data->room[n].name))
-            {
-
-            }
+            if(ft_strequ(links[0], data->room[n].name))
+                link_n1 = n;
+            if(ft_strequ(links[1], data->room[n].name))
+                link_n2 = n;
             n--;
         }
+        room_relink(data, link_n1, link_n2);
+        ft_memdel_arlen((char)links);
     }
-
 }
 
 int        valid_list(t_game *data)
 {
     char    *ptr;
 
+    valid_relink();
+    valed_recordin();
     ptr = ft_strtrim(data->line);
 
 }

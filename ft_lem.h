@@ -62,7 +62,7 @@ typedef struct      s_game
     t_room          *room;
     t_info          *info;
     int             error;
-    int             digit;
+    int             digit; //del
 
 }                  t_game;
 
