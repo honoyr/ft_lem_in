@@ -12,13 +12,19 @@
 
 #include "ft_lem.h"
 
-void        set_room(t_room *room)
+int        set_room(t_room *room)
 {
-    room->name = NULL;
-    room->type = -1;
-    room->y = -1;
-    room->x = -1;
-    room->next = NULL;
+    if (room)
+    {
+        room->name = NULL;
+        room->type = -1;
+        room->y = -1;
+        room->x = -1;
+        room->next = NULL;
+        return (1);
+    }
+    else
+        return (0);
 }
 
 void set_data(t_game *data)
@@ -33,4 +39,5 @@ void set_data(t_game *data)
     data->list = NULL;
     data->room = NULL;
     data->error = 0;
+    data->digit = 0;
 }

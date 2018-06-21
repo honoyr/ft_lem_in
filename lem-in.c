@@ -41,6 +41,8 @@ void        error_manage(int  error)
         ft_putstr("error: pars invalid\n");
     else if (error == 5)
         ft_putstr("error: list of rooms invalid\n");
+    else if (error == 6)
+        ft_putstr("error: invalid name of room \n");
 }
 
 void        pars_condition(t_game *data, char *line)

@@ -62,6 +62,7 @@ typedef struct      s_game
     t_room          *room;
     t_info          *info;
     int             error;
+    int             digit;
 
 }                  t_game;
 
@@ -73,7 +74,7 @@ void        valid_links(t_game *data);
 void        create_list(t_game *data);
 void          create_adj_list(t_game *data);
 
-void        set_room(t_room *room);
+int        set_room(t_room *room);
 void        set_data(t_game *data);
 
 #endif

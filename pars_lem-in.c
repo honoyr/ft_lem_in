@@ -50,6 +50,33 @@ int         check_int(char *ptr)
     return(0);
 }
 
+char        **check_line(t_game *data)
+{
+    int     i;
+    int     j;
+    char    **arr;
+
+    i = -1;
+    j = -1;
+    *arr = NULL;
+    if (arr = ft_strsplit(data->line, ' '))
+    {
+        while (arr[++i])
+        {
+            while (arr[i][++j])
+            {
+                if (arr[i][j] == ' ' || arr[i][j] == '-' || arr[i][j] == 'L')
+                    data->error = 6;
+                if (i > 0 && ft_isdigit(arr[i][j]))
+            }
+            j = -1;
+        }
+        if (i == 3 && !data->error)
+            return (arr);
+    }
+    return (NULL);
+}
+
 void        valid_ant(t_game *data)
 {
     char    *ptr;
@@ -105,52 +132,110 @@ int            ihate_you_eval(t_game *data, t_room *room)
 {
     int     i;
     int     space;
+    int     digit;
 
-    i = 0;
+    i = -1;
     space = 0;
-    while (data->line[i])
+    digit = 0;
+    while (data->line[++i])
     {
         if (ft_whitespaces(data->line[i]))
             space++;
-        i++;
+        if (ft_isdigit(data->line[i]))
+            digit++;
     }
-    if (space > 2)
+    data->digit = digit;
+    if (space > 2 && digit)
     {
         room->name = ft_strsub(data->line, 0, (space - 2));
         room->y = ft_atoi(data->line);
         room->x = ft_atoi(ft_strrchr(data->line, ' '));
+        room->type = data->type;
+        data->type = ROOM;
         return (1);
     }
     else
         return (0);
 }
 
+//t_room        *valid_data(t_game *data)
+//{
+//    t_room  *room;
+//    char    *ptr;
+//    int     i;
+//
+//    i = 0;
+//    ptr = ft_strtrim(data->line);
+//    if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
+//        data->error = 3;
+//    set_room(room); // we can del because malloc set structure by 0;
+//    if (!room->name && !data->error && !ihate_you_eval(data, room))
+//    {
+//        while (ptr[i] && !ft_whitespaces(ptr[i]))
+//            i++;
+//        room->name = ft_strsub(ptr, 0, i);
+//        room->y = ft_atoi(ft_strchr(ptr, ' '));
+//        room->x = ft_atoi(ft_strrchr(ptr, ' '));
+//        room->type = data->type;
+//        data->type = ROOM;
+//    }
+////    else if (!room->name || !room->x || !room->y)
+//    else if (!room->name)
+//        data->error = 2;
+//    ft_strdel(&ptr);
+//    return (room);
+//}
+
+//t_room        *valid_data(t_game *data)
+//{
+//    t_room  *room;
+//    int     i;
+//
+//    i = 0;
+//    if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
+//        data->error = 3;
+//    set_room(room); // we can del because malloc set structure by 0;
+//    if (!room->name && !ihate_you_eval(data, room) && data->digit)
+//    {
+//        while (data->line[i] && !ft_whitespaces(data->line[i]))
+//            i++;
+//        room->name = ft_strsub(data->line, 0, i);
+//        room->y = ft_atoi(ft_strchr(data->line, ' '));
+//        room->x = ft_atoi(ft_strrchr(data->line, ' '));
+//        room->type = data->type;
+//        data->type = ROOM;
+//    }
+////    else if (!room->name || !room->x || !room->y)
+//    if (!room->name || !data->digit)
+//        data->error = 2;
+////    ft_strdel(&ptr);
+//    return (room);
+//}
+
 t_room        *valid_data(t_game *data)
 {
     t_room  *room;
-    t_room  *tmp;
-    char    *ptr;
     int     i;
 
     i = 0;
-    tmp = NULL;
-    ptr = ft_strtrim(data->line);
     if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
         data->error = 3;
-    if (!room->name && !data->error && !ihate_you_eval(data, room))
+    set_room(room); // we can del because malloc set structure by 0;
+
+    if (!room->name && !ihate_you_eval(data, room) && data->digit)
     {
-        set_room(room); // we can del because malloc set structure by 0;
-        while (ptr[i] && !ft_whitespaces(ptr[i]))
+        while (data->line[i] && !ft_whitespaces(data->line[i]))
             i++;
-        room->name = ft_strsub(ptr, 0, i);
-        room->y = ft_atoi(ft_strchr(ptr, ' '));
-        room->x = ft_atoi(ft_strrchr(ptr, ' '));
+        room->name = ft_strsub(data->line, 0, i);
+        room->y = ft_atoi(ft_strchr(data->line, ' '));
+        room->x = ft_atoi(ft_strrchr(data->line, ' '));
         room->type = data->type;
         data->type = ROOM;
     }
-    else if (!room->name)
+//    else if (!room->name || !room->x || !room->y)
+    if (!room->name || !data->digit)
         data->error = 2;
-    ft_strdel(&ptr);
+//    ft_strdel(&ptr);
     return (room);
 }
 
