@@ -25,6 +25,7 @@ void	lstback(t_room **lst, t_room *add, t_game *data)
             tmp = tmp->next;
             if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
                 data->error = 8;
+
         }
         tmp->next = add;
     }
@@ -299,17 +300,26 @@ t_room        *valid_data(t_game *data)
 
 void        room_relink(t_game *data, int n1, int n2)
 {
+    t_link  *link1;
+    t_link  *link2;
 
-    if (!(data->room[n1].link = (t_link*)malloc(sizeof(t_link) * 1)))
+
+    if (!(link1 = (t_link*)malloc(sizeof(t_link) * 1)))
         data->error = 3;
-    if (!(data->room[n2].link = (t_link*)malloc(sizeof(t_link) * 1)))
+    if (!(link2 = (t_link*)malloc(sizeof(t_link) * 1)))
         data->error = 3;
     if (!data->error)
     {
-        data->room[n1].link->num = n2;
-        data->room[n2].link->num = n1;
-        data->room[n1].link->next = data->room[n2].link;
-        data->room[n2].link->next = data->room[n1].link;
+        link1->next = NULL;
+        link2->next = NULL;
+        link1->num = n2;
+        link2->num = n1;
+        data->room[n1].link = link2;
+        data->room[n2].link = link1; // в конец листа присваивать новый линк, стоит запоминать end of link и сразу связывать с предпоследним
+//        data->room[n1].link->num = n2;
+//        data->room[n2].link->num = n1;
+//        data->room[n1].link->next = data->room[n2].link;
+//        data->room[n2].link->next = data->room[n1].link;
     }
 }
 
