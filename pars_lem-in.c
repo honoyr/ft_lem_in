@@ -275,12 +275,12 @@ t_room        *valid_data(t_game *data)
     t_room  *room;
     char    **valid;
 
-    *valid = NULL;
+    valid = NULL;
     if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
         return (NULL);
     set_room(room); // we can del because malloc set structure by 0;
     valid = check_line(data, 3, ' ');
-    if (*valid)
+    if (valid)
     {
         room->name = ft_strdup(valid[0]);
         room->y = ft_atoi(valid[1]);
@@ -316,28 +316,28 @@ void        room_relink(t_game *data, int n1, int n2)
 void        valid_links(t_game *data)
 {
     int     n;
-    int     link_n1;
-    int     link_n2;
     char    **links;
 
-//    *links = NULL;
+    links = NULL;
     n = data->nroom - 1;
     if (!data->room)
         create_adj_list(data);
-    if (!data->error)
+    if (!data->error && (links = check_line(data, 2, '-')))
     {
-        if ((links = check_line(data, 2, '-')))
+//        if ((links = check_line(data, 2, '-')))
 //        links_a = (ft_strsub(data->line, 0, ((ft_strchr(data->line, '-') - data->line))));
 //        links_b = (ft_strdup(ft_strrchr(data->line, '-') + 1));
         while (n >= 0)
         {
+            if (n == data->nroom -1 && ft_strequ(links[0], links[1]) && (data->error = 9))
+                return ;
             if(ft_strequ(links[0], data->room[n].name))
-                link_n1 = n;
+                data->link_n1 = n;
             if(ft_strequ(links[1], data->room[n].name))
-                link_n2 = n;
+                data->link_n2 = n;
             n--;
         }
-        room_relink(data, link_n1, link_n2);
+        room_relink(data, data->link_n1, data->link_n2);
         ft_memdel_arlen((void**)links);
     }
 }
