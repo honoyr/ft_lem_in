@@ -23,6 +23,7 @@ void	lstback(t_room **lst, t_room *add)
         while (tmp->next != NULL)
         {
             tmp = tmp->next;
+            if ()
         }
         tmp->next = add;
     }
@@ -153,7 +154,10 @@ void        create_list(t_game *data)
     if (!data->list)
         data->list = valid_data(data);
     else if (data->list)
+    {
         lstback(&data->list, (valid_data(data)));
+    }
+
 }
 
 void          create_adj_list(t_game *data)
