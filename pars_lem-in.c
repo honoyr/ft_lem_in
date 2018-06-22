@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-void	lstback(t_room **lst, t_room *add)
+void	lstback(t_room **lst, t_room *add, t_game *data)
 {
     t_room *tmp;
 
@@ -23,7 +23,8 @@ void	lstback(t_room **lst, t_room *add)
         while (tmp->next != NULL)
         {
             tmp = tmp->next;
-            if ()
+            if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
+                data->error = 8;
         }
         tmp->next = add;
     }
@@ -103,7 +104,7 @@ char        **check_line(t_game *data, int flag, int c)
             return (arr);
     }
     data->error = 2;
-    ft_memdel_arlen((char)arr);
+    ft_memdel_arlen((void**)arr);
     return (arr);
 }
 
@@ -155,7 +156,7 @@ void        create_list(t_game *data)
         data->list = valid_data(data);
     else if (data->list)
     {
-        lstback(&data->list, (valid_data(data)));
+        lstback(&data->list, (valid_data(data)), data);
     }
 
 }
@@ -286,11 +287,11 @@ t_room        *valid_data(t_game *data)
         room->x = ft_atoi(valid[2]);
         room->type = data->type;
         data->type = ROOM;
-        ft_memdel_arlen(valid);
+        ft_memdel_arlen((void**)valid);
     }
     if (data->error)
     {
-        ft_strdel(&room);
+        free(&room);
         return (NULL);
     }
     return (room);
@@ -337,7 +338,7 @@ void        valid_links(t_game *data)
             n--;
         }
         room_relink(data, link_n1, link_n2);
-        ft_memdel_arlen((char)links);
+        ft_memdel_arlen((void**)links);
     }
 }
 
@@ -345,8 +346,8 @@ int        valid_list(t_game *data)
 {
     char    *ptr;
 
-    valid_relink();
-    valed_recordin();
+//    valid_relink();
+//    valid_recordin();
     ptr = ft_strtrim(data->line);
 
 }

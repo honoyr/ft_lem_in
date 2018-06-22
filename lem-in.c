@@ -45,6 +45,8 @@ void        error_manage(int  error)
         ft_putstr("error: invalid name of room \n");
     else if (error == 7)
         ft_putstr("error: invalid coordinates \n");
+    else if (error == 8)
+        ft_putstr("error: double data in list of rooms \n");
 }
 
 void        pars_condition(t_game *data, char *line)
@@ -111,19 +113,19 @@ int     main(int ac, char **av)
 			ft_printf("error");
 			return (0);
 		}
-        if (!(line = (char**)malloc(sizeof(char*) * 11)))
+        if (!(line = (char**)malloc(sizeof(char*) * 12)))
             return (0);
-        line[0] = ft_strdup("    7483648 ");
-        line[1] = ft_strdup("##start");
-        line[2] = ft_strdup("3 7 8");
-        line[3] = ft_strdup("1 5 0");
-        line[4] = ft_strdup("2 9 0");
-        line[5] = ft_strdup("##end");
-        line[6] = ft_strdup("3 13 0");
-        line[7] = ft_strdup("3-2");
-        line[8] = ft_strdup("2-3");
-        line[9] = ft_strdup("3-1");
-        line[10] = NULL;
+//        line[0] = ft_strdup("    7483648 ");
+//        line[1] = ft_strdup("##start");
+//        line[2] = ft_strdup("3 7 8");
+//        line[3] = ft_strdup("1 5 0");
+//        line[4] = ft_strdup("2 9 0");
+//        line[5] = ft_strdup("##end");
+//        line[6] = ft_strdup("3 13 0");
+//        line[7] = ft_strdup("3-2");
+//        line[8] = ft_strdup("2-3");
+//        line[9] = ft_strdup("3-1");
+//        line[10] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");
 //    line[1] = ft_strdup("##start");
@@ -137,17 +139,18 @@ int     main(int ac, char **av)
 //    line[9] = ft_strdup("3-1");
 //    line[10] = NULL;
     // error #
-//    line[0] = ft_strdup("    7483648 ");
-//    line[1] = ft_strdup("##start");
-//    line[2] = ft_strdup("#при@$ĵ   15   23   ");
-//    line[3] = ft_strdup("1 5 0");
-//    line[4] = ft_strdup("2 9 0");
-//    line[5] = ft_strdup("##end");
-//    line[6] = ft_strdup("3 13 0");
-//    line[7] = ft_strdup("0-2");
-//    line[8] = ft_strdup("2-3");
-//    line[9] = ft_strdup("3-1");
-//    line[10] = NULL;
+    line[0] = ft_strdup("    7483648 ");
+    line[1] = ft_strdup("##start");
+    line[2] = ft_strdup("#при@$ĵ   15   23   ");
+    line[3] = ft_strdup("1 5 0");
+    line[4] = ft_strdup("2 9 0");
+    line[5] = ft_strdup("##end");
+    line[6] = ft_strdup("9 5 0");
+    line[7] = ft_strdup("3 13 0");
+    line[8] = ft_strdup("0-2");
+    line[9] = ft_strdup("2-3");
+    line[10] = ft_strdup("3-1");
+    line[11] = NULL;
     lem_in(line);
 	return (0);
 }
