@@ -63,8 +63,8 @@ typedef struct      s_game
     t_info          *info;
     int             error;
 //    int             digit; //del
-    int             link_n1; //del
-    int             link_n2; //del
+    int             link_n1;
+    int             link_n2;
 
 }                  t_game;
 
@@ -81,5 +81,6 @@ void        set_data(t_game *data);
 
 void        lstdel_room(t_room *room);
 void        lstdel_link(t_link **link);
+void        del_game(t_game *data);
 
 #endif

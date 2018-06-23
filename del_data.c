@@ -17,12 +17,12 @@ void        lstdel_link(t_link **link)
     t_link  *tmp;
 
 
-    if (link)
+    if (*link)
     {
         while (*link)
         {
             tmp = *link;
-            free(&(void*)tmp);
+            free((void*)tmp);
             *link = (*link)->next;
         }
         link = NULL;
@@ -32,9 +32,11 @@ void        lstdel_link(t_link **link)
 
 void        lstdel_room(t_room *room)
 {
-    lstdel_link(room->link);
-    ft_strdel(&room->name);
-    free(&(void*)room);
+    if (room->link)
+        lstdel_link(&room->link);
+    if (room->name)
+        ft_strdel(&room->name);
+    free((void*)room);
     room = NULL;
 }
 
@@ -42,14 +44,22 @@ void        lstdel_room(t_room *room)
 void        del_game(t_game *data)
 {
     t_room  *tmp;
+    t_room  *lst;
 
-    tmp = data->list;
-    ft_strdel(&data->visited);
+    tmp = NULL;
+    if (data->list)
+    {
+        tmp = data->list;
+        lst = data->list;
+    }
+    if (data->visited)
+        ft_strdel(&data->visited);
     while (tmp)
     {
         lstdel_room(tmp);
-        tmp = data->list->next;
+        lst = lst->next;
+        tmp = lst;
     }
+    data->list = NULL;
     free((void*)data->room);
-
 }

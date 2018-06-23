@@ -39,6 +39,7 @@ void set_data(t_game *data)
     data->line = NULL;
     data->list = NULL;
     data->room = NULL;
+    data->info = NULL;
     data->error = 0;
     data->link_n1 = -1;
     data->link_n2 = -1;

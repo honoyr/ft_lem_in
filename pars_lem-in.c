@@ -12,6 +12,22 @@
 
 #include "ft_lem.h"
 
+void	lstback_link(t_link **lst, t_link *add)
+{
+    t_link *tmp;
+
+    tmp = NULL;
+    if (lst && add)
+    {
+        tmp = *lst;
+        while (tmp->next != NULL)
+        {
+            tmp = tmp->next;
+        }
+        tmp->next = add;
+    }
+}
+
 void	lstback(t_room **lst, t_room *add, t_game *data)
 {
     t_room *tmp;
@@ -24,7 +40,11 @@ void	lstback(t_room **lst, t_room *add, t_game *data)
         {
             tmp = tmp->next;
             if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
+            {
+                lstdel_room(add);
                 data->error = 8;
+                return;
+            }
 
         }
         tmp->next = add;
@@ -106,6 +126,7 @@ char        **check_line(t_game *data, int flag, int c)
     }
     data->error = 2;
     ft_memdel_arlen((void**)arr);
+    arr = NULL;
     return (arr);
 }
 
@@ -314,8 +335,10 @@ void        room_relink(t_game *data, int n1, int n2)
         link2->next = NULL;
         link1->num = n2;
         link2->num = n1;
-        data->room[n1].link = link2;
-        data->room[n2].link = link1; // в конец листа присваивать новый линк, стоит запоминать end of link и сразу связывать с предпоследним
+        lstback_link(&data->room[n1].link, link2);
+        lstback_link(&data->room[n2].link, link1);
+//        data->room[n1].link = link2;
+//        data->room[n2].link = link1; // в конец листа присваивать новый линк, стоит запоминать end of link и сразу связывать с предпоследним
 //        data->room[n1].link->num = n2;
 //        data->room[n2].link->num = n1;
 //        data->room[n1].link->next = data->room[n2].link;
@@ -352,12 +375,12 @@ void        valid_links(t_game *data)
     }
 }
 
-int        valid_list(t_game *data)
-{
-    char    *ptr;
-
-//    valid_relink();
-//    valid_recordin();
-    ptr = ft_strtrim(data->line);
-
-}
+//int        valid_list(t_game *data)
+//{
+//    char    *ptr;
+//
+////    valid_relink();
+////    valid_recordin();
+//    ptr = ft_strtrim(data->line);
+//
+//}
