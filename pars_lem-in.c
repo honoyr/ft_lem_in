@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-void	lstback_link(t_link **lst, t_link *add)
+void	lstback_link(t_link **lst, t_link *add, t_game *data)
 {
     t_link *tmp;
 
@@ -22,7 +22,19 @@ void	lstback_link(t_link **lst, t_link *add)
         tmp = *lst;
         while (tmp->next != NULL)
         {
+            if (tmp->num == add->num)
+            {
+                data->error = 10;
+                lstdel_link(&add);
+                return;
+            }
             tmp = tmp->next;
+        }
+        if (tmp->num == add->num)
+        {
+            data->error = 10;
+            lstdel_link(&add);
+            return;
         }
         tmp->next = add;
     }
@@ -45,7 +57,12 @@ void	lstback(t_room **lst, t_room *add, t_game *data)
                 data->error = 8;
                 return;
             }
-
+        }
+        if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
+        {
+            lstdel_room(add);
+            data->error = 8;
+            return;
         }
         tmp->next = add;
     }
@@ -313,7 +330,7 @@ t_room        *valid_data(t_game *data)
     }
     if (data->error)
     {
-        free(&room);
+        lstdel_room(room);
         return (NULL);
     }
     return (room);
@@ -335,8 +352,14 @@ void        room_relink(t_game *data, int n1, int n2)
         link2->next = NULL;
         link1->num = n2;
         link2->num = n1;
-        lstback_link(&data->room[n1].link, link2);
-        lstback_link(&data->room[n2].link, link1);
+        if (!(data->room[n1].link))
+            data->room[n1].link = link1;
+        else
+            lstback_link(&(data->room[n1].link), link1, data);
+        if (!(data->room[n2].link))
+            data->room[n2].link = link2;
+        else
+            lstback_link(&(data->room[n2].link), link2, data);
 //        data->room[n1].link = link2;
 //        data->room[n2].link = link1; // в конец листа присваивать новый линк, стоит запоминать end of link и сразу связывать с предпоследним
 //        data->room[n1].link->num = n2;
