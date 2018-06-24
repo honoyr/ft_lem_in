@@ -50,13 +50,13 @@ void	lstback(t_room **lst, t_room *add, t_game *data)
         tmp = *lst;
         while (tmp->next != NULL)
         {
-            tmp = tmp->next;
             if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
             {
                 lstdel_room(add);
                 data->error = 8;
                 return;
             }
+            tmp = tmp->next;
         }
         if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
         {
@@ -393,8 +393,13 @@ void        valid_links(t_game *data)
                 data->link_n2 = n;
             n--;
         }
-        room_relink(data, data->link_n1, data->link_n2);
+        if (data->link_n1 >= 0 && data->link_n2 >= 0)
+            room_relink(data, data->link_n1, data->link_n2);
+        else
+            data->error = 11;
         ft_memdel_arlen((void**)links);
+        data->link_n1 = -1;
+        data->link_n2 = -1;
     }
 }
 
