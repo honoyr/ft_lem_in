@@ -208,11 +208,11 @@ void          create_adj_list(t_game *data)
 
     i = 0;
 
-//    if (valid_list(data))
-//        data->error = 5;
-    if (!(data->room = (t_room*)malloc(sizeof(t_room) * data->nroom)))
+    if ((valid_list_room(data)))
+        data->error = 5;
+    if (!data->error && !(data->room = (t_room*)malloc(sizeof(t_room) * data->nroom)))
         data->error = 3;
-    else if (data->room)
+    else if (!data->error && data->room)
     {
         tmp = data->room;
         list = data->list;
@@ -360,6 +360,8 @@ void        room_relink(t_game *data, int n1, int n2)
             data->room[n2].link = link2;
         else
             lstback_link(&(data->room[n2].link), link2, data);
+        data->link_n1 = -1;
+        data->link_n2 = -1;
 //        data->room[n1].link = link2;
 //        data->room[n2].link = link1; // в конец листа присваивать новый линк, стоит запоминать end of link и сразу связывать с предпоследним
 //        data->room[n1].link->num = n2;
@@ -380,13 +382,13 @@ void        valid_links(t_game *data)
         create_adj_list(data);
     if (!data->error && (links = check_line(data, 2, '-')))
     {
-//        if ((links = check_line(data, 2, '-')))
-//        links_a = (ft_strsub(data->line, 0, ((ft_strchr(data->line, '-') - data->line))));
-//        links_b = (ft_strdup(ft_strrchr(data->line, '-') + 1));
         while (n >= 0)
         {
             if (n == data->nroom -1 && ft_strequ(links[0], links[1]) && (data->error = 9))
+            {
+                ft_memdel_arlen((void**)links);
                 return ;
+            }
             if(ft_strequ(links[0], data->room[n].name))
                 data->link_n1 = n;
             if(ft_strequ(links[1], data->room[n].name))
@@ -398,17 +400,28 @@ void        valid_links(t_game *data)
         else
             data->error = 11;
         ft_memdel_arlen((void**)links);
-        data->link_n1 = -1;
-        data->link_n2 = -1;
     }
 }
 
-//int        valid_list(t_game *data)
-//{
-//    char    *ptr;
-//
-////    valid_relink();
-////    valid_recordin();
-//    ptr = ft_strtrim(data->line);
-//
-//}
+int        valid_list_room(t_game *data)
+{
+    t_room  *tmp;
+    int     st;
+    int     end;
+
+    st = 0;
+    end = 0;
+    tmp = data->list;
+    while (tmp)
+    {
+        if (tmp->type == START)
+            st++;
+        if (tmp->type == END)
+            end++;
+        tmp = tmp->next;
+    }
+    if (st == 1 && end == 1)
+        return (0);
+    data->error = 12;
+    return (1);
+}

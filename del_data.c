@@ -61,5 +61,9 @@ void        del_game(t_game *data)
         tmp = lst;
     }
     data->list = NULL;
-    free((void*)data->room);
+    if (data->room)
+    {
+        free((void*)data->room);
+        data->room = NULL;
+    }
 }

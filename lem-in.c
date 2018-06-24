@@ -24,7 +24,7 @@ void	lstprint(t_room **lst) // DELETE
         {
 //            ft_putstr(tmp->name);
 //            ft_putchar('\n');
-            ft_printf("ROOM = %s|LINKS %i\n", tmp->name, tmp->link->num);
+//            ft_printf("ROOM = %s|LINKS %i\n", tmp->name, tmp->link->num);
             tmp = tmp->next;
         }
     }
@@ -54,6 +54,8 @@ void        error_manage(int  error)
         ft_putstr("error: #10 the same links already exist\n");
     else if (error == 11)
         ft_putstr("error: #11 current rooms didn't exist in link\n");
+    else if (error == 12)
+        ft_putstr("error: #12 too many \"start\" or \"end\" \n");
 }
 
 void        pars_condition(t_game *data, char *line)
@@ -109,8 +111,10 @@ void        lem_in(char **line)
             break ;
         }
     }
-    lstprint(&data.list);
-    lstprint(&data.room);
+
+//    lstprint(&data.list);
+//    lstprint(&data.room);
+    del_game(&data);
 }
 
 int     main(int ac, char **av)
@@ -127,13 +131,13 @@ int     main(int ac, char **av)
         line[0] = ft_strdup("    7483648 ");
         line[1] = ft_strdup("##start");
         line[2] = ft_strdup("3 7 8");
-        line[3] = ft_strdup("1 5 0");
+        line[3] = ft_strdup("1 6 4");
         line[4] = ft_strdup("2 9 0");
         line[5] = ft_strdup("##end");
         line[6] = ft_strdup("6 13 0");
         line[7] = ft_strdup("3-2");
         line[8] = ft_strdup("2-1");
-        line[9] = ft_strdup("6-1");
+        line[9] = ft_strdup("6-6");
         line[10] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");
@@ -161,6 +165,6 @@ int     main(int ac, char **av)
 //    line[10] = ft_strdup("3-1");
 //    line[11] = NULL;
     lem_in(line);
-//    system("leaks");
+    system("sudo -K");
 	return (0);
 }
