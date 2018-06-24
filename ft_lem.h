@@ -80,8 +80,10 @@ void          create_adj_list(t_game *data);
 int        set_room(t_room *room);
 void        set_data(t_game *data);
 
-void        lstdel_room(t_room *room);
+void        lstdel_room(t_room **room);
 void        lstdel_link(t_link **link);
 void        del_game(t_game *data);
+
+void        room_relink(t_game *data, int n1, int n2);
 
 #endif

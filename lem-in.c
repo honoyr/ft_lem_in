@@ -70,10 +70,6 @@ void        pars_condition(t_game *data, char *line)
                 create_list(data);
             else if (ft_strchr(line, '-'))
                 valid_links(data);
-//                create_adj_list(data);
-
-//        if (data->type == LINK)
-//            valid_link(data);
             else
                 data->error = 4;  // ADD IT
         }
@@ -103,7 +99,7 @@ void        lem_in(char **line)
     {
         pars_condition(&data, line[i]);
 //        ft_printf("good bay");
-        ft_strdel(&line[i]);
+//        ft_strdel(&line[i]);
         if (data.error)
         {
             error_manage(data.error);
@@ -111,9 +107,22 @@ void        lem_in(char **line)
             break ;
         }
     }
-
-//    lstprint(&data.list);
-//    lstprint(&data.room);
+    ft_printf("LINKS\n");
+    t_link *tmp;
+    int j;
+    j = 0;
+    while (j < data.nroom){
+        tmp = data.room[j].link;
+        ft_printf("room = %s\n", data.room[j].name);
+        while (tmp){
+            ft_printf("%s ", data.room[tmp->num].name);
+            tmp = tmp->next;
+        }
+        ft_printf("\n");
+        j++;
+    }
+    lstprint(&data.list);
+    lstprint(&data.room);
     del_game(&data);
 }
 
@@ -126,7 +135,7 @@ int     main(int ac, char **av)
 			ft_printf("error");
 			return (0);
 		}
-        if (!(line = (char**)malloc(sizeof(char*) * 12)))
+        if (!(line = (char**)malloc(sizeof(char*) * 11)))
             return (0);
         line[0] = ft_strdup("    7483648 ");
         line[1] = ft_strdup("##start");
@@ -137,7 +146,7 @@ int     main(int ac, char **av)
         line[6] = ft_strdup("6 13 0");
         line[7] = ft_strdup("3-2");
         line[8] = ft_strdup("2-1");
-        line[9] = ft_strdup("6-6");
+        line[9] = ft_strdup("3-1");
         line[10] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");
@@ -165,6 +174,6 @@ int     main(int ac, char **av)
 //    line[10] = ft_strdup("3-1");
 //    line[11] = NULL;
     lem_in(line);
-    system("sudo -K");
+    system("leaks a.out");
 	return (0);
 }

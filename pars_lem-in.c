@@ -52,7 +52,7 @@ void	lstback(t_room **lst, t_room *add, t_game *data)
         {
             if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
             {
-                lstdel_room(add);
+                lstdel_room(&add);
                 data->error = 8;
                 return;
             }
@@ -60,7 +60,7 @@ void	lstback(t_room **lst, t_room *add, t_game *data)
         }
         if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
         {
-            lstdel_room(add);
+            lstdel_room(&add);
             data->error = 8;
             return;
         }
@@ -330,7 +330,7 @@ t_room        *valid_data(t_game *data)
     }
     if (data->error)
     {
-        lstdel_room(room);
+        lstdel_room(&room);
         return (NULL);
     }
     return (room);
@@ -341,7 +341,7 @@ void        room_relink(t_game *data, int n1, int n2)
     t_link  *link1;
     t_link  *link2;
 
-
+    ft_printf("I'm here\n");
     if (!(link1 = (t_link*)malloc(sizeof(t_link) * 1)))
         data->error = 3;
     if (!(link2 = (t_link*)malloc(sizeof(t_link) * 1)))
@@ -362,12 +362,6 @@ void        room_relink(t_game *data, int n1, int n2)
             lstback_link(&(data->room[n2].link), link2, data);
         data->link_n1 = -1;
         data->link_n2 = -1;
-//        data->room[n1].link = link2;
-//        data->room[n2].link = link1; // в конец листа присваивать новый линк, стоит запоминать end of link и сразу связывать с предпоследним
-//        data->room[n1].link->num = n2;
-//        data->room[n2].link->num = n1;
-//        data->room[n1].link->next = data->room[n2].link;
-//        data->room[n2].link->next = data->room[n1].link;
     }
 }
 
