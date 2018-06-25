@@ -219,6 +219,7 @@ void          create_adj_list(t_game *data)
         while (i < data->nroom)
         {
             tmp[i] = *list;
+//            tmp[i].link = &(*list->link);
             list = list->next;
             i++;
         }
@@ -341,7 +342,7 @@ void        room_relink(t_game *data, int n1, int n2)
     t_link  *link1;
     t_link  *link2;
 
-    ft_printf("I'm here\n");
+//    ft_printf("I'm here\n");
     if (!(link1 = (t_link*)malloc(sizeof(t_link) * 1)))
         data->error = 3;
     if (!(link2 = (t_link*)malloc(sizeof(t_link) * 1)))

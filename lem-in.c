@@ -107,22 +107,22 @@ void        lem_in(char **line)
             break ;
         }
     }
-    ft_printf("LINKS\n");
-    t_link *tmp;
-    int j;
-    j = 0;
-    while (j < data.nroom){
-        tmp = data.room[j].link;
-        ft_printf("room = %s\n", data.room[j].name);
-        while (tmp){
-            ft_printf("%s ", data.room[tmp->num].name);
-            tmp = tmp->next;
-        }
-        ft_printf("\n");
-        j++;
-    }
-    lstprint(&data.list);
-    lstprint(&data.room);
+//    ft_printf("LINKS\n");
+//    t_link *tmp;
+//    int j;
+//    j = 0;
+//    while (j < data.nroom){
+//        tmp = data.room[j].link;
+//        ft_printf("room = %s\n", data.room[j].name);
+//        while (tmp){
+//            ft_printf("%s ", data.room[tmp->num].name);
+//            tmp = tmp->next;
+//        }
+//        ft_printf("\n");
+//        j++;
+//    }
+//    lstprint(&data.list);
+//    lstprint(&data.room);
     del_game(&data);
 }
 

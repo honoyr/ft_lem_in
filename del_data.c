@@ -21,7 +21,7 @@ void        lstdel_link(t_link **link)
     {
         while (*link)
         {
-            ft_printf("I'm here 2\n");
+//            ft_printf("I'm here 2\n");
             tmp = *link;
             free(tmp);
             *link = (*link)->next;
@@ -31,23 +31,23 @@ void        lstdel_link(t_link **link)
 
 void        lstdel_room(t_room **room)
 {
-    ft_printf("I'm here 5\n");
+//    ft_printf("I'm here 5\n");
 
-    ft_printf("LINKS\n");
-    t_link *tmp;
-        tmp = (*room)->link;
-        ft_printf("room = %s\n", (*room)->name);
-        while (tmp){
-            ft_printf("%s ", tmp->num);
-            tmp = tmp->next;
-        }
-        ft_printf("\n");
+//    ft_printf("LINKS\n");
+//    t_link *tmp;
+//        tmp = (*room)->link;
+//        ft_printf("room = %s\n", (*room)->name);
+//        while (tmp){
+//            ft_printf("%s ", tmp->num);
+//            tmp = tmp->next;
+//        }
+//        ft_printf("\n");
 
 
 
     if ((*room)->link)
     {
-        ft_printf("I'm here 3\n");
+//        ft_printf("I'm here 3\n");
         lstdel_link(&((*room)->link));
     }
     if ((*room)->name)
@@ -60,8 +60,12 @@ void        lstdel_room(t_room **room)
 void        del_game(t_game *data)
 {
     t_room  *tmp;
+    t_link  *tmp_link;
+    int     i;
 
     tmp = NULL;
+    tmp_link = NULL;
+    i = 0;
     if (data->visited)
         ft_strdel(&data->visited);
     while (data->list)
@@ -70,9 +74,15 @@ void        del_game(t_game *data)
         lstdel_room(&tmp);
         data->list = data->list->next;
     }
+    while (i < data->nroom)
+    {
+        tmp_link = data->room[i].link;
+        lstdel_link(&tmp_link);
+        i++;
+    }
     if (data->room)
     {
-        ft_printf("I'm here 4\n");
+//        ft_printf("I'm here 4\n");
         free((void*)data->room);
         data->room = NULL;
     }
