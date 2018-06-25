@@ -10,4 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_lem.h"
 
+
+
+void        find_path(t_game * data)
+{
+    t_list     *queue;
+    int         *i;
+
+    i = (int*)malloc(sizeof(int) * 1);
+    *i = 3;
+    queue = ft_lstnew(i, 1);
+    data->visited = ft_strnew(data->nroom);
+    ft_lstadd(queue, ft_lstnew(i, 1));
+
+}

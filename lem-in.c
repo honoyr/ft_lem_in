@@ -123,6 +123,7 @@ void        lem_in(char **line)
 //    }
 //    lstprint(&data.list);
 //    lstprint(&data.room);
+    find_path(&data);
     del_game(&data);
 }
 
@@ -137,17 +138,17 @@ int     main(int ac, char **av)
 		}
         if (!(line = (char**)malloc(sizeof(char*) * 11)))
             return (0);
-        line[0] = ft_strdup("    7483648 ");
-        line[1] = ft_strdup("##start");
-        line[2] = ft_strdup("3 7 8");
-        line[3] = ft_strdup("1 6 4");
-        line[4] = ft_strdup("2 9 0");
-        line[5] = ft_strdup("##end");
-        line[6] = ft_strdup("6 13 0");
-        line[7] = ft_strdup("3-2");
-        line[8] = ft_strdup("2-1");
-        line[9] = ft_strdup("3-1");
-        line[10] = NULL;
+//        line[0] = ft_strdup("    7483648 ");
+//        line[1] = ft_strdup("##start");
+//        line[2] = ft_strdup("3 7 8 ");
+//        line[3] = ft_strdup("1 6 4");
+//        line[4] = ft_strdup("2 9 0");
+//        line[5] = ft_strdup("##end");
+//        line[6] = ft_strdup("6 13 0");
+//        line[7] = ft_strdup("3-2");
+//        line[8] = ft_strdup("2-1");
+//        line[9] = ft_strdup("3-1");
+//        line[10] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");
 //    line[1] = ft_strdup("##start");
@@ -161,19 +162,19 @@ int     main(int ac, char **av)
 //    line[9] = ft_strdup("3-1");
 //    line[10] = NULL;
     // error #
-//    line[0] = ft_strdup("    7483648 ");
-//    line[1] = ft_strdup("##start");
-//    line[2] = ft_strdup("при@$ĵ   15   23   ");
-//    line[3] = ft_strdup("1 5 0");
-//    line[4] = ft_strdup("2 9 0");
-//    line[5] = ft_strdup("##end");
-//    line[6] = ft_strdup("9 5 3");
-//    line[7] = ft_strdup("3 13 0");
-//    line[8] = ft_strdup("1-2");
-//    line[9] = ft_strdup("2-3");
-//    line[10] = ft_strdup("3-1");
-//    line[11] = NULL;
+    line[0] = ft_strdup("    7483648 ");
+    line[1] = ft_strdup("##start");
+    line[2] = ft_strdup("при@$ĵ   15   23   ");
+    line[3] = ft_strdup("1 5 0");
+    line[4] = ft_strdup("2 9 0");
+    line[5] = ft_strdup("##end");
+    line[6] = ft_strdup("9 5 3");
+    line[7] = ft_strdup("3 13 0");
+    line[8] = ft_strdup("1-2");
+    line[9] = ft_strdup("2-3");
+    line[10] = ft_strdup("3-1");
+    line[11] = NULL;
     lem_in(line);
-    system("leaks a.out");
+//    system("leaks a.out");
 	return (0);
 }

@@ -65,12 +65,10 @@ typedef struct      s_game
 //    int             digit; //del
     int             link_n1;
     int             link_n2;
-
 }                  t_game;
 
 void        valid_ant(t_game *data);
 t_room        *valid_data(t_game *data);
-void        valid_link(t_game *data);
 void        valid_links(t_game *data);
 int        valid_list_room(t_game *data);
 
@@ -85,5 +83,7 @@ void        lstdel_link(t_link **link);
 void        del_game(t_game *data);
 
 void        room_relink(t_game *data, int n1, int n2);
+
+void        find_path(t_game * data);
 
 #endif

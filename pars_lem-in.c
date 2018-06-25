@@ -219,7 +219,10 @@ void          create_adj_list(t_game *data)
         while (i < data->nroom)
         {
             tmp[i] = *list;
-//            tmp[i].link = &(*list->link);
+            if (list->type == START)
+                data->start = i;
+            if (list->type == END)
+                data->end = i;
             list = list->next;
             i++;
         }
