@@ -65,7 +65,9 @@ void        find_path(t_game * data)
     t_link     *tmp;
     t_room     *tmp_room;
     int         i;
+    int         flag;
 
+    flag = 0;
     i = 0;
     queue = NULL;
     tmp_room = NULL;
@@ -82,18 +84,21 @@ void        find_path(t_game * data)
             next = create_queue(data);
             if (tmp)
                 next->num = tmp->num;
-            lstback_link_queue(&queue, next);
+            if ((data->visited[tmp->num]) == NO_VISITED)
+                lstback_link_queue(&queue, next);
+            else
+                lstdel_one_link(&next);
             tmp = tmp->next;
-        }
-        tmp_room = &data->room[queue->num];
-        if ((data->visited[queue->num]) == NO_VISITED)
-        {
-            data->visited[queue->num] = VISITED;
-            tmp = data->room[queue->num].link;
-        }
-        next = queue;
-        lstdel_link(next);
-        queue = queue->next;
-    }
 
+        }
+//        tmp_room = &data->room[queue->next->num];
+        data->visited[queue->num] = VISITED;
+        if (data->room[queue->num].type == END)
+            flag = 1;
+        next = queue;
+        queue = queue->next;
+        tmp = data->room[queue->num].link;
+        lstdel_one_link(&next);
+//        if (data->room[queue->num].type == END)
+    }
 }

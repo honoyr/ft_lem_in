@@ -103,6 +103,7 @@ void        lem_in(char **line)
         if (data.error)
         {
             error_manage(data.error);
+//            ft_printf("error: %s\n", g_errr[data.error]);
             del_game(&data);
             break ;
         }
@@ -147,7 +148,7 @@ int     main(int ac, char **av)
         line[6] = ft_strdup("3 13 0");
         line[7] = ft_strdup("0-2");
         line[8] = ft_strdup("3-1");
-        line[9] = ft_strdup("0-1");
+        line[9] = ft_strdup("0-0");
         line[10] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");

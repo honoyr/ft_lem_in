@@ -12,10 +12,18 @@
 
 #include "ft_lem.h"
 
+void        lstdel_one_link(t_link **link)
+{
+    if (*link)
+    {
+        free(*link);
+        *link = NULL;
+    }
+}
+
 void        lstdel_link(t_link **link)
 {
     t_link  *tmp;
-
 
     if (*link)
     {

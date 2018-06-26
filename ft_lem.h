@@ -23,6 +23,22 @@
 # define VISITED 49
 # define NO_VISITED 48
 
+//char                *g_errr[12] =
+//{
+//        "#1 invalid format numbers of ants",
+//        "#2 data is invalid",
+//        "#3 memory didn't allocated",
+//        "#4 pars invalid",
+//        "#5 list of rooms invalid",
+//        "#6 invalid name of room",
+//        "#7 invalid coordinates",
+//        "#8 double data in list of rooms",
+//        "#9 the link is linked to himself",
+//        "#10 the same links already exist",
+//        "#11 current rooms didn't exist in link",
+//        "#12 too many \"start\" or \"end\""
+//};
+
 typedef struct      s_info
 {
     void            *data;
@@ -82,6 +98,7 @@ void        set_data(t_game *data);
 
 void        lstdel_room(t_room **room);
 void        lstdel_link(t_link **link);
+void        lstdel_one_link(t_link **link);
 void        del_game(t_game *data);
 
 void        room_relink(t_game *data, int n1, int n2);
