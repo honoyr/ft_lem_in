@@ -12,6 +12,23 @@
 
 #include "ft_lem.h"
 
+char                *g_errr[12] =
+{
+        "#0 empty file",
+        "#1 invalid format numbers of ants",
+        "#2 data is invalid",
+        "#3 memory didn't allocated",
+        "#4 pars invalid",
+        "#5 list of rooms invalid",
+        "#6 invalid name of room",
+        "#7 invalid coordinates",
+        "#8 double data in list of rooms",
+        "#9 the link is linked to himself",
+        "#10 the same links already exist",
+        "#11 current rooms didn't exist in link",
+        "#12 too many \"start\" or \"end\""
+};
+
 void	lstprint(t_room **lst) // DELETE
 {
     t_room *tmp;
@@ -103,7 +120,7 @@ void        lem_in(char **line)
         if (data.error)
         {
             error_manage(data.error);
-//            ft_printf("error: %s\n", g_errr[data.error]);
+            ft_printf("error: %s\n", g_errr[data.error]);
             del_game(&data);
             break ;
         }
@@ -142,13 +159,13 @@ int     main(int ac, char **av)
         line[0] = ft_strdup("    7483648 ");
         line[1] = ft_strdup("##start");
         line[2] = ft_strdup("0 7 8 ");
-        line[3] = ft_strdup("1 6 4");
+        line[3] = ft_strdup("##end");
         line[4] = ft_strdup("2 9 0");
         line[5] = ft_strdup("##end");
         line[6] = ft_strdup("3 13 0");
         line[7] = ft_strdup("0-2");
         line[8] = ft_strdup("3-1");
-        line[9] = ft_strdup("0-0");
+        line[9] = ft_strdup("0-1");
         line[10] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");
