@@ -20,6 +20,8 @@
 # define LINK 3
 # define COMM 4
 # define ROOM 5
+# define VISITED 49
+# define NO_VISITED 48
 
 typedef struct      s_info
 {
