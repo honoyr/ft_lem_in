@@ -33,14 +33,14 @@ typedef struct      s_info
 
 typedef struct      s_ways
 {
-    char    *name;
-    t_link  *link;
+    int             name;
+    struct s_ways  *next;
 }                   t_ways;
 
 typedef struct      s_link
 {
-    struct s_link   *next;
     int             num;
+    struct s_link   *next;
 }                   t_link;
 
 typedef struct      s_room

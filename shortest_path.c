@@ -44,6 +44,24 @@ void	lstback_link_queue(t_link **lst, t_link *add)
     }
 }
 
+void	lstback_way(t_ways **lst, t_ways *add)
+{
+    t_ways *tmp;
+
+    tmp = NULL;
+    if (*lst == NULL)
+        *lst = add;
+    else if(lst && add)
+    {
+        tmp = *lst;
+        while (tmp->next != NULL)
+        {
+            tmp = tmp->next;
+        }
+        tmp->next = add;
+    }
+}
+
 t_link      *create_queue(t_game *data)
 {
     t_link  *new;
@@ -55,6 +73,20 @@ t_link      *create_queue(t_game *data)
     }
     new->next = NULL;
     new->num = -1;
+    return (new);
+}
+
+t_ways      *create_ways(t_game *data)
+{
+    t_ways  *new;
+
+    if (!(new = (t_link*)malloc(sizeof(t_link) * 1)))
+    {
+        data->error = 3;
+        return (NULL);
+    }
+    new->next = NULL;
+    new->name = -1;
     return (new);
 }
 
@@ -104,9 +136,13 @@ void        find_path(t_game * data)
     t_link     *queue;
     t_link     *next;
     t_link     *tmp;
+    t_ways     *ways;
+    t_ways     *ways_tmp;
     int         flag;
 
     flag = 0;
+    ways_tmp = NULL;
+    ways = NULL;
     data->visited = ft_strnew(data->nroom);
     ft_memset(data->visited, NO_VISITED, data->nroom);
     tmp = data->room[data->start].link;
@@ -131,6 +167,11 @@ void        find_path(t_game * data)
         if (data->room[queue->num].type == END)
             flag = 1;
         next = queue;
+        lstback_way(&ways_tmp, create_ways(data));
+        if (!ways)
+            ways = ways_tmp;
+        ways_tmp->name = queue->num;
+        ways_tmp = ways_tmp->next;
         queue = queue->next;
         tmp = data->room[queue->num].link;
         lstdel_one_link(&next);
