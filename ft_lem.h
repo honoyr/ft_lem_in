@@ -31,6 +31,12 @@ typedef struct      s_info
     struct s_info   *next;
 }                   t_info;
 
+typedef struct      s_ways
+{
+    char    *name;
+    t_link  *link;
+}                   t_ways;
+
 typedef struct      s_link
 {
     struct s_link   *next;
@@ -46,12 +52,6 @@ typedef struct      s_room
     t_link          *link;
     struct s_room  *next;
 }                   t_room;
-
-//typedef struct      s_rarr
-//{
-//    char    *name;
-//    t_link  *link;
-//}                   t_rarr;
 
 typedef struct      s_game
 {

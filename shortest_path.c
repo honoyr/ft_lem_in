@@ -58,19 +58,55 @@ t_link      *create_queue(t_game *data)
     return (new);
 }
 
+//void        find_path(t_game * data)
+//{
+//    t_link     *queue;
+//    t_link     *next;
+//    t_link     *tmp;
+//    int         flag;
+//
+//    flag = 0;
+//    queue = NULL;
+//    data->visited = ft_strnew(data->nroom);
+//    ft_memset(data->visited, NO_VISITED, data->nroom);
+//    tmp = data->room[data->start].link;
+//    queue = create_queue(data);
+//    queue->num = data->start;
+//    while (queue)
+//    {
+//        while (tmp)
+//        {
+//            if ((data->visited[tmp->num]) == NO_VISITED)
+//            {
+//                queue->next = create_queue(data);
+//                if (tmp)
+//                    queue->next->num = tmp->num;
+//                lstback_link_queue(&queue, next);
+//            }
+//            else {
+//                lstdel_one_link(&next);
+//            }
+//            tmp = tmp->next;
+//        }
+//        data->visited[queue->num] = VISITED;
+//        if (data->room[queue->num].type == END) {
+//            flag = 1;
+//        }
+//        next = queue;
+//        queue = queue->next;
+//        tmp = data->room[queue->num].link;
+//        lstdel_one_link(&next);
+//    }
+//}
+
 void        find_path(t_game * data)
 {
     t_link     *queue;
     t_link     *next;
     t_link     *tmp;
-    t_room     *tmp_room;
-    int         i;
     int         flag;
 
     flag = 0;
-    i = 0;
-    queue = NULL;
-    tmp_room = NULL;
     data->visited = ft_strnew(data->nroom);
     ft_memset(data->visited, NO_VISITED, data->nroom);
     tmp = data->room[data->start].link;
@@ -91,7 +127,6 @@ void        find_path(t_game * data)
             tmp = tmp->next;
 
         }
-//        tmp_room = &data->room[queue->next->num];
         data->visited[queue->num] = VISITED;
         if (data->room[queue->num].type == END)
             flag = 1;
@@ -99,6 +134,5 @@ void        find_path(t_game * data)
         queue = queue->next;
         tmp = data->room[queue->num].link;
         lstdel_one_link(&next);
-//        if (data->room[queue->num].type == END)
     }
 }

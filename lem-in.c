@@ -158,8 +158,8 @@ int     main(int ac, char **av)
             return (0);
         line[0] = ft_strdup("    7483648 ");
         line[1] = ft_strdup("##start");
-        line[2] = ft_strdup("0 7 8 ");
-        line[3] = ft_strdup("##end");
+        line[2] = ft_strdup("0 7 8");
+        line[3] = ft_strdup("1 5 6");
         line[4] = ft_strdup("2 9 0");
         line[5] = ft_strdup("##end");
         line[6] = ft_strdup("3 13 0");
