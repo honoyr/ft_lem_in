@@ -23,7 +23,7 @@
 # define VISITED 49
 # define NO_VISITED 48
 
-extern char                *g_errr[12];
+extern char                *g_error[12];
 
 typedef struct      s_info
 {
@@ -82,6 +82,8 @@ void          create_adj_list(t_game *data);
 int        set_room(t_room *room);
 void        set_data(t_game *data);
 
+void        lstdel_way(t_ways **way);
+void        lstdel_ways(t_ways **ways);
 void        lstdel_room(t_room **room);
 void        lstdel_link(t_link **link);
 void        lstdel_one_link(t_link **link);

@@ -12,6 +12,31 @@
 
 #include "ft_lem.h"
 
+void        lstdel_way(t_ways **way)
+{
+    if (*way)
+    {
+        free(*way);
+        *way = NULL;
+    }
+}
+
+void        lstdel_ways(t_ways **ways)
+{
+    t_ways *tmp;
+
+
+    if (*ways)
+    {
+        while (*ways)
+        {
+            tmp = *ways;
+            free(tmp);
+            *ways = (*ways)->next;
+        }
+    }
+}
+
 void        lstdel_one_link(t_link **link)
 {
     if (*link)

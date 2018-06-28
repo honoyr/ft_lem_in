@@ -167,13 +167,14 @@ void        find_path(t_game * data)
         if (data->room[queue->num].type == END)
             flag = 1;
         next = queue;
-        lstback_way(&ways_tmp, create_ways(data));
-        if (!ways)
-            ways = ways_tmp;
+        ways_tmp = create_ways(data);
+        lstback_way(&ways, ways_tmp);
         ways_tmp->name = queue->num;
-        ways_tmp = ways_tmp->next;
         queue = queue->next;
-        tmp = data->room[queue->num].link;
+        if (queue)
+            tmp = data->room[queue->num].link;
         lstdel_one_link(&next);
     }
+    lstdel_ways(&ways);
+    lstdel_link(&queue);
 }
