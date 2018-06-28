@@ -22,7 +22,7 @@
 # define ROOM 5
 # define VISITED 49
 # define NO_VISITED 48
-# define IN_QUEUE 6
+# define IN_QUEUE 81
 # define FINISHED 7
 # define NO_FINISHED 8
 

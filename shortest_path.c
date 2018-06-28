@@ -62,7 +62,7 @@ void	lstback_way(t_ways **lst, t_ways *add)
     }
 }
 
-t_link      *create_queue(t_game *data)
+t_link      *create_queue(t_game *data, int queue)
 {
     t_link  *new;
 
@@ -72,11 +72,11 @@ t_link      *create_queue(t_game *data)
         return (NULL);
     }
     new->next = NULL;
-    new->num = -1;
+    new->num = queue;
     return (new);
 }
 
-t_ways      *create_ways(t_game *data)
+t_ways      *create_ways(t_game *data, int way)
 {
     t_ways  *new;
 
@@ -86,7 +86,7 @@ t_ways      *create_ways(t_game *data)
         return (NULL);
     }
     new->next = NULL;
-    new->num = -1;
+    new->num = way;
     return (new);
 }
 
@@ -151,73 +151,57 @@ t_ways      *create_ways(t_game *data)
 //
 //}
 
-void        add_ways(t_link *queue, t_game *data)
-{
-//    in_queue(&queue, data->visited);
-    t_link  *tmp;
-    int     way;
-
-    if (queue)
-    {
-        tmp = queue;
-        while (tmp)
-        {
-            if (data->visited[tmp->num] == NO_VISITED)
-            {
-                lstback_way(&(data->room[tmp->num].ways), create_ways(data, ));
-                data->visited[tmp->num] = IN_QUEUE;
-            }
+//void        add_ways(t_link *queue, t_game *data)
+//{
+////    in_queue(&queue, data->visited);
+//    t_link  *tmp;
+//    int     way;
+//
+//    if (queue)
+//    {
+//        tmp = queue;
+//        while (tmp)
+//        {
+//            if (data->visited[tmp->num] == NO_VISITED)
+//            {
+//                lstback_way(&(data->room[tmp->num].ways), create_ways(data, way));
+//                data->visited[tmp->num] = IN_QUEUE;
+//            }
 //            way = tmp->num;
-            tmp = tmp->next;
-        }
-    }
-}
+//            tmp = tmp->next;
+//        }
+//    }
+//}
 
 void        find_path(t_game * data)
 {
     t_link     *queue;
     t_link     *next;
     t_link     *tmp;
-    t_ways     *ways;
-    t_ways     *ways_tmp;
-    int         flag;
 
-    flag = 0;
-    ways_tmp = NULL;
-    ways = NULL;
     data->visited = ft_strnew(data->nroom);
     ft_memset(data->visited, NO_VISITED, data->nroom);
     tmp = data->room[data->start].link;
-    next = create_queue(data);
-    next->num = data->start;
-    queue = next;
+    queue = create_queue(data, data->start);
     while (queue)
     {
         while (tmp)
         {
-            next = create_queue(data);
-            if (tmp)
-                next->num = tmp->num;
             if ((data->visited[tmp->num]) == NO_VISITED)
-                lstback_link_queue(&queue, next);
-            else
-                lstdel_one_link(&next);
+            {
+                lstback_link_queue(&queue, create_queue(data, tmp->num));
+                lstback_way(&(data->room[queue->next->num].ways), create_ways(data, tmp->num));
+            }
             tmp = tmp->next;
-
+            data->visited[tmp->num] = IN_QUEUE;
         }
         data->visited[queue->num] = VISITED;
-        if (data->room[queue->num].type == END)
-            flag = 1;
         next = queue;
-//        ways_tmp = create_ways(data);
-//        lstback_way(&ways, ways_tmp);
-//        ways_tmp->name = queue->num;
-        add_ways(queue, data);
+//        add_ways(queue, data);
         queue = queue->next;
         if (queue)
             tmp = data->room[queue->num].link;
         lstdel_one_link(&next);
     }
-    lstdel_ways(&ways);
     lstdel_link(&queue);
 }
