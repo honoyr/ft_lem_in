@@ -127,14 +127,23 @@ void        lem_in(char **line)
     }
     ft_printf("LINKS\n");
     t_link *tmp;
+    t_ways *ptr;
     int j;
     j = 0;
     while (j < data.nroom){
         tmp = data.room[j].link;
+        ptr = data.room[j].ways;
         ft_printf("room = %s\n", data.room[j].name);
-        while (tmp){
-            ft_printf("%s ", data.room[tmp->num].name);
+        while (tmp)
+        {
+            ft_printf("LINK %s \n", data.room[tmp->num].name);
             tmp = tmp->next;
+        }
+        ft_printf("\n");
+        while (ptr)
+        {
+            ft_printf("WAYS %i \n", ptr->num);
+            ptr = ptr->next;
         }
         ft_printf("\n");
         j++;
@@ -196,6 +205,6 @@ int     main(int ac, char **av)
 //    line[10] = ft_strdup("3-1");
 //    line[11] = NULL;
     lem_in(line);
-    system("leaks a.out");
+//    system("leaks a.out");
 	return (0);
 }

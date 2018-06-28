@@ -22,6 +22,7 @@ int        set_room(t_room *room)
         room->x = -1;
         room->next = NULL;
         room->link = NULL;
+        room->ways = NULL;
         return (1);
     }
     else

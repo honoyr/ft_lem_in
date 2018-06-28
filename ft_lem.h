@@ -22,6 +22,9 @@
 # define ROOM 5
 # define VISITED 49
 # define NO_VISITED 48
+# define IN_QUEUE 6
+# define FINISHED 7
+# define NO_FINISHED 8
 
 extern char                *g_error[12];
 
@@ -33,7 +36,7 @@ typedef struct      s_info
 
 typedef struct      s_ways
 {
-    int             name;
+    int             num;
     struct s_ways  *next;
 }                   t_ways;
 
@@ -50,6 +53,7 @@ typedef struct      s_room
     int             y;
     int             type;
     t_link          *link;
+    t_ways          *ways;
     struct s_room  *next;
 }                   t_room;
 
