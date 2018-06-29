@@ -132,7 +132,7 @@ void        lem_in(char **line)
     j = 0;
     while (j < data.nroom){
         tmp = data.room[j].link;
-//        ptr = data.room[j].ways;
+        ptr = data.room[j].ways;
         ft_printf("room = %s\n", data.room[j].name);
         while (tmp)
         {
@@ -141,11 +141,11 @@ void        lem_in(char **line)
             tmp = tmp->next;
         }
         ft_printf("\n");
-//        while (ptr)
-//        {
-//            ft_printf("WAYS %i \n", ptr->num);
-//            ptr = ptr->next;
-//        }
+        while (ptr)
+        {
+            ft_printf("WAYS %i \n", ptr->num);
+            ptr = ptr->next;
+        }
         ft_printf("\n");
         j++;
     }
