@@ -176,11 +176,7 @@ t_ways      *create_ways(t_game *data, int way)
 void        find_path(t_game * data)
 {
     t_link     *queue;
-    t_link     *next;
     t_link     *tmp;
-    t_link     *way;
-    t_room     *room;
-    int         previous_room;
 
     data->visited = ft_strnew(data->nroom);
     ft_memset(data->visited, NO_VISITED, data->nroom);
@@ -201,15 +197,8 @@ void        find_path(t_game * data)
             tmp = tmp->next;
         }
         data->visited[queue->num] = VISITED;
-        next = queue;
-//        if (!(data->visited[queue->num] == IN_QUEUE))
-//        {
-//            previous_room = queue->num;
-//        }
+        tmp = queue;
         queue = queue->next;
-        way = data->room[queue->num].ways;
-        room = &(data->room[queue->num]);
-        lstdel_one_link(&next);
+        lstdel_one_link(&tmp);
     }
-    lstdel_link(&queue);
 }
