@@ -53,7 +53,9 @@ typedef struct      s_room
     int             y;
     int             type;
     t_link          *link;
+    t_link          *pr_link;
     t_ways          *ways;
+    t_ways          *pr_ways;
     struct s_room  *next;
 }                   t_room;
 

@@ -26,7 +26,8 @@ char                *g_error[12] =
         "#9 the link is linked to himself",
         "#10 the same links already exist",
         "#11 current rooms didn't exist in link",
-        "#12 too many \"start\" or \"end\""
+        "#12 too many \"start\" or \"end\" "
+        "#13 the end is unreachable"
 };
 
 void	lstprint(t_room **lst) // DELETE
@@ -116,7 +117,7 @@ void        lem_in(char **line)
     {
         pars_condition(&data, line[i]);
 //        ft_printf("good bay");
-//        ft_strdel(&line[i]);
+        ft_strdel(&line[i]);
         if (data.error)
         {
 //            error_manage(data.error);
@@ -125,6 +126,9 @@ void        lem_in(char **line)
             break ;
         }
     }
+    data.visited = ft_strnew(data.nroom);
+    ft_memset(data.visited, NO_VISITED, data.nroom);
+    find_path(&data);
     ft_printf("LINKS\n");
     t_link *tmp;
     t_ways *ptr;
@@ -137,7 +141,6 @@ void        lem_in(char **line)
         while (tmp)
         {
             ft_printf("LINK %s ", data.room[tmp->num].name);
-//            ft_printf("WAYS %i \n", data.room[tmp->num].ways->num);
             tmp = tmp->next;
         }
         ft_printf("\n");
@@ -149,9 +152,6 @@ void        lem_in(char **line)
         ft_printf("\n");
         j++;
     }
-//    lstprint(&data.list);
-//    lstprint(&data.room);
-    find_path(&data);
     del_game(&data);
 }
 
@@ -206,6 +206,7 @@ int     main(int ac, char **av)
 //    line[10] = ft_strdup("3-1");
 //    line[11] = NULL;
     lem_in(line);
+//    while (1) sleep(120);
 //    system("leaks a.out");
 	return (0);
 }

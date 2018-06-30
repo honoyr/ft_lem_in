@@ -93,11 +93,9 @@ void        lstdel_room(t_room **room)
 void        del_game(t_game *data)
 {
     t_room  *tmp;
-    t_link  *tmp_link;
     int     i;
 
     tmp = NULL;
-    tmp_link = NULL;
     i = 0;
     if (data->visited)
         ft_strdel(&data->visited);
@@ -109,13 +107,12 @@ void        del_game(t_game *data)
     }
     while (i < data->nroom)
     {
-        tmp_link = data->room[i].link;
-        lstdel_link(&tmp_link);
+        lstdel_link(&data->room[i].link);
+        lstdel_ways(&data->room[i].ways);
         i++;
     }
     if (data->room)
     {
-//        ft_printf("I'm here 4\n");
         free((void*)data->room);
         data->room = NULL;
     }
