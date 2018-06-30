@@ -190,11 +190,13 @@ void        find_path(t_game * data)
         tmp = data->room[queue->num].link;
         while (tmp)
         {
-            if ((data->visited[tmp->num]) == NO_VISITED)
+            if (data->visited[tmp->num] == IN_QUEUE)
+                lstback_way(&(data->room[tmp->num].ways), create_ways(data, queue->num));
+            else if ((data->visited[tmp->num]) == NO_VISITED)
             {
+                lstback_way(&(data->room[tmp->num].ways), create_ways(data, queue->num));
                 lstback_link_queue(&queue, create_queue(data, tmp->num));
                 data->visited[tmp->num] = IN_QUEUE;
-                lstback_way(&(data->room[tmp->num].ways), create_ways(data, queue->num));
             }
             tmp = tmp->next;
         }
