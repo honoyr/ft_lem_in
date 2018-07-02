@@ -178,7 +178,7 @@ int     main(int ac, char **av)
         line[9] = ft_strdup("3-1");
         line[10] = ft_strdup("0-1");
         line[11] = ft_strdup("1-4");
-        line[12] = ft_strdup("3-4");
+        line[12] = ft_strdup("2-3");
         line[13] = NULL;
 //    line[0] = ft_strdup("    7483648 ");
 //    line[1] = ft_strdup("##start");

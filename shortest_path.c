@@ -74,26 +74,95 @@ t_ways      *create_ways(t_game *data, int way)
     return (new);
 }
 
-void        valid_paths(t_game *data)
+int         count_ways(t_ways *way)
 {
-    t_ways  *way;
-    t_ways  *new;
+    t_ways *tmp;
     int     i;
 
     i = 0;
-    if (data->room[data->end].ways)
+    tmp = NULL;
+    tmp = way;
+    while (tmp)
     {
-        way = create_ways(data, data->end);
-        while (data->room[way->num].ways)
+        i++;
+        tmp = tmp->next;
+    }
+    return (i);
+}
+
+void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
+{
+    t_ways  *tmp;
+    t_ways  *new;
+    t_ways  *way;
+
+    way = create_ways(data, data->end);
+    while (i < n_ways)
+    {
+        tmp = data->room[data->end].ways;
+        while (tmp)
         {
-            new = data->room[way->num].ways;
+            while (data->visited[tmp->num] == VISITED)
+                tmp = tmp->next;
+            data->visited[tmp->num] = VISITED;
+            new = create_ways(data, tmp->num);
             new->next = way;
             way = new;
+            tmp = data->room[way->num].ways;
         }
+        ways[i] = *way;
+        i++;
+    }
+}
+
+void        valid_paths(t_game *data, int n_ways)
+{
+    t_ways  *ways;
+
+    if (data->room[data->end].ways)
+    {
+        n_ways = count_ways(data->room[data->end].ways);
+        ways = (t_ways*)malloc(sizeof(t_ways) * n_ways);
+        ft_memset(data->visited, NO_VISITED, data->nroom);
+        multiple_path(data, ways, 0, n_ways);
     }
     else
         data->error = 13;
 }
+
+//void        valid_paths(t_game *data, int i, int n)
+//{
+//    t_ways  *way;
+//    t_ways  *tmp;
+//    t_ways  *new;
+//    t_ways  *ways;
+//
+//    if (data->room[data->end].ways)
+//    {
+//        n = count_ways(data->room[data->end].ways);
+//        ways = (t_ways*)malloc(sizeof(t_ways) * n);
+//        new = (t_ways*)malloc(sizeof(t_ways) * 1);
+//        new->next = NULL;
+//        way = data->room[data->end].ways;
+//        tmp = create_ways(data, data->end);
+//        while (i < n) {
+//
+//            while (data->room[tmp->num].ways)
+//            {
+//                new->num = data->room[tmp->num].ways->num;
+//                new->next = tmp;
+//                tmp = new;
+//            }
+//            ways[i] = *tmp;
+//            way = way->next;
+//            lstdel_way(&tmp);
+//            tmp = create_ways(data, way->num);
+//            i++;
+//        }
+//    }
+//    else
+//        data->error = 13;
+//}
 
 void        find_path(t_game * data)
 {
@@ -121,5 +190,5 @@ void        find_path(t_game * data)
         queue = queue->next;
         lstdel_one_link(&tmp);
     }
-    valid_paths(data);
+    valid_paths(data, 0);
 }
