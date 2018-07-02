@@ -180,6 +180,20 @@ int     main(int ac, char **av)
         line[11] = ft_strdup("1-4");
         line[12] = ft_strdup("3-4");
         line[13] = NULL;
+//    line[0] = ft_strdup("    7483648 ");
+//    line[1] = ft_strdup("##start");
+//    line[2] = ft_strdup("0 7 8");
+//    line[3] = ft_strdup("1 5 6");
+//    line[4] = ft_strdup("##start");
+//    line[5] = ft_strdup("##end");
+//    line[6] = ft_strdup("3 13 0");
+//    line[7] = ft_strdup("4 12 2");
+//    line[8] = ft_strdup("0-3");
+//    line[9] = ft_strdup("3-1");
+//    line[10] = ft_strdup("0-1");
+//    line[11] = ft_strdup("1-4");
+//    line[12] = ft_strdup("3-4");
+//    line[13] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");
 //    line[1] = ft_strdup("##start");
