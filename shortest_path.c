@@ -96,10 +96,10 @@ void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
     t_ways  *new;
     t_ways  *way;
 
-    way = create_ways(data, data->end);
     while (i < n_ways)
     {
         tmp = data->room[data->end].ways;
+        way = create_ways(data, data->end);
         while (tmp)
         {
             while (data->visited[tmp->num] == VISITED)
