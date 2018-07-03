@@ -34,9 +34,16 @@ typedef struct      s_info
     struct s_info   *next;
 }                   t_info;
 
-typedef struct      s_ways
+typedef struct      s_way
 {
     int             num;
+    struct s_ways  *next;
+}                   t_way;
+
+typedef struct      s_ways
+{
+    int             length;
+    t_way           path;
     struct s_ways  *next;
 }                   t_ways;
 

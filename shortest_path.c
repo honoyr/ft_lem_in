@@ -92,30 +92,49 @@ int         count_ways(t_ways *way)
 
 void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
 {
-    t_ways  *tmp;
-    t_ways  *new;
-    t_ways  *way;
+    t_way  *tmp;
+    t_way  *new;
+    t_way  *way;
+    int     v;
 
+    v = 0;
+    ways = NULL;
     while (++i < n_ways)
     {
         tmp = data->room[data->end].ways;
         way = create_ways(data, data->end);
         while (tmp)
         {
-            while (tmp->next && data->way_v[tmp->num] == VISITED)
+            while (tmp->next && data->way_v[v] == VISITED)
                 tmp = tmp->next;
-            data->way_v[tmp->num] = VISITED;
+            data->way_v[v] = VISITED;
             new = create_ways(data, tmp->num);
             new->next = way;
-            if (data->visited[way->num] == NO_VISITED)
+            if (data->visited[tmp->num] == NO_VISITED)
+            {
                 way = new;
-            tmp = data->room[way->num].ways;
-            data->visited[way->num] = VISITED;
+                tmp = data->room[way->num].ways;
+                data->visited[way->num] = VISITED;
+            }
+            else
+                tmp = NULL;
         }
         if (way->num == data->start)
-            ways[i] = *way;
+            ways[i] = way;
+        v++;
     }
-
+    i = -1;
+    tmp = NULL;
+    while (++i < n_ways)
+    {
+        tmp = &ways[i];
+        ft_printf("WAY%i = ", i);
+        while(tmp)
+        {
+            ft_printf("%i -> ", tmp->num);
+            tmp = tmp->next;
+        }
+    }
 }
 
 void        valid_paths(t_game *data, int n_ways)
