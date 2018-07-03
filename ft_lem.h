@@ -67,6 +67,7 @@ typedef struct      s_game
     int             end;
     int             nroom;
     char            *visited;
+    char            *way_v;
     char            *line;
     t_room          *list;
     t_room          *room;

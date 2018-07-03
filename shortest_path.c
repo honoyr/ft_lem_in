@@ -96,23 +96,26 @@ void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
     t_ways  *new;
     t_ways  *way;
 
-    while (i < n_ways)
+    while (++i < n_ways)
     {
         tmp = data->room[data->end].ways;
         way = create_ways(data, data->end);
         while (tmp)
         {
-            while (data->visited[tmp->num] == VISITED)
+            while (tmp->next && data->way_v[tmp->num] == VISITED)
                 tmp = tmp->next;
-            data->visited[tmp->num] = VISITED;
+            data->way_v[tmp->num] = VISITED;
             new = create_ways(data, tmp->num);
             new->next = way;
-            way = new;
+            if (data->visited[way->num] == NO_VISITED)
+                way = new;
             tmp = data->room[way->num].ways;
+            data->visited[way->num] = VISITED;
         }
-        ways[i] = *way;
-        i++;
+        if (way->num == data->start)
+            ways[i] = *way;
     }
+
 }
 
 void        valid_paths(t_game *data, int n_ways)
@@ -124,7 +127,9 @@ void        valid_paths(t_game *data, int n_ways)
         n_ways = count_ways(data->room[data->end].ways);
         ways = (t_ways*)malloc(sizeof(t_ways) * n_ways);
         ft_memset(data->visited, NO_VISITED, data->nroom);
-        multiple_path(data, ways, 0, n_ways);
+        data->way_v = ft_strnew(n_ways);
+        ft_memset(data->way_v, NO_VISITED, n_ways);
+        multiple_path(data, ways, -1, n_ways);
     }
     else
         data->error = 13;
