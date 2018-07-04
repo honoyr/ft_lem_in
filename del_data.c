@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-void        lstdel_way(t_ways **way)
+void        lstdel_way(t_way **way)
 {
     if (*way)
     {
@@ -21,17 +21,34 @@ void        lstdel_way(t_ways **way)
     }
 }
 
+void        lstdel_list_way(t_way **list_way)
+{
+    t_way *tmp;
+
+
+    if (*list_way)
+    {
+        while (*list_way)
+        {
+            tmp = *list_way;
+            free(tmp);
+            *list_way = (*list_way)->next;
+        }
+    }
+}
+
 void        lstdel_ways(t_ways **ways)
 {
-    t_ways *tmp;
-
+    t_ways  *tmp_ways;
+    t_way   *tmp_list_way;
 
     if (*ways)
     {
         while (*ways)
         {
-            tmp = *ways;
-            free(tmp);
+            lstdel_list_way(&(*ways)->list_way);
+            tmp_ways = *ways;
+            free(tmp_ways);
             *ways = (*ways)->next;
         }
     }
@@ -99,6 +116,8 @@ void        del_game(t_game *data)
     i = 0;
     if (data->visited)
         ft_strdel(&data->visited);
+    if (data->way_v)
+        ft_strdel(&data->way_v);
     while (data->list)
     {
         tmp = data->list;

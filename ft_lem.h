@@ -37,14 +37,14 @@ typedef struct      s_info
 typedef struct      s_way
 {
     int             num;
-    struct s_ways  *next;
+    struct s_way   *next;
 }                   t_way;
 
 typedef struct      s_ways
 {
     int             length;
-    t_way           path;
-    struct s_ways  *next;
+    t_way           *list_way;
+    struct s_ways   *next;
 }                   t_ways;
 
 typedef struct      s_link
@@ -61,8 +61,8 @@ typedef struct      s_room
     int             type;
     t_link          *link;
     t_link          *pr_link;
-    t_ways          *ways;
-    t_ways          *pr_ways;
+    t_way          *ways;
+    t_way          *pr_ways;
     struct s_room  *next;
 }                   t_room;
 
@@ -96,7 +96,8 @@ void          create_adj_list(t_game *data);
 int        set_room(t_room *room);
 void        set_data(t_game *data);
 
-void        lstdel_way(t_ways **way);
+void        lstdel_way(t_way **way);
+void        lstdel_list_way(t_way **ways);
 void        lstdel_ways(t_ways **ways);
 void        lstdel_room(t_room **room);
 void        lstdel_link(t_link **link);
