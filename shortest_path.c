@@ -161,25 +161,28 @@ void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
         if (list_way->num == data->start)
             lstback_ways(&ways, create_ways(data, list_way, length));
         else
+        {
             lstdel_list_way(&list_way);
+            ft_memset(data->visited, NO_VISITED, data->nroom);
+        }
         length = 0;
     }
-//    i = -1;
-//    tmp = NULL;
-//    while (ways && ++i < n_ways)
-//    {
-//        tmp = ways->list_way;
-//        ft_printf("WAY%i = ", i);
-//        while(tmp)
-//        {
-//            ft_printf("%i -> ", tmp->num);
-//            tmp = tmp->next;
-//        }
-//        ways = ways->next;
-//    }
-//    ft_printf("\n");
-    move_object(data, ways);
-    lstdel_ways(&ways);
+    i = -1;
+    tmp = NULL;
+    while (ways && ++i < n_ways)
+    {
+        tmp = ways->list_way;
+        ft_printf("WAY%i = ", i);
+        while(tmp)
+        {
+            ft_printf("%i -> ", tmp->num);
+            tmp = tmp->next;
+        }
+        ways = ways->next;
+    }
+    ft_printf("\n");
+//    move_object(data, ways);
+//    lstdel_ways(&ways);
 }
 
 void        valid_paths(t_game *data, int n_ways)
@@ -205,6 +208,8 @@ void        find_path(t_game * data)
     t_link     *tmp;
 
     queue = create_queue(data, data->start);
+    t_room *room;
+    room = &data->room[2];
     while (queue)
     {
         tmp = data->room[queue->num].link;
@@ -225,5 +230,9 @@ void        find_path(t_game * data)
         queue = queue->next;
         lstdel_one_link(&tmp);
     }
+//    t_way *way;
+//    t_room *room;
+//    room = &data->room[data->end];
+//    way = data->room[data->end].ways;
     valid_paths(data, 0);
 }
