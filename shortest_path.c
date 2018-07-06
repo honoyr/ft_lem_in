@@ -123,6 +123,22 @@ int         count_ways(t_way *way)
     return (i);
 }
 
+int         count_path(t_ways *way)
+{
+    t_ways *tmp;
+    int     i;
+
+    i = 0;
+    tmp = NULL;
+    tmp = way;
+    while (tmp)
+    {
+        i++;
+        tmp = tmp->next;
+    }
+    return (i);
+}
+
 void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
 {
     t_way  *tmp;
@@ -167,21 +183,21 @@ void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
         }
         length = 0;
     }
-    i = -1;
-    tmp = NULL;
-    while (ways && ++i < n_ways)
-    {
-        tmp = ways->list_way;
-        ft_printf("WAY%i = ", i);
-        while(tmp)
-        {
-            ft_printf("%i -> ", tmp->num);
-            tmp = tmp->next;
-        }
-        ways = ways->next;
-    }
-    ft_printf("\n");
-    move_object(data, ways);
+//    i = -1;
+//    tmp = NULL;
+//    while (ways && ++i < n_ways)
+//    {
+//        tmp = ways->list_way;
+//        ft_printf("WAY%i = ", i);
+//        while(tmp)
+//        {
+//            ft_printf("%i -> ", tmp->num);
+//            tmp = tmp->next;
+//        }
+//        ways = ways->next;
+//    }
+//    ft_printf("\n");
+    move_objects(data, ways);
 //    lstdel_ways(&ways);
 }
 

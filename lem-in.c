@@ -117,6 +117,9 @@ void        lem_in(char **line)
     {
         pars_condition(&data, line[i]);
 //        ft_printf("good bay");
+        if (data.type != COMM)
+//        if (data.type != COMM && data.type != START && data.type != END)
+            ft_lstback(&data.info, ft_lstnew((void*)line[i], ft_strlen(line[i])));
         ft_strdel(&line[i]);
         if (data.error)
         {
@@ -209,7 +212,7 @@ int     main(int ac, char **av)
 //    line[12] = ft_strdup("3-4");
 //    line[13] = NULL;
 
-    line[0] = ft_strdup("    7483648 ");
+    line[0] = ft_strdup("    7483433");
     line[1] = ft_strdup("##start");
     line[2] = ft_strdup("0 7 8");
     line[3] = ft_strdup("1 5 6");
@@ -227,6 +230,7 @@ int     main(int ac, char **av)
     line[15] = ft_strdup("3-6");
     line[16] = ft_strdup("4-3");
     line[17] = ft_strdup("5-3");
+    line[17] = ft_strdup("#coment 345 43");
     line[18] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");

@@ -177,7 +177,7 @@ void        valid_ant(t_game *data)
 
     ptr = ft_strtrim(data->line);
     if (!check_int(ptr))
-        data->ant = ft_atoi(ptr);
+        data->ants = ft_atoi(ptr);
     else
         data->error = 1;
     ft_strdel(&ptr);

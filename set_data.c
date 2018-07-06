@@ -33,12 +33,13 @@ int        set_room(t_room *room)
 
 void set_data(t_game *data)
 {
-    data->ant = 0;
+    data->ants = 0;
     data->type = ANT;
     data->start = -1;
     data->end = -1;
     data->nroom = 0;
     data->visited = NULL;
+    data->finish = NULL;
     data->way_v = NULL;
     data->line = NULL;
     data->list = NULL;

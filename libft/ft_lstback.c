@@ -17,7 +17,7 @@ void	ft_lstback(t_list **lst, t_list *add)
 	t_list *tmp;
 
 	tmp = NULL;
-	if (lst && add)
+	if (*lst && add)
 	{
 		tmp = *lst;
 		while (tmp->next != NULL)
@@ -26,6 +26,8 @@ void	ft_lstback(t_list **lst, t_list *add)
 		}
 		tmp->next = add;
 	}
+	else
+		*lst = add;
 }
 /*
 **The funcction takes as argumen two list and add at

@@ -28,12 +28,6 @@
 
 extern char                *g_error[12];
 
-typedef struct      s_info
-{
-    void            *data;
-    struct s_info   *next;
-}                   t_info;
-
 typedef struct      s_way
 {
     int             num;
@@ -68,17 +62,18 @@ typedef struct      s_room
 
 typedef struct      s_game
 {
-    unsigned int    ant;
+    unsigned int    ants;
     int             type;
     int             start;
     int             end;
     int             nroom;
     char            *visited;
+    char            *finish;
     char            *way_v;
     char            *line;
     t_room          *list;
     t_room          *room;
-    t_info          *info;
+    t_list          *info;
     int             error;
 //    int             digit; //del
     int             link_n1;
@@ -96,6 +91,9 @@ void          create_adj_list(t_game *data);
 int        set_room(t_room *room);
 void        set_data(t_game *data);
 
+int         count_ways(t_way *way);
+int         count_path(t_ways *way);
+
 void        lstdel_way(t_way **way);
 void        lstdel_list_way(t_way **ways);
 void        lstdel_ways(t_ways **ways);
@@ -107,5 +105,6 @@ void        del_game(t_game *data);
 void        room_relink(t_game *data, int n1, int n2);
 
 void        find_path(t_game * data);
+void        move_objects(t_game *data, t_ways *ways);
 
 #endif
