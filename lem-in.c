@@ -215,18 +215,18 @@ int     main(int ac, char **av)
     line[3] = ft_strdup("1 5 6");
     line[4] = ft_strdup("2 5 3");
     line[5] = ft_strdup("##end");
-    line[6] = ft_strdup("6 13 0");
-    line[7] = ft_strdup("3 12 2");
-    line[8] = ft_strdup("4 14 2");
-    line[9] = ft_strdup("5 15 2");
+    line[6] = ft_strdup("3 13 0");
+    line[7] = ft_strdup("4 12 2");
+    line[8] = ft_strdup("5 14 2");
+    line[9] = ft_strdup("6 15 2");
     line[10] = ft_strdup("0-1");
     line[11] = ft_strdup("1-2");
-    line[12] = ft_strdup("2-3");
-    line[13] = ft_strdup("2-4");
-    line[14] = ft_strdup("2-5");
+    line[12] = ft_strdup("2-4");
+    line[13] = ft_strdup("2-5");
+    line[14] = ft_strdup("2-6");
     line[15] = ft_strdup("3-6");
-    line[16] = ft_strdup("4-6");
-    line[17] = ft_strdup("5-6");
+    line[16] = ft_strdup("4-3");
+    line[17] = ft_strdup("5-3");
     line[18] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");

@@ -364,6 +364,10 @@ void        room_relink(t_game *data, int n1, int n2)
             data->room[n2].link = link2;
         else
             lstback_link(&(data->room[n2].link), link2, data);
+        t_room  *room1; //
+        room1 = &data->room[n1];
+        t_room  *room2; //
+        room2 = &data->room[n2];
         data->link_n1 = -1;
         data->link_n2 = -1;
     }

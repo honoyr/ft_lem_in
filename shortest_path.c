@@ -181,7 +181,7 @@ void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
         ways = ways->next;
     }
     ft_printf("\n");
-//    move_object(data, ways);
+    move_object(data, ways);
 //    lstdel_ways(&ways);
 }
 

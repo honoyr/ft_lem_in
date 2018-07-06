@@ -46,7 +46,8 @@ void        lstdel_ways(t_ways **ways)
     {
         while (*ways)
         {
-            lstdel_list_way(&(*ways)->list_way);
+            if ((*ways)->list_way)
+                lstdel_list_way(&(*ways)->list_way);
             tmp_ways = *ways;
             free(tmp_ways);
             *ways = (*ways)->next;
