@@ -54,14 +54,14 @@ t_ways      *choose_path(t_game *data, t_ways *ways, int n_way)
 
     while (n_way >= 0)
     {
-        tmp_ways = ways;
         if (data->ants >= tmp_ways->length)
         {
             if ()
                 tmp_ways = tmp_ways->next;
             else
         }
-
+        else
+            tmp_ways = tmp_ways->next;
     }
         return (tmp_ways);
 }
@@ -71,15 +71,18 @@ void        move_objects(t_game *data, t_ways *ways)
     int     n_way;
     int     i;
 
-    i = 0;
+    i = -1;
     t_ways  *t_ways;
     n_way = count_path(ways);
     print_data(data);
     data->finish = ft_strnew(data->ants);
     ft_memset(data->finish, NO_FINISHED, data->ants);
-    while (data->finish[i] == NO_FINISHED)
+    while (ft_strchr(data->finish, NO_FINISHED))
     {
-        t_ways = choose_path(data, ways, n_way);
+        while(++i <= data->ants)
+        {
+            t_ways = choose_path(data, ways, n_way);
+        }
 
     }
 }

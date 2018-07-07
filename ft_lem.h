@@ -60,6 +60,14 @@ typedef struct      s_room
     struct s_room  *next;
 }                   t_room;
 
+typedef struct      s_ant
+{
+    int             id;
+    int             cur_pos;
+    t_way           *way;
+    struct s_way    *next;
+}                   t_ant;
+
 typedef struct      s_game
 {
     unsigned int    ants;
