@@ -48,21 +48,38 @@ void        print_data(t_game *data)
     ft_lstprint(&data->info);
     ft_lstdel(&data->info, &ft_memdel_ar);
 }
+t_ways      *choose_path(t_game *data, t_ways *ways, int n_way)
+{
+    t_ways  *tmp_ways;
 
+    while (n_way >= 0)
+    {
+        tmp_ways = ways;
+        if (data->ants >= tmp_ways->length)
+        {
+            if ()
+                tmp_ways = tmp_ways->next;
+            else
+        }
+
+    }
+        return (tmp_ways);
+}
 
 void        move_objects(t_game *data, t_ways *ways)
 {
     int     n_way;
+    int     i;
 
+    i = 0;
+    t_ways  *t_ways;
     n_way = count_path(ways);
     print_data(data);
     data->finish = ft_strnew(data->ants);
     ft_memset(data->finish, NO_FINISHED, data->ants);
-    while (data->ants >= 0)
+    while (data->finish[i] == NO_FINISHED)
     {
-        if ()
-        {
+        t_ways = choose_path(data, ways, n_way);
 
-        }
     }
 }

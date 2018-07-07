@@ -212,7 +212,7 @@ int     main(int ac, char **av)
 //    line[12] = ft_strdup("3-4");
 //    line[13] = NULL;
 
-    line[0] = ft_strdup("    7483433");
+    line[0] = ft_strdup("6");
     line[1] = ft_strdup("##start");
     line[2] = ft_strdup("0 7 8");
     line[3] = ft_strdup("1 5 6");
