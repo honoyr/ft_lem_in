@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-char                *g_error[12] =
+char                *g_error[24] =
 {
         "#0 empty file",
         "#1 invalid format numbers of ants",

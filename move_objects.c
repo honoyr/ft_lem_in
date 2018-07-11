@@ -46,22 +46,41 @@ void        print_data(t_game *data)
 //        n_room++;
 //    }
     ft_lstprint(&data->info);
-    ft_lstdel(&data->info, &ft_memdel_ar);
+    ft_lstdel_str(&data->info, (&ft_memdel));
 }
-t_ways      *choose_path(t_game *data, t_ways *ways, int n_way)
+
+t_ant       *create_ant(t_game *data, t_ways *ch_way)
+{
+    t_ant   *new;
+
+    new = NULL;
+    if (!(new = (t_ant*)malloc(sizeof(t_ant) * 1)))
+    {
+        data->error = 3;
+        return (NULL);
+    }
+    new->id = 0;
+    new->cur_pos = 0;
+    new->way = ch_way;
+    new->next = NULL;
+    return (new);
+}
+
+t_ways      *choose_path(t_game *data, t_ways *ways, int n_way, int ants)
 {
     t_ways  *tmp_ways;
 
+    tmp_ways = ways;
     while (n_way >= 0)
     {
-        if (data->ants >= tmp_ways->length)
-        {
-            if ()
+        tmp_ways = tmp_ways->next;
+        if (ants >= tmp_ways->length)
+            if (tmp_ways->list_way->busy == false)
+            {
                 tmp_ways = tmp_ways->next;
-            else
-        }
-        else
-            tmp_ways = tmp_ways->next;
+                break ;
+            }
+        n_way--;
     }
         return (tmp_ways);
 }
@@ -72,7 +91,7 @@ void        move_objects(t_game *data, t_ways *ways)
     int     i;
 
     i = -1;
-    t_ways  *t_ways;
+    t_ways  *ch_ways;
     n_way = count_path(ways);
     print_data(data);
     data->finish = ft_strnew(data->ants);
@@ -81,7 +100,8 @@ void        move_objects(t_game *data, t_ways *ways)
     {
         while(++i <= data->ants)
         {
-            t_ways = choose_path(data, ways, n_way);
+            ch_ways = choose_path(data, ways, n_way, i);
+
         }
 
     }

@@ -24,8 +24,9 @@ ft_strlen.c ft_strjoin.c ft_strlcat.c ft_strmap.c ft_strncat.c ft_strmapi.c \
 ft_strncpy.c ft_strncmp.c ft_strnew.c ft_strrchr.c ft_strnequ.c ft_strstr.c \
 ft_strnstr.c ft_strsub.c ft_strtrim.c ft_swap.c ft_tolower.c ft_toupper.c \
 ft_strsplit.c ft_whitespaces.c ft_memdel_ar.c ft_strcheck.c \
-ft_memdel_arlen.c ft_checklen.c ft_strljoin.c get_next_line.c\
-print_hex.c rev_wstr.c ft_strrev.c ft_itoa_base.c print_base.c\
+ft_memdel_arlen.c ft_checklen.c ft_strljoin.c get_next_line.c \
+print_hex.c rev_wstr.c ft_strrev.c ft_itoa_base.c print_base.c \
+ft_lstdel_str.c \
 count_nbr.c \
 type_o.c \
 type_id.c \

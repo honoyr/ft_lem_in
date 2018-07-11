@@ -14,6 +14,7 @@
 # define FT_LEM_H
 
 #include "./libft/libft.h"
+#include <stdbool.h>
 # define ANT 0
 # define START 1
 # define END 2
@@ -26,11 +27,12 @@
 # define FINISHED 70
 # define NO_FINISHED 78
 
-extern char                *g_error[12];
+extern char                *g_error[24];
 
 typedef struct      s_way
 {
     int             num;
+    bool            busy;
     struct s_way   *next;
 }                   t_way;
 

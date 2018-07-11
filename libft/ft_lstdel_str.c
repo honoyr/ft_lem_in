@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstdel_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgonor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,13 @@
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+void	ft_lstdel_str(t_list **alst, void (*del)(void *))
 {
 	if (alst && del)
 	{
 		while (*alst)
 		{
-			del(&(*alst)->content, (*alst)->content_size);
+			del(&(*alst)->content);
 			free(*alst);
 			*alst = (*alst)->next;
 		}

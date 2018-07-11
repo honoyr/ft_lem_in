@@ -87,6 +87,7 @@ t_way      *create_way(t_game *data, int way)
         data->error = 3;
         return (NULL);
     }
+    new->busy = false;
     new->next = NULL;
     new->num = way;
     return (new);
