@@ -67,9 +67,10 @@ void        print_data(t_game *data)
 //}
 void        print_ant(t_game *data, t_ant *ant)
 {
+
     if (ant->way && data->finish[ant->id] == NO_FINISHED)
         ft_printf("L%i-%s ", ant->id, data->room[ant->cur_pos].name);
-    if (ant->way && ant->way->num == data->end)
+    if (ant->cur_pos == data->end)
         data->finish[ant->id] = FINISHED;
 
 }
@@ -115,8 +116,8 @@ t_ant        *create_ant(t_game *data, t_ant *ants)
         data->error = 3;
         return (NULL);
     }
-    data->finish = ft_strnew((data->ants + 1));
-    ft_memset(data->finish, NO_FINISHED, (data->ants + 1));
+    data->finish = ft_strnew((data->ants));
+    ft_memset(data->finish, NO_FINISHED, (data->ants));
     while (++i <= data->ants)
     {
         ants[i].id = 0;
@@ -213,17 +214,17 @@ void        move_objects(t_game *data, t_ways *ways)
     int     n_way;
     int     i;
 
-    i = 0;
+    i = -1;
     data->ants;
     n_way = count_path(ways);
     print_data(data);
     ants = create_ant(data, ants);
     while (ft_strchr(data->finish, NO_FINISHED))
     {
-        while(++i <= data->ants)
+        while(++i < data->ants)
         {
             if (ants[i].cur_pos == data->start)
-                choose_path(data, ways, &ants[i], i, ants);
+                choose_path(data, ways, &ants[i], (i + 1), ants);
             else if (ants[i].cur_pos != data->end)
                 move_ants(data, ants);
         }
