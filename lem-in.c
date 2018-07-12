@@ -169,7 +169,7 @@ int     main(int ac, char **av)
 		}
         if (!(line = (char**)malloc(sizeof(char*) * 19)))
             return (0);
-//        line[0] = ft_strdup("    7483648 ");
+//        line[0] = ft_strdup("4");
 //        line[1] = ft_strdup("##start");
 //        line[2] = ft_strdup("0 7 8");
 //        line[3] = ft_strdup("1 5 6");
@@ -259,6 +259,6 @@ int     main(int ac, char **av)
 //    line[11] = NULL;
     lem_in(line);
 //    while (1) sleep(120);
-    system("leaks a.out");
+//    system("leaks a.out");
 	return (0);
 }
