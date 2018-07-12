@@ -111,6 +111,7 @@ t_ant        *create_ant(t_game *data, t_ant *ants)
     while (++i <= data->ants)
     {
         ants[i].id = 0;
+        ants[i].cur_pos = data->start;
         ants[i].way = NULL;
     }
     return (ants);
@@ -190,9 +191,9 @@ void        move_objects(t_game *data, t_ways *ways)
     {
         while(++i <= data->ants)
         {
-            if (ants[i].way == NULL)
+            if (ants[i].way == NULL && ants[i].cur_pos == data->start)
                 choose_path(data, ways, &ants[i], i);
-            else if (ants[i].way->num != data->end)
+            else if (ants[i].cur_pos != data->end)
                 move_ants(data, ants, i);
         }
         i = -1;
