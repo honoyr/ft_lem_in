@@ -129,7 +129,7 @@ t_ant        *create_ant(t_game *data, t_ant *ants)
 //t_ways      *choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
 //{
 //    t_ways  *tmp_ways;
-//
+//fffff
 //    set_ant(ant, id);
 //    tmp_ways = ways;
 //    while (tmp_ways->next)
