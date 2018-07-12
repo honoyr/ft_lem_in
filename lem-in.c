@@ -225,7 +225,7 @@ int     main(int ac, char **av)
     line[10] = ft_strdup("0-1");
     line[11] = ft_strdup("1-2");
     line[12] = ft_strdup("2-4");
-    line[13] = ft_strdup("0-5");
+    line[13] = ft_strdup("2-5");
     line[14] = ft_strdup("2-6");
     line[15] = ft_strdup("3-6");
     line[16] = ft_strdup("4-3");
