@@ -47,6 +47,7 @@ void        print_data(t_game *data)
 //    }
     ft_lstprint(&data->info);
     ft_lstdel_str(&data->info, (&ft_memdel));
+    write(1, "\n", 1);
 }
 
 //void        lstback_ants(t_ant **lst, t_ant *add)
@@ -68,10 +69,12 @@ void        print_data(t_game *data)
 void        print_ant(t_game *data, t_ant *ant)
 {
 
-    if (ant->way && data->finish[ant->id] == NO_FINISHED)
+    if (ant->cur_pos != data->start && data->finish[ant->id - 1] == NO_FINISHED)
         ft_printf("L%i-%s ", ant->id, data->room[ant->cur_pos].name);
     if (ant->cur_pos == data->end)
-        data->finish[ant->id] = FINISHED;
+        data->finish[(ant->id - 1)] = FINISHED;
+    if (ant->cur_pos == data->end && !ant->way && data->finish[ant->id - 1] == NO_FINISHED)
+        write(1, "\n", 1);
 
 }
 
@@ -120,7 +123,7 @@ t_ant        *create_ant(t_game *data, t_ant *ants)
     ft_memset(data->finish, NO_FINISHED, (data->ants));
     while (++i <= data->ants)
     {
-        ants[i].id = 0;
+        ants[i].id = i + 1;
         ants[i].cur_pos = data->start;
         ants[i].way = NULL;
     }
@@ -162,8 +165,8 @@ void        move_ants(t_game *data, t_ant *ants)
                 ants[i].way->busy = true;
                 ants[i].cur_pos = ants[i].way->num;
             }
+            print_ant(data, &ants[i]);
         }
-        print_ant(data, &ants[i]);
     }
 //    print_ants(data, ants);
 }
