@@ -30,52 +30,6 @@ char                *g_error[24] =
         "#13 the end is unreachable"
 };
 
-void	lstprint(t_room **lst) // DELETE
-{
-    t_room *tmp;
-
-    tmp = NULL;
-    if (lst)
-    {
-        tmp = *lst;
-        while (tmp != NULL)
-        {
-//            ft_putstr(tmp->name);
-//            ft_putchar('\n');
-//            ft_printf("ROOM = %s|LINKS %i\n", tmp->name, tmp->link->num);
-            tmp = tmp->next;
-        }
-    }
-}
-
-//void        error_manage(int  error)
-//{
-//    if (error == 1)
-//        ft_putstr("error: #1 invalid format numbers of ants\n");
-//    else if (error == 2)
-//        ft_putstr("error: #2 data is invalid\n");
-//    else if (error == 3)
-//        ft_putstr("error: #3 memory didn't allocated\n");
-//    else if (error == 4)
-//        ft_putstr("error: #4 pars invalid\n");
-//    else if (error == 5)
-//        ft_putstr("error: #5 list of rooms invalid\n");
-//    else if (error == 6)
-//        ft_putstr("error: #6 invalid name of room \n");
-//    else if (error == 7)
-//        ft_putstr("error: #7 invalid coordinates \n");
-//    else if (error == 8)
-//        ft_putstr("error: #8 double data in list of rooms \n");
-//    else if (error == 9)
-//        ft_putstr("error: #9 the link is linked to himself \n");
-//    else if (error == 10)
-//        ft_putstr("error: #10 the same links already exist\n");
-//    else if (error == 11)
-//        ft_putstr("error: #11 current rooms didn't exist in link\n");
-//    else if (error == 12)
-//        ft_putstr("error: #12 too many \"start\" or \"end\" \n");
-//}
-
 void        pars_condition(t_game *data, char *line)
 {
     if (line && (data->line = line))
@@ -164,45 +118,36 @@ void        pars_condition(t_game *data, char *line)
 
 int     main(int ac, char **av)
 {
+    if (ac > 1 || ac < 1)
+    {
+        ft_printf("error");
+        return (0);
+    }
+    t_game data;
+    int res;
 
-		if (ac > 1 || ac < 1)
-		{
-			ft_printf("error");
-			return (0);
-		}
-        t_game  data;
-        int     i;
-        int     res;
+    set_data(&data);
+    while ((res = get_next_line(0, &av[1]) > 0)) {
+        pars_condition(&data, av[1]);
+        if (data.type != COMM)
+            ft_lstback(&data.info, ft_lstnew((void *) av[1], ft_strlen(av[1])));
+        ft_strdel(&av[1]);
+        if (data.error) {
+            ft_printf("error: %s\n", g_error[data.error]);
+            del_game(&data);
+            break;
+        }
+    }
+    if (res == 0)
+    {
+        data.visited = ft_strnew(data.nroom);
+        ft_memset(data.visited, NO_VISITED, data.nroom);
+        find_path(&data);
+        del_game(&data);
+    }
+    return (0);
+}
 
-        i = -1;
-        set_data(&data);
-    while ((res = get_next_line(0, &av[1]) > 0))
-//        while(line[++i])
-        {
-            pars_condition(&data, av[1]);
-//        ft_printf("good bay");
-            if (data.type != COMM)
-//        if (data.type != COMM && data.type != START && data.type != END)
-            {
-                char *tmp;
-                tmp = av[1];
-                ft_lstback(&data.info, ft_lstnew((void*)av[1], ft_strlen(av[1])));
-            }
-            ft_strdel(&av[1]);
-            if (data.error)
-            {
-//            error_manage(data.error);
-                ft_printf("error: %s\n", g_error[data.error]);
-                del_game(&data);
-                break ;
-            }
-        }
-        if (res == 0)
-        {
-            data.visited = ft_strnew(data.nroom);
-            ft_memset(data.visited, NO_VISITED, data.nroom);
-            find_path(&data);
-        }
 //    ft_printf("LINKS\n");
 //    t_link *tmp;
 //    t_way *ptr;
@@ -226,7 +171,7 @@ int     main(int ac, char **av)
 //        ft_printf("\n");
 //        j++;
 //    }
-        del_game(&data);
+
 
 
 
@@ -322,6 +267,6 @@ int     main(int ac, char **av)
 //    line[11] = NULL;
 //    lem_in(av[1]);
 //    while (1) sleep(120);
-    system("leaks lem-in");
-	return (0);
-}
+//    system("leaks lem-in");
+//	return (0);
+//}
