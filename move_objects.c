@@ -50,22 +50,6 @@ void        print_data(t_game *data)
     write(1, "\n", 1);
 }
 
-//void        lstback_ants(t_ant **lst, t_ant *add)
-//{
-//    t_ant *tmp;
-//
-//    if (lst && *lst == NULL)
-//        *lst = add;
-//    else if(lst && add)
-//    {
-//        tmp = *lst;
-//        while (tmp->next)
-//        {
-//            tmp = tmp->next;
-//        }
-//        tmp->next = add;
-//    }
-//}
 void        print_ant(t_game *data, t_ant *ant)
 {
 
@@ -73,9 +57,6 @@ void        print_ant(t_game *data, t_ant *ant)
         ft_printf("L%i-%s ", ant->id, data->room[ant->cur_pos].name);
     if (ant->cur_pos == data->end)
         data->finish[(ant->id - 1)] = FINISHED;
-//    if (ant->cur_pos == data->end && !ant->way && data->finish[ant->id - 1] == NO_FINISHED)
-
-
 }
 
 void        print_ants(t_game *data, t_ant *ants)
@@ -83,31 +64,15 @@ void        print_ants(t_game *data, t_ant *ants)
     int     i;
 
     i = -1;
-    while (++i <= data->ants)
+    while (++i < data->ants)
     {
-        if (ants[i].way && data->finish[ants[i].id] == NO_FINISHED)
-        {
+        if (ants[i].way && data->finish[ants[i].id - 1] == NO_FINISHED)
             ft_printf("L%i-%s ", ants[i].id, data->room[ants[i].cur_pos].name);
-        }
+        if (ants[i].cur_pos == data->end)
+            data->finish[(ants[i].id - 1)] = FINISHED;
     }
-
+    write(1, "\n", 1);
 }
-
-//t_ant       *create_ant(t_game *data, t_ways *ch_way, int id)
-//{
-//    t_ant   *new;
-//
-//    new = NULL;
-//    if (!(new = (t_ant*)malloc(sizeof(t_ant) * 1)))
-//    {
-//        data->error = 3;
-//        return (NULL);
-//    }
-//    new->id = -1;
-////    new->cur_pos = data->start;
-//    new->way = NULL;
-//    return (new);
-//}
 
 t_ant        *create_ant(t_game *data, t_ant *ants)
 {
@@ -130,25 +95,6 @@ t_ant        *create_ant(t_game *data, t_ant *ants)
     return (ants);
 }
 
-//t_ways      *choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
-//{
-//    t_ways  *tmp_ways;
-//fffff
-//    set_ant(ant, id);
-//    tmp_ways = ways;
-//    while (tmp_ways->next)
-//    {
-//        if (!(data->ants >= tmp_ways->length))
-//            if (tmp_ways->list_way->busy == false)
-//            {
-//                tmp_ways = tmp_ways->next;
-//                break ;
-//            }
-//        tmp_ways = tmp_ways->next;
-//    }
-//        return (tmp_ways);
-//}
-
 void        move_ants(t_game *data, t_ant *ants)
 {
     int     i;
@@ -165,46 +111,33 @@ void        move_ants(t_game *data, t_ant *ants)
                 ants[i].way->busy = true;
                 ants[i].cur_pos = ants[i].way->num;
             }
-            print_ant(data, &ants[i]);
         }
     }
-//    write(1, "\n", 1);
-//    print_ants(data, ants);
 }
 
-void      ant_manipulation(t_game *data, t_ways *tmp_ways, t_ant *ant, int id)
-{
-    ant->way = tmp_ways->list_way;
-    ant->way = ant->way->next;
-    ant->way->busy = true;
-    ant->cur_pos = ant->way->num;
-    print_ant(data, ant);
-    write(1, "\n", 1);
-}
-
-void      choose_path(t_game *data, t_ways *ways, t_ant *ant, int id, t_ant *ants)
+void      choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
 {
     t_ways  *tmp_ways;
+    int     div;
+    int     rem;
 
     tmp_ways = ways;
-    move_ants(data, ants);
     while (tmp_ways)
     {
-        if (data->ants == id)
-        {
-            ant_manipulation(data, tmp_ways, ant, id);
-            break ;
-        }
-        if ((tmp_ways->length / ways->length) <= (data->ants - id))
+        div = tmp_ways->length / ways->length;
+        rem = tmp_ways->length % ways->length;
+        if (((div == 1 && rem == 0) || data->ants - id > div))
         {
             if (tmp_ways->list_way->next->busy == false)
             {
-                ant_manipulation(data, tmp_ways, ant, id);
-//                tmp_ways->list_way->busy = true;
+                ant->way = tmp_ways->list_way;
+                ant->way = ant->way->next;
+                ant->way->busy = true;
+                ant->cur_pos = ant->way->num;
                 break ;
             }
-            tmp_ways = tmp_ways->next;
         }
+        tmp_ways = tmp_ways->next;
     }
 }
 
@@ -212,28 +145,24 @@ void      choose_path(t_game *data, t_ways *ways, t_ant *ant, int id, t_ant *ant
 void        move_objects(t_game *data, t_ways *ways)
 {
     t_ant   *ants;
-    int     n_way;
     int     i;
 
     i = -1;
-    data->ants;
-    n_way = count_path(ways);
     print_data(data);
-    ants = create_ant(data, ants);
+    if (!(ants = create_ant(data, ants)))
+        return;
     while (ft_strchr(data->finish, NO_FINISHED))
     {
         while(++i < data->ants)
         {
             if (ants[i].cur_pos == data->start)
-                choose_path(data, ways, &ants[i], (i + 1), ants);
+                choose_path(data, ways, &ants[i], (i + 1));
             else if (ants[i].cur_pos != data->end)
                 move_ants(data, ants);
         }
         i = -1;
-//        print_ants(data, ants);
-//        write(1, "\n", 1);
+        print_ants(data, ants);
     }
     free(ants);
     lstdel_ways(&ways);
-//            lstback_ants(&line, create_ant(data, ch_ways, i));
 }
