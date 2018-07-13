@@ -46,7 +46,7 @@ void        print_data(t_game *data)
 //        n_room++;
 //    }
     ft_lstprint(&data->info);
-    ft_lstdel_str(&data->info, (&ft_memdel));
+    ft_lstdel_str(&data->info, (void*)(&ft_memdel));
     write(1, "\n", 1);
 }
 
@@ -74,11 +74,13 @@ void        print_ants(t_game *data, t_ant *ants)
     write(1, "\n", 1);
 }
 
-t_ant        *create_ant(t_game *data, t_ant *ants)
+t_ant        *create_ant(t_game *data)
 {
     int i;
+    t_ant *ants;
 
     i = -1;
+    ants = NULL;
     if (!(ants = (t_ant*)malloc(sizeof(t_ant) * data->ants)))
     {
         data->error = 3;
@@ -95,7 +97,7 @@ t_ant        *create_ant(t_game *data, t_ant *ants)
     return (ants);
 }
 
-void        move_ants(t_game *data, t_ant *ants)
+void        move_ants(t_ant *ants)
 {
 //    int     i;
 //
@@ -146,7 +148,7 @@ void      choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
     {
         div = tmp_ways->length / ways->length;
         rem = tmp_ways->length % ways->length;
-        if (((div == 1 && rem == 0) || data->ants - id > div))
+        if (((div == 1 && rem == 0) || (data->ants - id) > div))
         {
             if (tmp_ways->list_way->next->busy == false)
             {
@@ -168,8 +170,9 @@ void        move_objects(t_game *data, t_ways *ways)
     int     i;
 
     i = -1;
+    ants = NULL;
     print_data(data);
-    if (!(ants = create_ant(data, ants)))
+    if (!(ants = create_ant(data)))
         return;
     while (ft_strchr(data->finish, NO_FINISHED))
     {
@@ -178,7 +181,7 @@ void        move_objects(t_game *data, t_ways *ways)
             if (ants[i].cur_pos == data->start)
                 choose_path(data, ways, &ants[i], (i + 1));
             else if (ants[i].cur_pos != data->end)
-                move_ants(data, &ants[i]);
+                move_ants(&ants[i]);
         }
         i = -1;
         print_ants(data, ants);

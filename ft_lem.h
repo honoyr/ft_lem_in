@@ -71,7 +71,7 @@ typedef struct      s_ant
 
 typedef struct      s_game
 {
-    unsigned int    ants;
+    int    ants;
     int             type;
     int             start;
     int             end;

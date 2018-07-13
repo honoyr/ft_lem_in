@@ -40,7 +40,6 @@ void        lstdel_list_way(t_way **list_way)
 void        lstdel_ways(t_ways **ways)
 {
     t_ways  *tmp_ways;
-    t_way   *tmp_list_way;
 
     if (*ways)
     {
