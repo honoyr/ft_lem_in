@@ -73,8 +73,8 @@ void        print_ant(t_game *data, t_ant *ant)
         ft_printf("L%i-%s ", ant->id, data->room[ant->cur_pos].name);
     if (ant->cur_pos == data->end)
         data->finish[(ant->id - 1)] = FINISHED;
-    if (ant->cur_pos == data->end && !ant->way && data->finish[ant->id - 1] == NO_FINISHED)
-        write(1, "\n", 1);
+//    if (ant->cur_pos == data->end && !ant->way && data->finish[ant->id - 1] == NO_FINISHED)
+
 
 }
 
@@ -121,7 +121,7 @@ t_ant        *create_ant(t_game *data, t_ant *ants)
     }
     data->finish = ft_strnew((data->ants));
     ft_memset(data->finish, NO_FINISHED, (data->ants));
-    while (++i <= data->ants)
+    while (++i < data->ants)
     {
         ants[i].id = i + 1;
         ants[i].cur_pos = data->start;
@@ -154,9 +154,9 @@ void        move_ants(t_game *data, t_ant *ants)
     int     i;
 
     i = -1;
-    while (++i <= data->ants)
+    while (++i < data->ants)
     {
-        if (ants[i].way != NULL)
+        if (ants[i].way)
         {
             ants[i].way->busy = false;
             ants[i].way = ants[i].way->next;
@@ -168,19 +168,17 @@ void        move_ants(t_game *data, t_ant *ants)
             print_ant(data, &ants[i]);
         }
     }
+//    write(1, "\n", 1);
 //    print_ants(data, ants);
 }
 
 void      ant_manipulation(t_game *data, t_ways *tmp_ways, t_ant *ant, int id)
 {
-    ant->id = id;
     ant->way = tmp_ways->list_way;
     ant->way = ant->way->next;
     ant->way->busy = true;
     ant->cur_pos = ant->way->num;
     print_ant(data, ant);
-    if (ant->way->num == data->end)
-        data->finish[id] = FINISHED;
     write(1, "\n", 1);
 }
 
