@@ -127,8 +127,10 @@ void        del_game(t_game *data)
     }
     while (i < data->nroom)
     {
-        lstdel_link(&data->room[i].link);
-        lstdel_ways(&data->room[i].ways);
+        if (data->room[i].link)
+            lstdel_link(&data->room[i].link);
+        if (data->room[i].ways)
+            lstdel_list_way(&data->room[i].ways);
         i++;
     }
     if (data->room)

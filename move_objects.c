@@ -185,4 +185,5 @@ void        move_objects(t_game *data, t_ways *ways)
     }
     free(ants);
     lstdel_ways(&ways);
+    ft_strdel(&data->finish);
 }

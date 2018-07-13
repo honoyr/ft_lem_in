@@ -119,7 +119,11 @@ void        lem_in(char **line)
 //        ft_printf("good bay");
         if (data.type != COMM)
 //        if (data.type != COMM && data.type != START && data.type != END)
+        {
+            char *tmp;
+            tmp = line[i];
             ft_lstback(&data.info, ft_lstnew((void*)line[i], ft_strlen(line[i])));
+        }
         ft_strdel(&line[i]);
         if (data.error)
         {
@@ -132,29 +136,29 @@ void        lem_in(char **line)
     data.visited = ft_strnew(data.nroom);
     ft_memset(data.visited, NO_VISITED, data.nroom);
     find_path(&data);
-    ft_printf("LINKS\n");
-    t_link *tmp;
-    t_way *ptr;
-    int j;
-    j = 0;
-    while (j < data.nroom){
-        tmp = data.room[j].link;
-        ptr = data.room[j].ways;
-        ft_printf("room = %s\n", data.room[j].name);
-        while (tmp)
-        {
-            ft_printf("LINK %s ", data.room[tmp->num].name);
-            tmp = tmp->next;
-        }
-        ft_printf("\n");
-        while (ptr)
-        {
-            ft_printf("WAYS %i \n", ptr->num);
-            ptr = ptr->next;
-        }
-        ft_printf("\n");
-        j++;
-    }
+//    ft_printf("LINKS\n");
+//    t_link *tmp;
+//    t_way *ptr;
+//    int j;
+//    j = 0;
+//    while (j < data.nroom){
+//        tmp = data.room[j].link;
+//        ptr = data.room[j].ways;
+//        ft_printf("room = %s\n", data.room[j].name);
+//        while (tmp)
+//        {
+//            ft_printf("LINK %s ", data.room[tmp->num].name);
+//            tmp = tmp->next;
+//        }
+//        ft_printf("\n");
+//        while (ptr)
+//        {
+//            ft_printf("WAYS %i \n", ptr->num);
+//            ptr = ptr->next;
+//        }
+//        ft_printf("\n");
+//        j++;
+//    }
     del_game(&data);
 }
 
@@ -167,7 +171,7 @@ int     main(int ac, char **av)
 			ft_printf("error");
 			return (0);
 		}
-        if (!(line = (char**)malloc(sizeof(char*) * 19)))
+        if (!(line = (char**)malloc(sizeof(char*) * 20)))
             return (0);
 //        line[0] = ft_strdup("4");
 //        line[1] = ft_strdup("##start");
@@ -230,8 +234,8 @@ int     main(int ac, char **av)
     line[15] = ft_strdup("3-6");
     line[16] = ft_strdup("4-3");
     line[17] = ft_strdup("5-3");
-    line[17] = ft_strdup("#coment 345 43");
-    line[18] = NULL;
+    line[18] = ft_strdup("#coment 345 43");
+    line[19] = NULL;
 // error L
 //    line[0] = ft_strdup("    7483648 ");
 //    line[1] = ft_strdup("##start");

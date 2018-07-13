@@ -20,7 +20,7 @@ void	ft_lstprint(t_list **lst)
 	if (lst)
 	{
 		tmp = *lst;
-		while (tmp != NULL)
+		while (tmp)
 		{
 			ft_putstr(tmp->content);
 			ft_putchar('\n');
