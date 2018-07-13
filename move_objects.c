@@ -66,10 +66,10 @@ void        print_ants(t_game *data, t_ant *ants)
     i = -1;
     while (++i < data->ants)
     {
-        if (ants[i].way && data->finish[ants[i].id - 1] == NO_FINISHED)
+        if (ants[i].way && data->finish[i] == NO_FINISHED)
             ft_printf("L%i-%s ", ants[i].id, data->room[ants[i].cur_pos].name);
         if (ants[i].cur_pos == data->end)
-            data->finish[(ants[i].id - 1)] = FINISHED;
+            data->finish[i] = FINISHED;
     }
     write(1, "\n", 1);
 }
@@ -97,23 +97,43 @@ t_ant        *create_ant(t_game *data, t_ant *ants)
 
 void        move_ants(t_game *data, t_ant *ants)
 {
-    int     i;
-
-    i = -1;
-    while (++i < data->ants)
-    {
-        if (ants[i].way)
+//    int     i;
+//
+//    i = -1;
+//    while (++i < data->ants)
+//    {
+        if (ants->way)
         {
-            ants[i].way->busy = false;
-            ants[i].way = ants[i].way->next;
-            if (ants[i].way)
+            ants->way->busy = false;
+            ants->way = ants->way->next;
+            if (ants->way)
             {
-                ants[i].way->busy = true;
-                ants[i].cur_pos = ants[i].way->num;
+                ants->way->busy = true;
+                ants->cur_pos = ants->way->num;
             }
         }
-    }
+//    }
 }
+
+//void        move_ants(t_game *data, t_ant *ants)
+//{
+//    int     i;
+//
+//    i = -1;
+//    while (++i < data->ants)
+//    {
+//        if (ants[i].way)
+//        {
+//            ants[i].way->busy = false;
+//            ants[i].way = ants[i].way->next;
+//            if (ants[i].way)
+//            {
+//                ants[i].way->busy = true;
+//                ants[i].cur_pos = ants[i].way->num;
+//            }
+//        }
+//    }
+//}
 
 void      choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
 {
@@ -158,7 +178,7 @@ void        move_objects(t_game *data, t_ways *ways)
             if (ants[i].cur_pos == data->start)
                 choose_path(data, ways, &ants[i], (i + 1));
             else if (ants[i].cur_pos != data->end)
-                move_ants(data, ants);
+                move_ants(data, &ants[i]);
         }
         i = -1;
         print_ants(data, ants);
