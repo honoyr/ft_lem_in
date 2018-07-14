@@ -40,7 +40,7 @@ void        pars_condition(t_game *data, char *line)
                 valid_ant(data);
             else if (ft_strchr(line, ' ') && data->type != ANT)
                 create_list(data);
-            else if (ft_strchr(line, '-'))
+            else if (ft_strchr(line, '-') && (data->type = LINK))
                 valid_links(data);
             else
                 data->error = 4;  // ADD IT
@@ -75,30 +75,33 @@ int     main(int ac, char **av)
     while ((res = get_next_line(0, &av[1]) > 0))
     {
         pars_condition(&data, av[1]);
-        if (data.type != COMM)
-            ft_lstback(&data.info, ft_lstnew((void *) av[1], ft_strlen(av[1])));
+//        if (data.type != COMM)
+        ft_lstback(&data.info, ft_lstnew((void *) av[1], ft_strlen(av[1])));
         ft_strdel(&av[1]);
         if (data.error) {
             ft_printf("error: %s\n", g_error[data.error]);
+//            ft_printf("3I'm here\n data->nroom = %i\n", data.nroom);
+//            print_game(&data);
+//            ft_printf("4I'm here\n data->nroom = %i\n", data.nroom);
             del_game(&data);
 //            ft_printf("2 HERE\n");
-            break;
+            exit(1);
         }
     }
-    if (data.type != LINK)
-        return (0);
-    else if (res == -1 || res == 1 )
+    if (data.type != LINK || res == -1 || res == 1)
     {
-        ft_printf("here");
+//        system("leaks lem-in");
+        ft_printf("2 HERE\n");
         return (0);
     }
-    else if (res == 0)
+    else if (res == 0 && data.type == LINK)
     {
         data.visited = ft_strnew(data.nroom);
         ft_memset(data.visited, NO_VISITED, data.nroom);
         find_path(&data);
         del_game(&data);
     }
+//    system("leaks lem-in");
     return (0);
 }
 
