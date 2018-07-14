@@ -56,9 +56,7 @@ typedef struct      s_room
     int             y;
     int             type;
     t_link          *link;
-    t_link          *pr_link;
     t_way          *ways;
-    t_way          *pr_ways;
     struct s_room  *next;
 }                   t_room;
 
@@ -84,7 +82,6 @@ typedef struct      s_game
     t_room          *room;
     t_list          *info;
     int             error;
-//    int             digit; //del
     int             link_n1;
     int             link_n2;
 }                  t_game;

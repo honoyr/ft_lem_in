@@ -56,14 +56,16 @@ OL = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	gcc $(SRC) $(FLAGSWWW)
-	ar rc $(NAME) $(OL)
-	ranlib $(NAME)
+	@gcc $(SRC) $(FLAGSWWW)
+	@ar rc $(NAME) $(OL)
+	@ranlib $(NAME)
 
 clean:
-	/bin/rm -f $(OL)
+	@/bin/rm -f $(OL)
+	@echo "\x1b[36mObject $(NAME) files have been deleted!\x1b[0m"
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
+	@echo "\x1b[32mExecutable files $(NAME) have been deleted!\x1b[0m"
 	
 re: fclean all

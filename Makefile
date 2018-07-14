@@ -29,16 +29,16 @@ $(LIB):
 $(NAME): $(LIB)
 	@gcc $(SRCS) $(FLAGS)
 	@gcc $(OBJS) $(LIB) -o $(NAME)
-	@echo "\x1b[35mYour PROGRAM has been successfully created!\x1b[0m"
+	@echo "\x1b[35mYour PROGRAM $(NAME) has been successfully created!\x1b[0m"
 
 clean:
 	@make -C libft clean
 	@rm -rf $(OBJS)
-	@echo "\x1b[36mObject files have been deleted!\x1b[0m"
+	@echo "\x1b[36mObject files $(NAME) have been deleted!\x1b[0m"
 
 fclean: clean
 	@make -C libft fclean
 	@rm -rf $(NAME)
-	@echo "\x1b[32mExecutable files have been deleted!\x1b[0m"
+	@echo "\x1b[32mExecutable files $(NAME) have been deleted!\x1b[0m"
 
 re: fclean all
