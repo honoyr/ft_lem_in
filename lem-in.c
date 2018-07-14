@@ -51,6 +51,8 @@ void        pars_condition(t_game *data, char *line)
                 data->type = START;
             else if (ft_strstr(data->line, "##end"))
                 data->type = END;
+            else if (ft_strstr(data->line, "-"))
+                data->type = LINK;
             else
                 data->type = COMM;
         }
@@ -83,14 +85,14 @@ int     main(int ac, char **av)
             break;
         }
     }
-    if (data.room && !data.room[0].link)
+    if (data.type != LINK)
         return (0);
-    if (res == -1 || res == 1 )
+    else if (res == -1 || res == 1 )
     {
         ft_printf("here");
         return (0);
     }
-    if (res == 0)
+    else if (res == 0)
     {
         data.visited = ft_strnew(data.nroom);
         ft_memset(data.visited, NO_VISITED, data.nroom);
