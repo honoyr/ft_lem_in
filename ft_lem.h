@@ -80,6 +80,7 @@ typedef struct      s_game
     char            *line;
     t_room          *list;
     t_room          *room;
+    t_ways          *ways;
     t_list          *info;
     int             error;
     int             link_n1;

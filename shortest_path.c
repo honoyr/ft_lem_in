@@ -180,24 +180,10 @@ void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
         else
         {
             lstdel_list_way(&list_way);
-//            ft_memset(data->visited, NO_VISITED, data->nroom);
+            ft_memset(data->visited, NO_VISITED, data->nroom);
         }
         length = 0;
     }
-    i = -1;
-    tmp = NULL;
-    while (ways && ++i < n_ways)
-    {
-        tmp = ways->list_way;
-        ft_printf("WAY%i = ", i);
-        while(tmp)
-        {
-            ft_printf("%i -> ", tmp->num);
-            tmp = tmp->next;
-        }
-        ways = ways->next;
-    }
-    ft_printf("\n");
     move_objects(data, ways);
 //    lstdel_ways(&ways);
 }

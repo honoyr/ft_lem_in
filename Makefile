@@ -14,21 +14,26 @@ NAME = lem-in
 
 LIB = ./libft/libft.a
 
-FLAGS = -Wall -Wextra -Werror -I. -c
+FLAGS = -Wall -Wextra -Werror -I.
 
 SRCS = del_data.c lem-in.c move_objects.c pars_lem-in.c set_data.c \
 shortest_path.c print_data.c \
 
 OBJS = $(SRCS:.c=.o)
 
+HEADERS = ft_lem.h \
+
 all: $(NAME)
 
 $(LIB):
 	@make -C libft
 
-$(NAME): $(LIB)
-	@gcc $(SRCS) $(FLAGS)
-	@gcc $(OBJS) $(LIB) -o $(NAME)
+$(OBJS): $(SRCS)
+	@gcc -c $(SRCS) -I.
+	@echo "\033[31mObject file dane \033[33mMAKED\033[0m"
+
+$(NAME): $(OBJS) $(LIB)
+	@gcc $(FLAGS) $(OBJS) $(LIB) -o $(NAME)
 	@echo "\x1b[35mYour PROGRAM $(NAME) has been successfully created!\x1b[0m"
 
 clean:
@@ -42,3 +47,5 @@ fclean: clean
 	@echo "\x1b[32mExecutable files $(NAME) have been deleted!\x1b[0m"
 
 re: fclean all
+
+.PHONY: all clean fclean re

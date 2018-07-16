@@ -26,17 +26,21 @@ char                *g_error[24] =
         "#9 the link is linked to himself",
         "#10 the same links already exist",
         "#11 current rooms didn't exist in link",
-        "#12 too many \"start\" or \"end\" "
-        "#13 the end is unreachable"
+        "#12 too many start or end",
+        "#13 the end is unreachable",
+        "#14 data have't links"
 };
 
 void        pars_condition(t_game *data, char *line)
 {
-    if (line && (data->line = line))
+//    ft_printf("line = |%s|\n", line);
+    if (line && line[0] != 'L' && (data->line = line))
     {
-        if (line[0] != '#' && line[0] != 'L')
+        if (line[0] != '#')
         {
-            if (data->type == ANT)
+            if (!ft_strlen(line))
+                data->error = 2;
+            else if (data->type == ANT)
                 valid_ant(data);
             else if (ft_strchr(line, ' ') && data->type != ANT)
                 create_list(data);
@@ -51,8 +55,6 @@ void        pars_condition(t_game *data, char *line)
                 data->type = START;
             else if (ft_strstr(data->line, "##end"))
                 data->type = END;
-            else if (ft_strstr(data->line, "-"))
-                data->type = LINK;
             else
                 data->type = COMM;
         }
@@ -90,15 +92,22 @@ int     main(int ac, char **av)
     }
     if (data.type != LINK || res == -1 || res == 1)
     {
+//        print_game(&data);
 //        system("leaks lem-in");
-        ft_printf("2 HERE\n");
+        if (data.type != LINK)
+            data.error = 14;
+        else
+            data.error = 2;
+        if (data.error)
+            ft_printf("error: %s\n", g_error[data.error]);
         return (0);
     }
-    else if (res == 0 && data.type == LINK)
+    else if (res == 0)
     {
         data.visited = ft_strnew(data.nroom);
         ft_memset(data.visited, NO_VISITED, data.nroom);
         find_path(&data);
+//        print_game(&data);
         del_game(&data);
     }
 //    system("leaks lem-in");
