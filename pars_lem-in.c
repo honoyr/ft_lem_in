@@ -51,7 +51,8 @@ void	lstback(t_room **lst, t_room *add, t_game *data)
         tmp = *lst;
         while (tmp->next != NULL)
         {
-            if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
+            if ((ft_strequ(tmp->name, add->name))
+                || (tmp->x == add->x && tmp->y == add->y))
             {
                 lstdel_room(&add);
                 data->error = 8;
@@ -59,7 +60,8 @@ void	lstback(t_room **lst, t_room *add, t_game *data)
             }
             tmp = tmp->next;
         }
-        if ((ft_strequ(tmp->name, add->name)) || (tmp->x == add->x && tmp->y == add->y))
+        if ((ft_strequ(tmp->name, add->name))
+            || (tmp->x == add->x && tmp->y == add->y))
         {
             lstdel_room(&add);
             data->error = 8;

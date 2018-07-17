@@ -62,6 +62,13 @@ void        pars_condition(t_game *data, char *line)
         data->error = 2;
 }
 
+void        error(t_game *data)
+{
+    ft_printf("error: %s\n", g_error[data->error]);
+    del_game(&data);
+    exit(1);
+}
+
 int     main(int ac, char **av)
 {
     if (ac > 1 || ac < 1)
@@ -108,9 +115,7 @@ int     main(int ac, char **av)
         ft_memset(data.visited, NO_VISITED, data.nroom);
         find_path(&data);
         if (data.error) {
-            ft_printf("error: %s\n", g_error[data.error]);
-            del_game(&data);
-            exit(1);
+
         }
         else
             del_game(&data);
