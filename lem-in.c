@@ -110,7 +110,11 @@ int     main(int ac, char **av)
         data.visited = ft_strnew(data.nroom);
         ft_memset(data.visited, NO_VISITED, data.nroom);
         find_path(&data);
-//        print_game(&data);
+        if (data.error) {
+            ft_printf("error: %s\n", g_error[data.error]);
+            del_game(&data);
+            exit(1);
+        }
         del_game(&data);
     }
 //    system("leaks lem-in");
