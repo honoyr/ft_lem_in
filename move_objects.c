@@ -62,12 +62,22 @@ void        print_ant(t_game *data, t_ant *ant)
 void        print_ants(t_game *data, t_ant *ants)
 {
     int     i;
+    int     first;
 
     i = -1;
+    first = 0;
     while (++i < data->ants)
     {
         if (ants[i].way && data->finish[i] == NO_FINISHED)
-            ft_printf("L%i-%s ", ants[i].id, data->room[ants[i].cur_pos].name);
+        {
+            if (first > 0)
+            {
+                write(1, " ", 1);
+                first = 0;
+            }
+            ft_printf("L%i-%s", ants[i].id, data->room[ants[i].cur_pos].name);
+            first++;
+        }
         if (ants[i].cur_pos == data->end)
             data->finish[i] = FINISHED;
     }
@@ -171,7 +181,7 @@ void        move_objects(t_game *data, t_ways *ways)
 
     i = -1;
     ants = NULL;
-//    print_data(data);
+    print_data(data);
     if (!(ants = create_ant(data)))
         return;
     while (ft_strchr(data->finish, NO_FINISHED))
@@ -187,7 +197,7 @@ void        move_objects(t_game *data, t_ways *ways)
         print_ants(data, ants);
     }
     data->ways = ways;
-    print_game(data);
+//    print_game(data);
     free(ants);
     lstdel_ways(&ways);
     ft_strdel(&data->finish);

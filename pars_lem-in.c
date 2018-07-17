@@ -22,20 +22,21 @@ void	lstback_link(t_link **lst, t_link *add, t_game *data)
         tmp = *lst;
         while (tmp->next != NULL)
         {
-            if (tmp->num == add->num)
-            {
-                data->error = 10;
-                lstdel_link(&add);
-                return;
-            }
+//            if (tmp->num == add->num)
+//            {
+//                data->error = 10;
+//                lstdel_link(&add);
+//                return;
+//            }
             tmp = tmp->next;
         }
-        if (tmp->num == add->num)
-        {
-            data->error = 10;
-            lstdel_link(&add);
-            return;
-        }
+//        if (tmp->num == add->num)
+//        {
+//            print_game(data);
+//            data->error = 10;
+//            lstdel_link(&add);
+//            return;
+//        }
         tmp->next = add;
     }
 }
