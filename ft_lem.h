@@ -91,6 +91,7 @@ void        valid_ant(t_game *data);
 t_room        *valid_data(t_game *data);
 void        valid_links(t_game *data);
 int        valid_list_room(t_game *data);
+void        valid_start_end(t_game *data);
 
 void        create_list(t_game *data);
 void          create_adj_list(t_game *data);

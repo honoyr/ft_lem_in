@@ -17,7 +17,7 @@ LIB = ./libft/libft.a
 FLAGS = -Wall -Wextra -Werror -I.
 
 SRCS = del_data.c lem-in.c move_objects.c pars_lem-in.c set_data.c \
-shortest_path.c print_data.c \
+shortest_path.c print_data.c valid_data.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -30,7 +30,7 @@ $(LIB):
 
 $(OBJS): $(SRCS)
 	@gcc -c $(SRCS) -I.
-	@echo "\033[31mObject file dane \033[33mMAKED\033[0m"
+	@echo "\033[31mObject file dane \033[0m"
 
 $(NAME): $(OBJS) $(LIB)
 	@gcc $(FLAGS) $(OBJS) $(LIB) -o $(NAME)

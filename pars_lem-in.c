@@ -184,8 +184,6 @@ void          create_adj_list(t_game *data)
     int         i;
 
     i = -1;
-//    data->nroom -= 1;
-//        ft_printf("I'm here\n data->nroom = %i\n", data->nroom);
     if ((valid_list_room(data)))
         data->error = 5;
     if (!data->error && !(data->room = (t_room*)malloc(sizeof(t_room) * data->nroom)))

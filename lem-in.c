@@ -28,7 +28,9 @@ char                *g_error[24] =
         "#11 current rooms didn't exist in link",
         "#12 too many start or end",
         "#13 the end is unreachable",
-        "#14 data have't links"
+        "#14 data have't links",
+        "#15 unreachable end",
+        "#16 start donn't have a links",
 };
 
 void        pars_condition(t_game *data, char *line)
@@ -104,6 +106,7 @@ int     main(int ac, char **av)
     }
     else if (res == 0)
     {
+        valid_start_end(&data);
         data.visited = ft_strnew(data.nroom);
         ft_memset(data.visited, NO_VISITED, data.nroom);
         find_path(&data);
