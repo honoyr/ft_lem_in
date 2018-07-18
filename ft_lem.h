@@ -115,6 +115,8 @@ void        room_relink(t_game *data, int n1, int n2);
 void        find_path(t_game * data);
 void        move_objects(t_game *data, t_ways *ways);
 
+void        error(t_game *data);
+
 void        print_game(t_game *data);
 
 #endif
