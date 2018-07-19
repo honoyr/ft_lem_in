@@ -259,14 +259,14 @@ void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
         list_way = create_way(data, data->end);
         while (data->room[list_way->num].ways)
         {
-            ft_printf("HERE\n");
+//            ft_printf("HERE\n");
             check = data->room[list_way->num].ways;
-            while (data->visited[check->num] == VISITED)
+            while (check->next && data->visited[check->num] == VISITED)
                 check = check->next;
             new = create_way(data, check->num);
             new->next = list_way;
             list_way = new;
-            ft_printf("W %s ->", data->room[list_way->num].name);
+//            ft_printf("W %s ->", data->room[list_way->num].name);
             data->visited[list_way->num] = VISITED;
             length++;
         }
