@@ -348,7 +348,6 @@ void        valid_paths(t_game *data, int n_ways)
     ways = NULL;
     if (data->room[data->end].ways)
     {
-//        ft_printf("2 HERE\n");
         n_ways = count_ways(data->room[data->end].ways);
         ft_memset(data->visited, NO_VISITED, data->nroom);
         data->way_v = ft_strnew(n_ways);
