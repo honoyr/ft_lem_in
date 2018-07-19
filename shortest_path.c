@@ -263,11 +263,15 @@ void        multiple_path(t_game *data, t_ways *ways)
             check = data->room[list_way->num].ways;
             while (check->next && data->visited[check->num] == VISITED)
                 check = check->next;
+            if (data->visited[check->num] == VISITED)
+                break ;
             new = create_way(data, check->num);
             new->next = list_way;
             list_way = new;
+            if (check->num != data->start)
+                data->visited[check->num] = VISITED;
+//            data->visited[list_way->num] = VISITED;
 //            ft_printf("W %s ->", data->room[list_way->num].name);
-            data->visited[list_way->num] = VISITED;
             length++;
         }
         if (list_way->num == data->start)
