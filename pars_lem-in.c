@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-void	lstback_link(t_link **lst, t_link *add, t_game *data)
+void	lstback_link(t_link **lst, t_link *add)
 {
     t_link *tmp;
 
@@ -255,11 +255,11 @@ void        room_relink(t_game *data, int n1, int n2)
         if (!(data->room[n1].link))
             data->room[n1].link = link1;
         else
-            lstback_link(&(data->room[n1].link), link1, data);
+            lstback_link(&(data->room[n1].link), link1);
         if (!(data->room[n2].link))
             data->room[n2].link = link2;
         else
-            lstback_link(&(data->room[n2].link), link2, data);
+            lstback_link(&(data->room[n2].link), link2);
         data->link_n1 = -1;
         data->link_n2 = -1;
     }

@@ -21,20 +21,17 @@ shortest_path.c print_data.c valid_data.c \
 
 OBJS = $(SRCS:.c=.o)
 
-HEADERS = ft_lem.h \
+HEADERS = ft_lem.h
 
 all: $(NAME)
 
+$(NAME): $(OBJS) $(LIB)
+	@gcc -c $(SRCS) -Wall -Wextra -Werror
+	@gcc $(OBJS) $(LIB) -o $(NAME)
+	@echo "\x1b[35mYour PROGRAM $(NAME) has been successfully created!\x1b[0m"
+
 $(LIB):
 	@make -C libft
-
-$(OBJS): $(SRCS)
-	@gcc -c $(SRCS) -I.
-	@echo "\033[31mObject file dane \033[0m"
-
-$(NAME): $(OBJS) $(LIB)
-	@gcc $(FLAGS) $(OBJS) $(LIB) -o $(NAME)
-	@echo "\x1b[35mYour PROGRAM $(NAME) has been successfully created!\x1b[0m"
 
 clean:
 	@make -C libft clean

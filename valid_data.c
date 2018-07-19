@@ -4,11 +4,6 @@
 
 void        valid_start_end(t_game *data)
 {
-//    t_link      *link;
-//    t_room      *room;
-//
-//    room = data->room;
-//    print_game(data);
     if (data->room)
     {
         if (!(data->room[data->end].link))
@@ -22,15 +17,4 @@ void        valid_start_end(t_game *data)
             error(data);
         }
     }
-
-//    while (++i < data->nroom)
-//    {
-//        link = room[i].link;
-//
-//        while (link)
-//        {
-//
-//            link = link->next;
-//        }
-//    }
 }

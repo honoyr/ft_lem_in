@@ -241,7 +241,7 @@ int         count_path(t_ways *way)
 //        data->error = 13;
 //}
 
-void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
+void        multiple_path(t_game *data, t_ways *ways)
 {
     t_way  *tmp;
     t_way  *new;
@@ -271,7 +271,7 @@ void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
             length++;
         }
         if (list_way->num == data->start)
-            lstback_ways(&ways, create_ways(data, list_way, length + 2));
+            lstback_ways(&ways, create_ways(data, list_way, length + 1));
         else
             lstdel_list_way(&list_way);
         tmp = tmp->next;
@@ -340,7 +340,6 @@ void        multiple_path(t_game *data, t_ways *ways, int i, int n_ways)
 void        valid_paths(t_game *data, int n_ways)
 {
     t_ways  *ways;
-    t_way   *way;
 
     ways = NULL;
     if (data->room[data->end].ways)
@@ -350,7 +349,7 @@ void        valid_paths(t_game *data, int n_ways)
         ft_memset(data->visited, NO_VISITED, data->nroom);
         data->way_v = ft_strnew(n_ways);
         ft_memset(data->way_v, NO_VISITED, n_ways);
-        multiple_path(data, ways, -1, n_ways);
+        multiple_path(data, ways);
 
     }
     else

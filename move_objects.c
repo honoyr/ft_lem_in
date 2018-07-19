@@ -183,7 +183,7 @@ void        move_objects(t_game *data, t_ways *ways)
     ants = NULL;
     data->ways = ways;
     print_data(data);
-//    print_game(data);
+    print_game(data);
     if (!(ants = create_ant(data)))
         return;
     while (ft_strchr(data->finish, NO_FINISHED))
