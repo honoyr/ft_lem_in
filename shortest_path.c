@@ -367,9 +367,11 @@ void        find_path(t_game * data)
     queue = create_queue(data, data->start);
     while (queue)
     {
+//        ft_printf("HERE\n");
         tmp = data->room[queue->num].link;
         while (tmp)
         {
+//            ft_printf("HERE\n");
             if (data->visited[tmp->num] == IN_QUEUE)
                 lstback_way(&(data->room[tmp->num].ways), create_way(data, queue->num));
             else if ((data->visited[tmp->num]) == NO_VISITED)

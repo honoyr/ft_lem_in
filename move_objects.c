@@ -50,14 +50,15 @@ void        print_data(t_game *data)
     write(1, "\n", 1);
 }
 
-void        print_ant(t_game *data, t_ant *ant)
-{
-
-    if (ant->cur_pos != data->start && data->finish[ant->id - 1] == NO_FINISHED)
-        ft_printf("L%i-%s ", ant->id, data->room[ant->cur_pos].name);
-    if (ant->cur_pos == data->end)
-        data->finish[(ant->id - 1)] = FINISHED;
-}
+//void        print_ant(t_game *data, t_ant *ant)
+//{
+//
+//    if (ant->cur_pos != data->start && data->finish[ant->id - 1] == NO_FINISHED)
+//        ft_printf("L%i-%s ", ant->id, data->room[ant->cur_pos].name);
+//    if (ant->cur_pos == data->end)
+//        data->finish[(ant->id - 1)] = FINISHED;
+//
+//}
 
 void        print_ants(t_game *data, t_ant *ants)
 {
@@ -79,9 +80,13 @@ void        print_ants(t_game *data, t_ant *ants)
             first++;
         }
         if (ants[i].cur_pos == data->end)
+        {
             data->finish[i] = FINISHED;
+            ants[i].way->busy = false;
+        }
     }
     write(1, "\n", 1);
+//    print_game(data);
 }
 
 t_ant        *create_ant(t_game *data)
@@ -170,6 +175,7 @@ void      choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
             }
         }
         tmp_ways = tmp_ways->next;
+//        ft_printf("3 HERE\n");
     }
 }
 
@@ -183,9 +189,9 @@ void        move_objects(t_game *data, t_ways *ways)
     ants = NULL;
     data->ways = ways;
     print_data(data);
-//    print_game(data);
     if (!(ants = create_ant(data)))
         return;
+//    print_game(data); // DELL
     while (ft_strchr(data->finish, NO_FINISHED))
     {
         while(++i < data->ants)
@@ -196,8 +202,11 @@ void        move_objects(t_game *data, t_ways *ways)
                 move_ants(&ants[i]);
         }
         i = -1;
+//        ft_printf("1 HERE\n");
         print_ants(data, ants);
     }
+//    ft_printf("2 HERE\n");
+//    print_game(data);
     free(ants);
     lstdel_ways(&ways);
     ft_strdel(&data->finish);

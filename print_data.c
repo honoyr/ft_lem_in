@@ -236,6 +236,8 @@ void        print_game(t_game *data)
         ft_printf("%10s%s\n", "WAY = ", data->way_v);
     if (data->visited)
         ft_printf("%10s%s\n","VISITED = ", data->visited);
+    if (data->finish)
+        ft_printf("%10s%s\n","FINISH = ", data->finish);
     if (data->line)
         ft_printf("%10s%s\n","LINE = ", data->line);
     if (data->ways)

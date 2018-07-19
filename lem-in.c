@@ -28,7 +28,7 @@ char                *g_error[24] =
         "#11 current rooms didn't exist in link",
         "#12 too many start or end",
         "#13 the end is unreachable",
-        "#14 data have't links",
+        "#14 data does't have links",
         "#15 unreachable end",
         "#16 start donn't have a links",
 };
@@ -68,7 +68,7 @@ void        error(t_game *data)
         ft_printf("error: %s\n", g_error[data->error]);
 //    print_game(data);
     del_game(data);
-//    system("leaks lem-in");
+    system("leaks lem-in");
     exit(1);
 }
 
