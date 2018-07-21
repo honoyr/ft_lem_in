@@ -68,7 +68,7 @@ void        error(t_game *data)
 		ft_printf("error: %s\n", g_error[data->error]);
 //    print_game(data);
 	del_game(data);
-	system("leaks lem-in");
+//	system("leaks lem-in");
 	exit(1);
 }
 
