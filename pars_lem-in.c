@@ -21,22 +21,7 @@ void	lstback_link(t_link **lst, t_link *add)
 	{
 		tmp = *lst;
 		while (tmp->next != NULL)
-		{
-//            if (tmp->num == add->num)
-//            {
-//                data->error = 10;
-//                lstdel_link(&add);
-//                return;
-//            }
 			tmp = tmp->next;
-		}
-//        if (tmp->num == add->num)
-//        {
-//            print_game(data);
-//            data->error = 10;
-//            lstdel_link(&add);
-//            return;
-//        }
 		tmp->next = add;
 	}
 }
@@ -148,7 +133,6 @@ char        **check_line(t_game *data, int flag, int c)
 	if (arr)
 		ft_memdel_arlen((void**)arr);
 	arr = NULL;
-//    ft_printf("HERE 1\n");
 	return (arr);
 }
 
@@ -177,10 +161,9 @@ void        create_list(t_game *data)
 	else if (data->list)
 		lstback(&data->list, tmp, data);
 	data->nroom++;
-//    ft_printf("4I'm here\n data->nroom = %i\n", data->nroom);
 }
 
-void          create_adj_list(t_game *data)
+void          create_adj_list(t_game *data, int n)
 {
 	t_room      *tmp;
 	t_room      *list;
@@ -189,7 +172,7 @@ void          create_adj_list(t_game *data)
 	i = -1;
 	if ((valid_list_room(data)))
 		data->error = 5;
-	if (!data->error && !(data->room = (t_room*)malloc(sizeof(t_room) * data->nroom)))
+	if (!data->error && !(data->room = (t_room*)malloc(sizeof(t_room) * n)))
 		data->error = 3;
 	else if (!data->error && data->room)
 	{
@@ -217,7 +200,7 @@ t_room        *valid_data(t_game *data)
 	valid = NULL;
 	if (!(room = (t_room*)malloc(sizeof(t_room) * 1)))
 		return (NULL);
-	set_room(room); // we can del because malloc set structure by 0;
+	set_room(room);
 	valid = check_line(data, 3, ' ');
 	if (valid)
 	{
@@ -241,7 +224,6 @@ void        room_relink(t_game *data, int n1, int n2)
 	t_link  *link1;
 	t_link  *link2;
 
-//    ft_printf("I'm here\n");
 	if (!(link1 = (t_link*)malloc(sizeof(t_link) * 1)))
 		data->error = 3;
 	if (!(link2 = (t_link*)malloc(sizeof(t_link) * 1)))
@@ -273,7 +255,7 @@ void        valid_links(t_game *data)
 	links = NULL;
 	n = -1;
 	if (!data->room)
-		create_adj_list(data);
+		create_adj_list(data, data->nroom);
 	if (!data->error && (links = check_line(data, 2, '-')))
 	{
 		while (++n < data->nroom)
@@ -288,14 +270,11 @@ void        valid_links(t_game *data)
 			if(ft_strequ(links[1], data->room[n].name))
 				data->link_n2 = n;
 		}
-		if (data->link_n1 >= 0 && data->link_n2 >= 0)
-			room_relink(data, data->link_n1, data->link_n2);
-		else
-			data->error = 11;
+		(data->link_n1 >= 0 && data->link_n2 >= 0) ?
+		room_relink(data, data->link_n1, data->link_n2) : data->error = 11;
 		if (links)
 			ft_memdel_arlen((void**)links);
 	}
-//    ft_printf("2 I'm here\n data->nroom = %i\n", data->nroom);
 }
 
 int        valid_list_room(t_game *data)

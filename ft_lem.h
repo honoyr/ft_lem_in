@@ -94,7 +94,7 @@ int        valid_list_room(t_game *data);
 void        valid_start_end(t_game *data);
 
 void        create_list(t_game *data);
-void          create_adj_list(t_game *data);
+void          create_adj_list(t_game *data, int n);
 
 int        set_room(t_room *room);
 void        set_data(t_game *data);
@@ -117,6 +117,6 @@ void        move_objects(t_game *data, t_ways *ways);
 
 void        error(t_game *data);
 
-void        print_game(t_game *data);
+void        print_game(t_game *data); // del
 
 #endif
