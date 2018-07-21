@@ -31,60 +31,60 @@ extern char                *g_error[24];
 
 typedef struct      s_way
 {
-    int             num;
-    bool            busy;
-    struct s_way   *next;
+	int             num;
+	bool            busy;
+	struct s_way   *next;
 }                   t_way;
 
 typedef struct      s_ways
 {
-    int             length;
-    t_way           *list_way;
-    struct s_ways   *next;
+	int             length;
+	t_way           *list_way;
+	struct s_ways   *next;
 }                   t_ways;
 
 typedef struct      s_link
 {
-    int             num;
-    struct s_link   *next;
+	int             num;
+	struct s_link   *next;
 }                   t_link;
 
 typedef struct      s_room
 {
-    char            *name;
-    int             x;
-    int             y;
-    int             type;
-    t_link          *link;
-    t_way          *ways;
-    struct s_room  *next;
+	char            *name;
+	int             x;
+	int             y;
+	int             type;
+	t_link          *link;
+	t_way          *ways;
+	struct s_room  *next;
 }                   t_room;
 
 typedef struct      s_ant
 {
-    int             id;
-    int             cur_pos;
-    t_way           *way;
+	int             id;
+	int             cur_pos;
+	t_way           *way;
 }                   t_ant;
 
 typedef struct      s_game
 {
-    int    ants;
-    int             type;
-    int             start;
-    int             end;
-    int             nroom;
-    char            *visited;
-    char            *finish;
-    char            *way_v;
-    char            *line;
-    t_room          *list;
-    t_room          *room;
-    t_ways          *ways;
-    t_list          *info;
-    int             error;
-    int             link_n1;
-    int             link_n2;
+	int    ants;
+	int             type;
+	int             start;
+	int             end;
+	int             nroom;
+	char            *visited;
+	char            *finish;
+	char            *way_v;
+	char            *line;
+	t_room          *list;
+	t_room          *room;
+	t_ways          *ways;
+	t_list          *info;
+	int             error;
+	int             link_n1;
+	int             link_n2;
 }                  t_game;
 
 void        valid_ant(t_game *data);
