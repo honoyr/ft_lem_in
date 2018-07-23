@@ -334,7 +334,5 @@ void        find_path(t_game * data)
         queue = queue->next;
         lstdel_one_link(&tmp);
     }
-//    ft_printf("1 HERE\n");
-//    print_game(data);
     valid_paths(data, 0);
 }

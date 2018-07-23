@@ -3,6 +3,7 @@
 **/**/*.a
 *clion
 *.out
+*.sh
 *debug/
 **/**/*.xml
 **/**/*.txt

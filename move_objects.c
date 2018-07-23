@@ -12,58 +12,10 @@
 
 #include "ft_lem.h"
 
-void        print_data(t_game *data)
+void			print_ants(t_game *data, t_ant *ants)
 {
-//    int     n_room;
-//    t_room  *room;
-//    t_link  *link;
-//
-//    n_room = 0;
-////    info = ft_lstnew((void*)ft_itoa(data->ant), count_nbr(data->ant));
-//    ft_printf("%i\n", data->ant);
-//    while (data->nroom > n_room)
-//    {
-//        room = &data->room[n_room];
-//        ft_printf("%s ", room->name);
-//        ft_printf("%i ", room->y);
-//        ft_printf("%i\n", room->x);
-//        n_room++;
-//    }
-//    n_room = 0;
-//    ft_memset(data->visited, NO_VISITED, data->nroom);
-//    while (data->nroom > n_room)
-//    {
-//        link = data->room[n_room].link;
-//        while (link)
-//        {
-//            ft_printf("%s-", data->room[link->num].name);
-//            data->visited[link->num] = VISITED;
-//            link = link->next;
-//            ft_printf("%s\n", data->room[link->num].name);
-//            data->visited[link->num] = VISITED;
-//            link = link->next;
-//        }
-//        n_room++;
-//    }
-	ft_lstprint(&data->info);
-	ft_lstdel_str(&data->info, (void*)(&ft_memdel));
-	write(1, "\n", 1);
-}
-
-//void        print_ant(t_game *data, t_ant *ant)
-//{
-//
-//    if (ant->cur_pos != data->start && data->finish[ant->id - 1] == NO_FINISHED)
-//        ft_printf("L%i-%s ", ant->id, data->room[ant->cur_pos].name);
-//    if (ant->cur_pos == data->end)
-//        data->finish[(ant->id - 1)] = FINISHED;
-//
-//}
-
-void        print_ants(t_game *data, t_ant *ants)
-{
-	int     i;
-	int     first;
+	int			i;
+	int			first;
 
 	i = -1;
 	first = 0;
@@ -86,13 +38,12 @@ void        print_ants(t_game *data, t_ant *ants)
 		}
 	}
 	write(1, "\n", 1);
-//    print_game(data);
 }
 
-t_ant        *create_ant(t_game *data)
+t_ant			*create_ant(t_game *data)
 {
-	int i;
-	t_ant *ants;
+	int			i;
+	t_ant		*ants;
 
 	i = -1;
 	ants = NULL;
@@ -112,51 +63,25 @@ t_ant        *create_ant(t_game *data)
 	return (ants);
 }
 
-void        move_ants(t_ant *ants)
+void			move_ants(t_ant *ants)
 {
-//    int     i;
-//
-//    i = -1;
-//    while (++i < data->ants)
-//    {
+	if (ants->way)
+	{
+		ants->way->busy = false;
+		ants->way = ants->way->next;
 		if (ants->way)
 		{
-			ants->way->busy = false;
-			ants->way = ants->way->next;
-			if (ants->way)
-			{
-				ants->way->busy = true;
-				ants->cur_pos = ants->way->num;
-			}
+			ants->way->busy = true;
+			ants->cur_pos = ants->way->num;
 		}
-//    }
+	}
 }
 
-//void        move_ants(t_game *data, t_ant *ants)
-//{
-//    int     i;
-//
-//    i = -1;
-//    while (++i < data->ants)
-//    {
-//        if (ants[i].way)
-//        {
-//            ants[i].way->busy = false;
-//            ants[i].way = ants[i].way->next;
-//            if (ants[i].way)
-//            {
-//                ants[i].way->busy = true;
-//                ants[i].cur_pos = ants[i].way->num;
-//            }
-//        }
-//    }
-//}
-
-void      choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
+void			choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
 {
-	t_ways  *tmp_ways;
-	int     div;
-	int     rem;
+	t_ways		*tmp_ways;
+	int			div;
+	int			rem;
 
 	tmp_ways = ways;
 	while (tmp_ways)
@@ -175,26 +100,24 @@ void      choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
 			}
 		}
 		tmp_ways = tmp_ways->next;
-//        ft_printf("3 HERE\n");
 	}
 }
 
-
-void        move_objects(t_game *data, t_ways *ways)
+void			move_objects(t_game *data, t_ways *ways)
 {
-	t_ant   *ants;
-	int     i;
+	t_ant		*ants;
+	int			i;
 
 	i = -1;
 	ants = NULL;
-	data->ways = ways;
-	print_data(data);
+	ft_lstprint(&data->info);
+	ft_lstdel_str(&data->info, (void*)(&ft_memdel));
+	write(1, "\n", 1);
 	if (!(ants = create_ant(data)))
-		return;
-//    print_game(data); // DELL
+		return ;
 	while (ft_strchr(data->finish, NO_FINISHED))
 	{
-		while(++i < data->ants)
+		while (++i < data->ants)
 		{
 			if (ants[i].cur_pos == data->start)
 				choose_path(data, ways, &ants[i], (i + 1));
@@ -202,11 +125,8 @@ void        move_objects(t_game *data, t_ways *ways)
 				move_ants(&ants[i]);
 		}
 		i = -1;
-//        ft_printf("1 HERE\n");
 		print_ants(data, ants);
 	}
-//    ft_printf("2 HERE\n");
-//    print_game(data);
 	free(ants);
 	lstdel_ways(&ways);
 	ft_strdel(&data->finish);
