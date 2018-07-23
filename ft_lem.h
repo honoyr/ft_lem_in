@@ -27,7 +27,7 @@
 # define FINISHED 70
 # define NO_FINISHED 78
 
-extern char                *g_error[24];
+extern char                *g_error[19];
 
 typedef struct      s_way
 {
@@ -83,6 +83,7 @@ typedef struct      s_game
 	t_ways          *ways;
 	t_list          *info;
 	int             error;
+	int 			res;
 	int             link_n1;
 	int             link_n2;
 }                  t_game;
@@ -100,6 +101,8 @@ int					check_name(char *name, t_game *data);
 
 void				create_list(t_game *data);
 void				create_adj_list(t_game *data, int n);
+t_link				*create_queue(t_game *data, int queue);
+t_way				*create_way(t_game *data, int way);
 
 void				room_relink(t_game *data, int n1, int n2);
 
@@ -107,8 +110,10 @@ int					set_room(t_room *room);
 void				set_data(t_game *data);
 
 int					count_ways(t_way *way);
-int					count_path(t_ways *way);
 void				lstback_list(t_room **lst, t_room *add, t_game *data);
+void				lstback_link_queue(t_link **lst, t_link *add);
+void				lstback_way(t_way **lst, t_way *add);
+void				lstback_ways(t_ways **lst, t_ways *add);
 void				lstdel_way(t_way **way);
 void				lstdel_list_way(t_way **ways);
 void				lstdel_ways(t_ways **ways);
@@ -117,11 +122,12 @@ void				lstdel_link(t_link **link);
 void				lstdel_one_link(t_link **link);
 void				del_game(t_game *data);
 
-void				find_path(t_game * data);
+void				find_path(t_game * data, t_link *queue, t_link *tmp);
+t_way				*list_way(t_game *data, int *length);
 void				move_objects(t_game *data, t_ways *ways);
 
 void				error(t_game *data);
 
-void        print_game(t_game *data); // del
-
+void				print_game(t_game *data); // del
+//
 #endif

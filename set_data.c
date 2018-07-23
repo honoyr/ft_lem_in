@@ -45,6 +45,7 @@ void			set_data(t_game *data)
 	data->ways = NULL;
 	data->info = NULL;
 	data->error = 0;
+	data->error = 0;
 	data->link_n1 = -1;
 	data->link_n2 = -1;
 }

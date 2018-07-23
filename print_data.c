@@ -18,6 +18,22 @@ void	ft_lstprint_d(t_list **lst)
     }
 }
 
+int         count_ways(t_way *way)
+{
+    t_way *tmp;
+    int     i;
+
+    i = 0;
+    tmp = NULL;
+    tmp = way;
+    while (tmp)
+    {
+        i++;
+        tmp = tmp->next;
+    }
+    return (i);
+}
+
 void        print_ways(t_ways *ways, t_game *data)
 {
     int     i;
