@@ -16,8 +16,8 @@ LIB = ./libft/libft.a
 
 FLAGS = -Wall -Wextra -Werror -I.
 
-SRCS = del_data.c lem-in.c move_objects.c pars_lem-in.c set_data.c \
-shortest_path.c print_data.c valid_data.c \
+SRCS = del_data.c lem-in.c move_objects.c pars_lem_in.c set_data.c \
+shortest_path.c print_data.c valid_data.c adjacency_list.c check_data.c \
 
 OBJS = $(SRCS:.c=.o)
 

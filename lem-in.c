@@ -46,7 +46,7 @@ void        pars_condition(t_game *data, char *line)
 			else if (ft_strchr(line, ' ') && data->type != ANT)
 				create_list(data);
 			else if (ft_strchr(line, '-') && (data->type = LINK))
-				valid_links(data);
+				valid_links(data, -1);
 			else
 				data->error = 4;  // ADD IT
 		}

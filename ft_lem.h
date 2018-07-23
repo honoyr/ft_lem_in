@@ -87,35 +87,40 @@ typedef struct      s_game
 	int             link_n2;
 }                  t_game;
 
-void        valid_ant(t_game *data);
-t_room        *valid_data(t_game *data);
-void        valid_links(t_game *data);
-int        valid_list_room(t_game *data);
-void        valid_start_end(t_game *data);
+void				valid_ant(t_game *data);
+t_room				*valid_data(t_game *data);
+void				valid_links(t_game *data, int n);
+int					valid_list_room(t_game *data);
+void				valid_start_end(t_game *data);
 
-void        create_list(t_game *data);
-void          create_adj_list(t_game *data, int n);
+int					check_int(char *ptr);
+char				**check_line(t_game *data, int flag, int c);
+int					check_coord(char *coord, t_game *data);
+int					check_name(char *name, t_game *data);
 
-int        set_room(t_room *room);
-void        set_data(t_game *data);
+void				create_list(t_game *data);
+void				create_adj_list(t_game *data, int n);
 
-int         count_ways(t_way *way);
-int         count_path(t_ways *way);
+void				room_relink(t_game *data, int n1, int n2);
 
-void        lstdel_way(t_way **way);
-void        lstdel_list_way(t_way **ways);
-void        lstdel_ways(t_ways **ways);
-void        lstdel_room(t_room **room);
-void        lstdel_link(t_link **link);
-void        lstdel_one_link(t_link **link);
-void        del_game(t_game *data);
+int					set_room(t_room *room);
+void				set_data(t_game *data);
 
-void        room_relink(t_game *data, int n1, int n2);
+int					count_ways(t_way *way);
+int					count_path(t_ways *way);
+void				lstback_list(t_room **lst, t_room *add, t_game *data);
+void				lstdel_way(t_way **way);
+void				lstdel_list_way(t_way **ways);
+void				lstdel_ways(t_ways **ways);
+void				lstdel_room(t_room **room);
+void				lstdel_link(t_link **link);
+void				lstdel_one_link(t_link **link);
+void				del_game(t_game *data);
 
-void        find_path(t_game * data);
-void        move_objects(t_game *data, t_ways *ways);
+void				find_path(t_game * data);
+void				move_objects(t_game *data, t_ways *ways);
 
-void        error(t_game *data);
+void				error(t_game *data);
 
 void        print_game(t_game *data); // del
 
