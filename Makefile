@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror
 
 SRCS = del_data.c lem_in.c move_objects.c pars_lem_in.c set_data.c \
 shortest_path.c valid_data.c adjacency_list.c check_data.c \
-ways_management.c del_management.c print_data.c \
+ways_management.c del_management.c \
 
 OBJS = $(SRCS:.c=.o)
 

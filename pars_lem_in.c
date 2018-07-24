@@ -18,7 +18,10 @@ void			valid_ant(t_game *data)
 
 	ptr = ft_strtrim(data->line);
 	if (!check_int(ptr))
+	{
 		data->ants = ft_atoi(ptr);
+		data->type = ROOM;
+	}
 	else
 		data->error = 1;
 	if (ptr)

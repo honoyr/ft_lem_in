@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-char			*g_error[19] =
+char				*g_error[19] =
 {
 	"#0 empty file",
 	"#1 invalid format numbers of ants",
@@ -35,7 +35,7 @@ char			*g_error[19] =
 	"#18 you are trying to read unreadable file"
 };
 
-void			pars_condition(t_game *data, char *line)
+static void			pars_condition(t_game *data, char *line)
 {
 	if (line && line[0] != 'L' && (data->line = line))
 	{
@@ -45,7 +45,7 @@ void			pars_condition(t_game *data, char *line)
 				data->error = 2;
 			else if (data->type == ANT)
 				valid_ant(data);
-			else if (ft_strchr(line, ' ') && data->type != ANT)
+			else if (ft_strchr(line, ' '))
 				create_list(data);
 			else if (ft_strchr(line, '-') && (data->type = LINK))
 				valid_links(data, -1);
@@ -64,24 +64,27 @@ void			pars_condition(t_game *data, char *line)
 		data->error = 2;
 }
 
-void			error(t_game *data)
+void				error(t_game *data)
 {
 	int			res;
 
 	res = data->res;
-	if ((data->type == ANT) && (res == 1 || res == 0))
-		data->error = 17;
-	if ((data->type != LINK) && data->list && res == 0)
-		data->error = 14;
-	if (res == -1)
-		data->error = 18;
+	if (!data->error)
+	{
+		if ((data->type == ANT) && (res == 1 || res == 0))
+			data->error = 17;
+		if ((data->type != LINK) && data->list && res == 0)
+			data->error = 14;
+		if (res == -1)
+			data->error = 18;
+	}
 	if (data->error)
 		ft_printf("error: %s\n", g_error[data->error]);
 	del_game(data);
 	exit(1);
 }
 
-void			lets_move_ants(t_game *data)
+static void			lets_move_ants(t_game *data)
 {
 	t_link		*queue;
 	t_link		*tmp;
@@ -95,7 +98,7 @@ void			lets_move_ants(t_game *data)
 	error(data);
 }
 
-int				main(int ac, char **av)
+int					main(int ac, char **av)
 {
 	t_game		data;
 	int			res;

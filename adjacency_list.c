@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-void			create_adj_list(t_game *data, int n)
+void				create_adj_list(t_game *data, int n)
 {
 	t_room		*tmp;
 	t_room		*list;
@@ -41,7 +41,7 @@ void			create_adj_list(t_game *data, int n)
 	}
 }
 
-int				valid_list_room(t_game *data)
+int					valid_list_room(t_game *data)
 {
 	t_room		*tmp;
 	int			st;
@@ -64,7 +64,7 @@ int				valid_list_room(t_game *data)
 	return (1);
 }
 
-void			lstback_link(t_link **lst, t_link *add)
+static void			lstback_link(t_link **lst, t_link *add)
 {
 	t_link		*tmp;
 
@@ -78,7 +78,7 @@ void			lstback_link(t_link **lst, t_link *add)
 	}
 }
 
-void			room_relink(t_game *data, int n1, int n2)
+void				room_relink(t_game *data, int n1, int n2)
 {
 	t_link		*link1;
 	t_link		*link2;

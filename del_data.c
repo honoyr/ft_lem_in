@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-void			del_arr_rooms(t_game *data)
+static void			del_arr_rooms(t_game *data)
 {
 	int			i;
 
@@ -27,7 +27,7 @@ void			del_arr_rooms(t_game *data)
 	}
 }
 
-void			del_game(t_game *data)
+void				del_game(t_game *data)
 {
 	t_room		*tmp;
 

@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-t_ways			*create_ways(t_game *data, t_way *list_way, int length)
+static t_ways		*create_ways(t_game *data, t_way *list_way, int length)
 {
 	t_ways		*new;
 
@@ -27,7 +27,7 @@ t_ways			*create_ways(t_game *data, t_way *list_way, int length)
 	return (new);
 }
 
-t_way			*list_way(t_game *data, int *length)
+t_way				*list_way(t_game *data, int *length)
 {
 	t_way		*list_way;
 	t_way		*check;
@@ -52,7 +52,7 @@ t_way			*list_way(t_game *data, int *length)
 	return (list_way);
 }
 
-void			multiple_path(t_game *data, t_ways *ways)
+static void			multiple_path(t_game *data, t_ways *ways)
 {
 	t_way		*tmp;
 	t_way		*way;
@@ -77,7 +77,7 @@ void			multiple_path(t_game *data, t_ways *ways)
 		data->error = 13;
 }
 
-void			valid_paths(t_game *data, int n_ways)
+static void			valid_paths(t_game *data, int n_ways)
 {
 	t_ways		*ways;
 	t_way		*tmp;
@@ -102,7 +102,7 @@ void			valid_paths(t_game *data, int n_ways)
 		data->error = 13;
 }
 
-void			find_path(t_game *data, t_link *queue, t_link *tmp)
+void				find_path(t_game *data, t_link *queue, t_link *tmp)
 {
 	queue = create_queue(data, data->start);
 	while (queue)

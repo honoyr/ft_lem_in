@@ -12,7 +12,7 @@
 
 #include "ft_lem.h"
 
-void			print_ants(t_game *data, t_ant *ants)
+static void			print_ants(t_game *data, t_ant *ants)
 {
 	int			i;
 	int			first;
@@ -40,7 +40,7 @@ void			print_ants(t_game *data, t_ant *ants)
 	write(1, "\n", 1);
 }
 
-t_ant			*create_ant(t_game *data)
+static t_ant		*create_ant(t_game *data)
 {
 	int			i;
 	t_ant		*ants;
@@ -63,7 +63,7 @@ t_ant			*create_ant(t_game *data)
 	return (ants);
 }
 
-void			move_ants(t_ant *ants)
+static void			move_ants(t_ant *ants)
 {
 	if (ants->way)
 	{
@@ -77,7 +77,7 @@ void			move_ants(t_ant *ants)
 	}
 }
 
-void			choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
+static void			choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
 {
 	t_ways		*tmp_ways;
 	int			div;
@@ -103,7 +103,7 @@ void			choose_path(t_game *data, t_ways *ways, t_ant *ant, int id)
 	}
 }
 
-void			move_objects(t_game *data, t_ways *ways)
+void				move_objects(t_game *data, t_ways *ways)
 {
 	t_ant		*ants;
 	int			i;
