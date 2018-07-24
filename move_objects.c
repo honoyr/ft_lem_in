@@ -127,8 +127,6 @@ void			move_objects(t_game *data, t_ways *ways)
 		i = -1;
 		print_ants(data, ants);
 	}
-//	data->ways = ways;
-//	print_game(data);
 	free(ants);
 	lstdel_ways(&ways);
 	ft_strdel(&data->finish);

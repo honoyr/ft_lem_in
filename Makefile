@@ -27,7 +27,7 @@ HEADERS = ft_lem.h
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIB)
-	@gcc -c $(SRCS) -Wall -Wextra -Werror
+	@gcc -c $(SRCS) $(FLAGS)
 	@gcc $(OBJS) $(LIB) -o $(NAME)
 	@echo "\x1b[35mYour PROGRAM $(NAME) has been successfully created!\x1b[0m"
 
