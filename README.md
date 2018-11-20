@@ -1,6 +1,7 @@
 # lem_in
 ## Visual example
 
+![lem_in](https://user-images.githubusercontent.com/33399226/48750669-2f8d2080-ec35-11e8-971f-e809b12553c0.gif)
 
 ## lem_in
 The goal of this project is to find the quickest way to get through the farm.
