@@ -1,4 +1,8 @@
 # lem_in
+## Visual example
+
+
+## lem_in
 The goal of this project is to find the quickest way to get through the farm.
 - Obviously, there are some basic constraints. To be the first to arrive, ants will need
 to take the shortest path (and that is not necessarily the simplest). They will also
@@ -47,7 +51,7 @@ and run
 
 ![screen shot 2018-11-19 at 7 35 20 pm-min](https://user-images.githubusercontent.com/33399226/48750139-9c52eb80-ec32-11e8-9966-4eea979e161e.png)
 
-As you can see the present rooms have multiple ways, and ants going for four ways at the same time. 
+There are four ways in this example and ants are taking multiple ways.
 
 
 
