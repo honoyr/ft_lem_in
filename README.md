@@ -36,13 +36,18 @@ Breadth-first search (BFS).
 
 To start we will assemble the program with the help of the makefile:
 
-<img width="877" alt="2018-07-04 19 06 52" src="https://user-images.githubusercontent.com/33597605/42287053-8ee4273e-7fbd-11e8-97e5-ee9a5396eee5.png">
+![screen shot 2018-11-19 at 7 34 47 pm-min](https://user-images.githubusercontent.com/33399226/48750136-9c52eb80-ec32-11e8-8ce6-a387124934c7.png)
 
 
-Create a file with rooms, links and twelve ants:
+Create a file with rooms, links and 100 ants:
 
-<img width="877" alt="2018-07-04 19 14 22" src="https://user-images.githubusercontent.com/33597605/42287302-7c837472-7fbe-11e8-8781-f2bd665b9972.png">
+![screen shot 2018-11-19 at 7 35 06 pm-min](https://user-images.githubusercontent.com/33399226/48750138-9c52eb80-ec32-11e8-8335-d979977157f7.png)
 
 and run
 
-<img width="874" alt="2018-07-04 19 14 58" src="https://user-images.githubusercontent.com/33597605/42287328-94b501b4-7fbe-11e8-9e11-abcbf7c32c14.png">
+![screen shot 2018-11-19 at 7 35 20 pm-min](https://user-images.githubusercontent.com/33399226/48750139-9c52eb80-ec32-11e8-9966-4eea979e161e.png)
+
+As you can see the present rooms have multiple ways, and ants going for four ways at the same time. 
+
+
+
