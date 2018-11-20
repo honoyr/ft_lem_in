@@ -19,7 +19,7 @@ int				check_int(char *ptr)
 
 	j = 0;
 	i = -1;
-	if (ptr[0] = '0')
+	if (ptr[0] == '0')
 		return (1);
 	while (ptr[++i])
 	{
