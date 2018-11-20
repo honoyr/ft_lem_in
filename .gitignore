@@ -3,6 +3,7 @@
 **/**/*.a
 *clion
 *.out
+*.sh
 *debug/
 **/**/*.xml
 **/**/*.txt
@@ -14,4 +15,5 @@
 *idea/*
 *.xml
 .idea/
+.DS*
 cmake-build-debug/
